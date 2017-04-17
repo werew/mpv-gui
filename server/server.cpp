@@ -43,5 +43,9 @@ void Server::readFromClient(){
 }
 
 void Server::removeClient(){
-   // TODO remove client from the list
+    // Remove socket from the list of active connections
+    QLocalSocket* socket = qobject_cast<QLocalSocket*>(sender());
+    clients->removeOne(socket);
+    delete socket;
+    qDebug("~> A client left");
 }
