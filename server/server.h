@@ -7,6 +7,8 @@
 #include <QtConcurrent>
 #include <QDebug>
 
+#define SERVER_NAME "mpvguiserver"
+
 
 
 class Server : public QObject
@@ -17,14 +19,19 @@ private:
     QFuture<void> loopThread;
     QLocalServer *myserver;
 
+
 public:
     explicit Server(QObject *parent = 0);
+    void listen();
     void clientLoop(void);
 
 signals:
     void finished();
 
 public slots:
+
+private slots:
+    void handleConnection();
 
 };
 
