@@ -5,6 +5,8 @@
 #include <QLocalServer>
 #include <QFuture>
 #include <QtConcurrent>
+#include <QLocalSocket>
+#include <QList>
 #include <QDebug>
 
 #define SERVER_NAME "mpvguiserver"
@@ -18,6 +20,7 @@ private:
     bool running;
     QFuture<void> loopThread;
     QLocalServer *myserver;
+    QList<QLocalSocket*> *clients;
 
 
 public:
@@ -32,6 +35,8 @@ public slots:
 
 private slots:
     void handleConnection();
+    void readFromClient();
+    void removeClient();
 
 };
 
