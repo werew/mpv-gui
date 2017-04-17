@@ -24,12 +24,18 @@ void Server::listen(void){
 }
 
 void Server::handleConnection(void){
-    qDebug() << "new connection";
+    qDebug("~> New connection");
+
+    // Add client to the list of open connections
     QLocalSocket *newclient = myserver->nextPendingConnection();
-    newclient->write("Welcome to mpv-gui server!\n");
     clients->append(newclient);
-    connect(newclient, SIGNAL(disconnected()),this,SLOT(removeClient()));
+
+    // Be ready to read or close the connection when it's time
     connect(newclient, SIGNAL(readyRead()),this,SLOT(readFromClient()));
+    connect(newclient, SIGNAL(disconnected()),this,SLOT(removeClient()));
+
+    // Always be polite
+    newclient->write("Welcome to mpv-gui server!\n");
 }
 
 void Server::readFromClient(){
