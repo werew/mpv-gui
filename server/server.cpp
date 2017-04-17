@@ -39,7 +39,23 @@ void Server::handleConnection(void){
 }
 
 void Server::readFromClient(){
-    // TODO read until buffer is empty
+    QLocalSocket* socket = qobject_cast<QLocalSocket*>(sender());
+
+    // Read until buffer is empty
+    while (true) {
+        QByteArray a = socket->readLine(MAX_SIZECMD);
+        if (a.isEmpty()) break;
+
+        QJsonParseError error;
+        QJsonDocument jDoc = QJsonDocument::fromJson(a, &error);
+        if (jDoc.isNull()){
+            qDebug() << "Parsing error: "+ error.errorString();
+            continue;
+        }
+        QJsonObject jsonObject = jDoc.object();
+        // TODO handle request
+    }
+
 }
 
 void Server::removeClient(){

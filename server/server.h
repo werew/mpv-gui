@@ -10,6 +10,7 @@
 #include <QDebug>
 
 #define SERVER_NAME "mpvguiserver"
+#define MAX_SIZECMD 2048
 
 
 
