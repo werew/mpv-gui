@@ -5,14 +5,7 @@ Server::Server(QObject *parent) :
     myserver(new QLocalServer(this)),
     clients(new QList<QLocalSocket*>())
 {
-    running = true;
-    loopThread = QtConcurrent::run(this, &Server::clientLoop);
     connect(myserver, SIGNAL(newConnection()),this, SLOT(handleConnection()));
-}
-
-void Server::clientLoop(void){
-    qDebug() << "hello";
-
 }
 
 void Server::listen(void){

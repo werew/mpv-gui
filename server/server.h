@@ -18,8 +18,6 @@ class Server : public QObject
 {
     Q_OBJECT
 private:
-    bool running;
-    QFuture<void> loopThread;
     QLocalServer *myserver;
     QList<QLocalSocket*> *clients;
 
@@ -27,7 +25,6 @@ private:
 public:
     explicit Server(QObject *parent = 0);
     void listen();
-    void clientLoop(void);
 
 signals:
     void finished();
