@@ -11,9 +11,10 @@ Server::Server(QObject *parent) :
 void Server::listen(void){
     QLocalServer::removeServer(SERVER_NAME);
     if (!myserver->listen(SERVER_NAME)) {
-        qDebug() << "problem";
+        qDebug() << "Error: cannot launch server";
         return;
     }
+    qDebug() << "Server up and listening";
 }
 
 void Server::handleConnection(void){
