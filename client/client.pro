@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    mediacontrol.cpp
+    mediacontrol.cpp \
+    volumewidget.cpp
 
 HEADERS  += mainwindow.h \
-    mediacontrol.h
+    mediacontrol.h \
+    volumewidget.h
 
 FORMS    += mainwindow.ui

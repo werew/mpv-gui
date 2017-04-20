@@ -5,6 +5,7 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 #include "mediacontrol.h"
+#include "volumewidget.h"
 
 namespace Ui {
 class MainWindow;

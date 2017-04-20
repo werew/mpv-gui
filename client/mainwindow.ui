@@ -35,7 +35,7 @@
           <x>0</x>
           <y>0</y>
           <width>937</width>
-          <height>193</height>
+          <height>286</height>
          </rect>
         </property>
        </widget>
@@ -69,17 +69,11 @@
       </layout>
      </item>
      <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
+      <widget class="VolumeWidget" name="volume" native="true">
+       <property name="styleSheet">
+        <string notr="true">background-color: black;</string>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+      </widget>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -141,6 +135,14 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>VolumeWidget</class>
+   <extends>QWidget</extends>
+   <header>volumewidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
