@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QListWidget>
 #include <QListWidgetItem>
+#include "mediacontrol.h"
 
 namespace Ui {
 class MainWindow;
@@ -12,14 +13,15 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
+private:
     QListWidgetItem* items[50];
+    mediaControl* mc;
 
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private:
+public:
     Ui::MainWindow *ui;
 
  private slots:
