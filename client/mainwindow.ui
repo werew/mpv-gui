@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>976</width>
-    <height>764</height>
+    <width>784</width>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>941</width>
-      <height>671</height>
+      <width>701</width>
+      <height>501</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -34,17 +34,17 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>937</width>
-          <height>294</height>
+          <width>697</width>
+          <height>209</height>
          </rect>
         </property>
         <widget class="VolumeWidget" name="volume" native="true">
          <property name="geometry">
           <rect>
-           <x>180</x>
-           <y>150</y>
-           <width>641</width>
-           <height>101</height>
+           <x>40</x>
+           <y>45</y>
+           <width>451</width>
+           <height>91</height>
           </rect>
          </property>
          <property name="mouseTracking">
@@ -130,7 +130,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>976</width>
+     <width>784</width>
      <height>25</height>
     </rect>
    </property>

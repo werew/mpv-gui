@@ -8,6 +8,8 @@
 #include <QPainter>
 #include <QPixmap>
 
+#define MAX_VOLUME 300
+
 using namespace std;
 
 class VolumeWidget : public QWidget
