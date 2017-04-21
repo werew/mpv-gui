@@ -19,5 +19,5 @@ void VolumeWidget::paintEvent(QPaintEvent *e)
     Q_UNUSED(e);
     QPainter painter(this);
 
-    painter.drawPixmap(10,10,50,50,imgVolume);
+   // painter.drawPixmap(10,10,50,50,imgVolume);
 }

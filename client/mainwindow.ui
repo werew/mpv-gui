@@ -78,7 +78,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QSlider" name="horizontalSlider">
+        <widget class="QSlider" name="barreLecture">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
