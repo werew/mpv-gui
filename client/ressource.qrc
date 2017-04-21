@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/volume.png</file>
+        <file>images/gradient.png</file>
+    </qresource>
+</RCC>
