@@ -35,9 +35,25 @@
           <x>0</x>
           <y>0</y>
           <width>937</width>
-          <height>286</height>
+          <height>294</height>
          </rect>
         </property>
+        <widget class="VolumeWidget" name="volume" native="true">
+         <property name="geometry">
+          <rect>
+           <x>180</x>
+           <y>150</y>
+           <width>641</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <property name="mouseTracking">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+        </widget>
        </widget>
       </widget>
      </item>
@@ -67,13 +83,6 @@
         </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <widget class="VolumeWidget" name="volume" native="true">
-       <property name="styleSheet">
-        <string notr="true">background-color: black;</string>
-       </property>
-      </widget>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -113,6 +122,8 @@
      </item>
     </layout>
    </widget>
+   <zorder>verticalLayoutWidget</zorder>
+   <zorder>volume</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
