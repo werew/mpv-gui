@@ -16,11 +16,13 @@ class VolumeWidget : public QWidget
 
 private:
     int volume;
+    const QPixmap* imgVolume;
 
 public:
     explicit VolumeWidget(QWidget *parent = 0);
 
     void wheelEvent(QWheelEvent *e);
+    void paintEvent(QPaintEvent *e);
 
 signals:
 

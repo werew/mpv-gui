@@ -22,3 +22,6 @@ HEADERS  += mainwindow.h \
     volumewidget.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    ressource.qrc
