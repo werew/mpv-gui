@@ -46,6 +46,12 @@ void QMpvSocket::step_forward(){
     this->send_command(cmd);
 }
 
+void QMpvSocket::pause(bool value){
+    this->set_property("pause",value);
+}
+
+
+
 void QMpvSocket::send_command(const QString cmd[]){
 
     QString* json_cmd = new QString();

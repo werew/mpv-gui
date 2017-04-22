@@ -20,6 +20,7 @@ public slots:
     void set_property(const QString &prop, bool value);
     void step_forward();
     void step_backward();
+    void pause(bool value);
 
 };
 
