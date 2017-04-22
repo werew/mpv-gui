@@ -25,6 +25,11 @@ private:
     QMpvSocket *mpv;
     QJsonObject config;
 
+    // Current state
+    int volume;
+    double percent_pos;
+    bool pause;
+
 
 public:
     explicit Server(QObject *parent, char* configfile);
@@ -38,10 +43,12 @@ public slots:
 
 private slots:
     void handleConnection();
+    void bindProperties();
     void readFromClient();
     void removeClient();
     void readFromMpv();
-    void bindProperties();
+    void handleMpvMsg(QJsonObject o);
+    void handleClientMsg(QJsonObject o);
 
 };
 

@@ -62,6 +62,25 @@ void Server::readFromClient(){
     }
 }
 
+void Server::handleMpvMsg(QJsonObject o){
+   QString event = o["event"].toString() ;
+   if (event == "pause") pause = true;
+   else if (event == "unpause") pause = false;
+   else if (event == "property-change"){
+       switch (o["id"].toInt()){
+           case 1: volume = o["data"].toInt();
+            break;
+           case 2: percent_pos = o["data"].toDouble();
+            break;
+       }
+   }
+   qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos;
+}
+
+void Server::handleClientMsg(QJsonObject o){
+
+}
+
 void Server::readFromMpv(){
     while (true) {
         QByteArray a = mpv->readLine(MAX_SIZECMD);
@@ -74,8 +93,7 @@ void Server::readFromMpv(){
             continue;
         }
         QJsonObject jsonObject = jDoc.object();
-        qDebug() << a;
-        // TODO handle request
+        handleMpvMsg(jsonObject);
     }
 }
 
