@@ -6,6 +6,13 @@ Server::Server(QObject *parent, char* configfile) :
     clients(new QList<QLocalSocket*>()),
     mpv(new QMpvSocket())
 {
+    /* Set default values */
+    pause = false;
+    stop = true;
+    filename = "";
+    percent_pos = 0;
+    volume = 100;
+
     importConfig(configfile);
     connect(myserver, SIGNAL(newConnection()),this, SLOT(handleConnection()));
     connect(mpv, SIGNAL(readyRead()),this,SLOT(readFromMpv()));
