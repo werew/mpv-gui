@@ -63,18 +63,20 @@ void Server::readFromClient(){
 }
 
 void Server::handleMpvMsg(QJsonObject o){
+   if (o.contains("event") == false) return;
+
    QString event = o["event"].toString() ;
-   if (event == "pause") pause = true;
-   else if (event == "unpause") pause = false;
-   else if (event == "property-change"){
-       switch (o["id"].toInt()){
-           case 1: volume = o["data"].toInt();
-            break;
-           case 2: percent_pos = o["data"].toDouble();
-            break;
-           case 3: filename = o["data"].toString();
-            break;
-       }
+   if (event != "property-change") return;
+
+   switch (o["id"].toInt()){
+       case 1: volume = o["data"].toInt();
+         break;
+       case 2: percent_pos = o["data"].toDouble();
+             break;
+       case 3: filename = o["data"].toString();
+             break;
+       case 4: pause = o["data"].toBool();
+             break;
    }
    qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
             << "file:" << filename;
@@ -133,4 +135,5 @@ void Server::bindProperties(){
     mpv->observe_property(1, "volume");
     mpv->observe_property(2, "percent-pos");
     mpv->observe_property(3, "filename");
+    mpv->observe_property(4,"pause");
 }
