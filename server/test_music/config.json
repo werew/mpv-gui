@@ -1,18 +1,18 @@
-[ "01 Tango Suite- Tango No. 1. Allegro.wma",
-  "02 Tango Suite- Tango No. 2. Andante rubato, melanconico.wma",
-  "03 Tango Suite- Tango No. 3. Allergro.wma",
-  {"Tonadilla" : [
-      "04 Tonadilla- I. Allegretto ma non troppo.wma",
-      "05 Tonadilla- II. Minueto pomposo.wma",
-      "06 Tonadilla- III. Allegro vivace.wma"
-    ]
-  },
-  "07 Suite Retratos- I. Pixinguinha (Choro).wma",
-  "08 Suite Retratos- II. Ernesto Nazareth (Valse).wma",
-  "09 Suite Retratos- III. Anacleto De Medeiros (Schottisch).wma",
-  "10 Suite Retratos- IV. Chiquinha Gonzaga (Corta-jaca).wma",
-  "11 Sonata Canonica, Op. 196- I. Mosso, grazioso e leggero.wma",
-  "12 Sonata Canonica, Op. 196- II. Tempo di Siciliana.wma",
-  "13 Sonata Canonica, Op. 196- III. Fandango en Rondeau. Ritmico e deciso.wma",
-  {"Radio 3": "http://icestreaming.rai.it/3.mp3"}
-]
+{ "Tango Suite - Tango No.1" : "path/to/file/01 Tango Suite- Tango No. 1. Allegro.wma",
+  "Tango Suite - Tango No.2" : "02 Tango Suite- Tango No. 2. Andante rubato, melanconico.wma",
+  "Tango Suite - Tango No.3" : "03 Tango Suite- Tango No. 3. Allergro.wma",
+  "Tonadilla" : {
+      "I - Allegretto ma non troppo"   : "04 Tonadilla- I. Allegretto ma non troppo.wma",
+      "II - Minueto pomposo"  : "05 Tonadilla- II. Minueto pomposo.wma",
+      "III - Allegro vivace" : "06 Tonadilla- III. Allegro vivace.wma"
+    }
+  ,
+  "Suite Retrados I"   : "07 Suite Retratos- I. Pixinguinha (Choro).wma",
+  "Suite Retrados II"  : "08 Suite Retratos- II. Ernesto Nazareth (Valse).wma",
+  "Suite Retrados III" : "09 Suite Retratos- III. Anacleto De Medeiros (Schottisch).wma",
+  "Suite Retrados IV"  : "10 Suite Retratos- IV. Chiquinha Gonzaga (Corta-jaca).wma",
+  "Sonata Canonica I"  : "11 Sonata Canonica, Op. 196- I. Mosso, grazioso e leggero.wma",
+  "Sonata Canonica II" : "12 Sonata Canonica, Op. 196- II. Tempo di Siciliana.wma",
+  "Sonata Canonica III": "13 Sonata Canonica, Op. 196- III. Fandango en Rondeau. Ritmico e deciso.wma",
+  "Radio 3" : "http://icestreaming.rai.it/3.mp3"
+}
