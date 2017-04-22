@@ -34,6 +34,7 @@ private:
     bool pause;
     bool stop;
     QString filename;
+    QJsonObject metadata;
 
 
 public:

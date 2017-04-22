@@ -11,6 +11,7 @@ Server::Server(QObject *parent, char* configfile) :
     QJsonObject tags = getTags("test_music/10 Suite Retratos- IV. Chiquinha Gonzaga (Corta-jaca).wma");
     QJsonDocument d = QJsonDocument(tags);
     qDebug() << d.toJson();
+
     /* Set default values */
     pause = false;
     stop = true;
@@ -91,6 +92,12 @@ void Server::handleMpvMsg(QJsonObject o){
              break;
        case 5: stop = o["data"].toBool();
              break;
+       case 6: QJsonObject m = o["data"].toObject();
+               // Use mpv's metadatas only for radios
+               if (m.contains("icy-name")){
+                   metadata = m;
+               }
+             break;
    }
    qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
             << "file:" << filename;
@@ -151,6 +158,7 @@ void Server::bindProperties(){
     mpv->observe_property(3, "filename");
     mpv->observe_property(4,"pause");
     mpv->observe_property(5,"idle-active");
+    mpv->observe_property(6,"metadata");
 }
 
 /*
