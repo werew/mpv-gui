@@ -17,9 +17,9 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>20</y>
-      <width>701</width>
+      <width>761</width>
       <height>501</height>
      </rect>
     </property>
@@ -34,26 +34,10 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>697</width>
+          <width>757</width>
           <height>209</height>
          </rect>
         </property>
-        <widget class="VolumeWidget" name="volume" native="true">
-         <property name="geometry">
-          <rect>
-           <x>40</x>
-           <y>45</y>
-           <width>451</width>
-           <height>91</height>
-          </rect>
-         </property>
-         <property name="mouseTracking">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-        </widget>
        </widget>
       </widget>
      </item>
@@ -116,14 +100,22 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="VolumeWidget" name="volume" native="true">
+           <property name="mouseTracking">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
      </item>
     </layout>
    </widget>
-   <zorder>verticalLayoutWidget</zorder>
-   <zorder>volume</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
