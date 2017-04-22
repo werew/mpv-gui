@@ -59,6 +59,21 @@ void QMpvSocket::stop(){
     this->send_command(cmd);
 }
 
+void QMpvSocket::pl_next(){
+    const QString cmd[] = {"\"playlist-next\"",NULL};
+    this->send_command(cmd);
+}
+
+void QMpvSocket::pl_prev(){
+    const QString cmd[] = {"\"playlist-prev\"",NULL};
+    this->send_command(cmd);
+}
+
+void QMpvSocket::load_file(const QString &filename){
+    const QString cmd[] = {"\"loadfile\"",quoted(filename), NULL};
+    this->send_command(cmd);
+}
+
 
 void QMpvSocket::send_command(const QString cmd[]){
 

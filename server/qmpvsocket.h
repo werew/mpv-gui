@@ -23,6 +23,9 @@ public slots:
     void pause(bool value);
     void volume(int value);
     void stop();
+    void pl_next();
+    void pl_prev();
+    void load_file(const QString &filename);
 
 };
 
