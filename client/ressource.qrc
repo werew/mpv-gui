@@ -2,5 +2,7 @@
     <qresource prefix="/images">
         <file>images/volume.png</file>
         <file>images/gradient.png</file>
+        <file>images/HP.png</file>
+        <file>images/gradient_tirangle.png</file>
     </qresource>
 </RCC>

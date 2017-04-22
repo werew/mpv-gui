@@ -10,7 +10,7 @@
 #include <QPointF>
 #include <QRectF>
 
-#define MAX_VOLUME 500
+#define MAX_VOLUME 130
 
 using namespace std;
 
@@ -21,6 +21,7 @@ class VolumeWidget : public QWidget
 private:
     int volume;
     const QPixmap* imgVolume;
+    const QPixmap* imgHP;
 
 public:
     explicit VolumeWidget(QWidget *parent = 0);

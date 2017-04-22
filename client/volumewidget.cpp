@@ -4,7 +4,10 @@ VolumeWidget::VolumeWidget(QWidget *parent) :
     QWidget(parent)
 {
     volume = 50;
-    imgVolume = new QPixmap(":/images/images/gradient.png");
+    imgVolume = new QPixmap(":/images/images/gradient_tirangle.png");
+    imgHP = new QPixmap(":/images/images/HP.png");
+    this->setMinimumHeight(0);
+    this->setMinimumWidth(0);
 }
 
 void VolumeWidget::wheelEvent(QWheelEvent *e)
@@ -32,8 +35,10 @@ void VolumeWidget::paintEvent(QPaintEvent *e)
     Q_UNUSED(e);
     QPainter painter(this);
 
-    QPointF* pt = new QPointF(0.0,0.0);
-    QRectF* rect = new QRectF(0,0,(float)volume,70);
-    QPainter::PixmapFragment fragment = QPainter::PixmapFragment::create(*pt,*rect);
+    painter.drawPixmap(0,0,20,20,*imgHP);
+
+    QPointF* pt = new QPointF(25+volume/2,0);
+    QRectF* rect = new QRectF(0,0,volume,40);
+    QPainter::PixmapFragment fragment = QPainter::PixmapFragment::create(*pt,*rect,1,1,0,1);
     painter.drawPixmapFragments(&fragment,10,*imgVolume);
 }
