@@ -24,6 +24,7 @@ void VolumeWidget::wheelEvent(QWheelEvent *e)
         volume+=angle.y();
     }
     cout << volume << endl;
+    this->repaint();
 }
 
 void VolumeWidget::paintEvent(QPaintEvent *e)
@@ -31,5 +32,8 @@ void VolumeWidget::paintEvent(QPaintEvent *e)
     Q_UNUSED(e);
     QPainter painter(this);
 
-    painter.drawPixmap(0,0,500,70,*imgVolume);
+    QPointF* pt = new QPointF(0.0,0.0);
+    QRectF* rect = new QRectF(0,0,(float)volume,70);
+    QPainter::PixmapFragment fragment = QPainter::PixmapFragment::create(*pt,*rect);
+    painter.drawPixmapFragments(&fragment,10,*imgVolume);
 }
