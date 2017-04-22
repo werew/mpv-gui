@@ -7,8 +7,10 @@
 #include <iostream>
 #include <QPainter>
 #include <QPixmap>
+#include <QPointF>
+#include <QRectF>
 
-#define MAX_VOLUME 300
+#define MAX_VOLUME 500
 
 using namespace std;
 
