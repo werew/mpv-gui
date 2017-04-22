@@ -15,6 +15,9 @@ signals:
 public slots:
     void send_command(const QString cmd[]);
     void observe_property(int id, const QString &prop);
+    void set_property(const QString &prop, const QString &value);
+    void set_property(const QString &prop, int value);
+    void set_property(const QString &prop, bool value);
     void step_forward();
     void step_backward();
 
