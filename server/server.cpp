@@ -8,7 +8,9 @@ Server::Server(QObject *parent, char* configfile) :
     mpv(new QMpvSocket())
 {
     // test
-    getTags("test_music/10 Suite Retratos- IV. Chiquinha Gonzaga (Corta-jaca).wma");
+    QJsonObject tags = getTags("test_music/10 Suite Retratos- IV. Chiquinha Gonzaga (Corta-jaca).wma");
+    QJsonDocument d = QJsonDocument(tags);
+    qDebug() << d.toJson();
     /* Set default values */
     pause = false;
     stop = true;
@@ -151,7 +153,7 @@ void Server::bindProperties(){
     mpv->observe_property(5,"idle-active");
 }
 
-
+/*
 QMap<QString, QString> Server::getTags(QString fileName) {
     QMap <QString, QString> tagMap;
     TagLib::FileRef f(fileName.toLatin1().data());
@@ -169,4 +171,23 @@ QMap<QString, QString> Server::getTags(QString fileName) {
         }
     }
     return tagMap;
+} */
+
+QJsonObject Server::getTags(QString fileName) {
+    QJsonObject json_tags = QJsonObject();
+    TagLib::FileRef f(fileName.toLatin1().data());
+    if(!f.isNull() && f.tag()) {
+        TagLib::PropertyMap tags = f.file()->properties();
+        for(TagLib::PropertyMap::ConstIterator i=tags.begin();
+            i != tags.end(); ++i) {
+            QString key = QString::fromStdString(i->first.to8Bit(true));
+            QString value = QString();
+            for(TagLib::StringList::ConstIterator j=i->second.begin();
+                j != i->second.end(); ++j) {
+                value += QString::fromStdString(j->to8Bit(true));
+            }
+           json_tags.insert(key,value);
+        }
+    }
+    return json_tags;
 }

@@ -40,7 +40,7 @@ public:
     explicit Server(QObject *parent, char* configfile);
     void listen();
     void importConfig(const char* filename);
-    QMap<QString, QString> getTags(QString fileName);
+    QJsonObject getTags(QString fileName);
 
 signals:
     void finished();
