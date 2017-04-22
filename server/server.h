@@ -9,6 +9,7 @@
 #include <QLocalSocket>
 #include <QList>
 #include <QDebug>
+#include <qmpvsocket.h>
 
 #define SERVER_NAME "mpvguiserver"
 #define MAX_SIZECMD 2048
@@ -21,7 +22,7 @@ class Server : public QObject
 private:
     QLocalServer *myserver;
     QList<QLocalSocket*> *clients;
-    QLocalSocket *mpv;
+    QMpvSocket *mpv;
     QJsonObject config;
 
 

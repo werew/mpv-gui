@@ -4,7 +4,7 @@ Server::Server(QObject *parent, char* configfile) :
     QObject(parent),
     myserver(new QLocalServer(this)),
     clients(new QList<QLocalSocket*>()),
-    mpv(new QLocalSocket())
+    mpv(new QMpvSocket())
 {
     importConfig(configfile);
     connect(myserver, SIGNAL(newConnection()),this, SLOT(handleConnection()));

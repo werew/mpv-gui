@@ -16,7 +16,9 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    server.cpp
+    server.cpp \
+    qmpvsocket.cpp
 
 HEADERS += \
-    server.h
+    server.h \
+    qmpvsocket.h
