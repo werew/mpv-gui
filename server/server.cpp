@@ -15,6 +15,7 @@ Server::Server(QObject *parent, char* configfile) :
     if (mpv->waitForConnected() == false)
         throw std::runtime_error("Failed to connect to mpv\n"+
                                  mpv->errorString().toStdString());
+    bindProperties();
 }
 
 
@@ -105,4 +106,9 @@ void Server::removeClient(){
     clients->removeOne(socket);
     delete socket;
     qDebug("~> A client left");
+}
+
+void Server::bindProperties(){
+    mpv->observe_property(1, "volume");
+    mpv->observe_property(2, "percent-pos");
 }

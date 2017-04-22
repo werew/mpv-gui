@@ -41,6 +41,7 @@ private slots:
     void readFromClient();
     void removeClient();
     void readFromMpv();
+    void bindProperties();
 
 };
 
