@@ -1,12 +1,14 @@
 #include "server.h"
 
-Server::Server(QObject *parent) :
+Server::Server(QObject *parent, char* configfile) :
     QObject(parent),
     myserver(new QLocalServer(this)),
     clients(new QList<QLocalSocket*>())
 {
+    importConfig(configfile);
     connect(myserver, SIGNAL(newConnection()),this, SLOT(handleConnection()));
 }
+
 
 void Server::listen(void){
     QLocalServer::removeServer(SERVER_NAME);
@@ -49,8 +51,27 @@ void Server::readFromClient(){
         QJsonObject jsonObject = jDoc.object();
         // TODO handle request
     }
-
 }
+
+void Server::importConfig(const char* filename){
+        QFile file(filename);
+        if(!file.open(QIODevice::ReadOnly)) {
+            qDebug() << "error: "<< file.errorString();
+        }
+
+        QTextStream in(&file);
+        QString text = in.readAll();
+        file.close();
+
+        QJsonParseError error;
+        QJsonDocument jDoc = QJsonDocument::fromJson(text.toUtf8(), &error);
+        if (jDoc.isNull()){
+            qDebug() << "Parsing error: "+ error.errorString();
+            throw std::runtime_error("Bad config file");
+        }
+        config = jDoc.object();
+}
+
 
 void Server::removeClient(){
     // Remove socket from the list of active connections

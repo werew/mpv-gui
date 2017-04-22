@@ -1,6 +1,7 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include <stdexcept>
 #include <QObject>
 #include <QLocalServer>
 #include <QFuture>
@@ -20,11 +21,13 @@ class Server : public QObject
 private:
     QLocalServer *myserver;
     QList<QLocalSocket*> *clients;
+    QJsonObject config;
 
 
 public:
-    explicit Server(QObject *parent = 0);
+    explicit Server(QObject *parent, char* configfile);
     void listen();
+    void importConfig(const char* filename);
 
 signals:
     void finished();
