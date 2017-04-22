@@ -33,6 +33,7 @@ public:
     void wheelEvent(QWheelEvent *e);
     void mousePressEvent(QMouseEvent *e);
     void paintEvent(QPaintEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
 
 signals:
 

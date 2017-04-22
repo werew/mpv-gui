@@ -3,6 +3,8 @@
 VolumeWidget::VolumeWidget(QWidget *parent) :
     QWidget(parent)
 {
+    setMouseTracking(false);
+
     volume = 50;
     imgVolume = new QPixmap(":/images/images/gradient_tirangle.png");
     imgHP = new QPixmap(":/images/images/HP.png");
@@ -34,9 +36,9 @@ void VolumeWidget::wheelEvent(QWheelEvent *e)
 
 void VolumeWidget::mousePressEvent(QMouseEvent *e)
 {
-    int click = e->x();
+    int position = e->x();
 
-    if(click < 40)
+    if(position < 40)
     {
         if(muet)
         {
@@ -52,10 +54,21 @@ void VolumeWidget::mousePressEvent(QMouseEvent *e)
     }
     else
     {
-        volume = e->x() - 40;
+        volume = position - 40;
     }
 
     this->repaint();
+}
+
+void VolumeWidget::mouseMoveEvent(QMouseEvent *e)
+{
+    int position = e->x();
+
+    if(position >=40)
+    {
+        volume = position - 40;
+        this->repaint();
+    }
 }
 
 void VolumeWidget::paintEvent(QPaintEvent *e)
