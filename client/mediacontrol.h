@@ -30,10 +30,12 @@ public:
 
 
 public:
-    explicit mediaControl(QObject *parent = 0);
+    explicit mediaControl(QObject *parent = 0 );
 
 signals:
     void retour();
+    void setPause();
+    void setPlay();
 
 public slots:
     void lecture();

@@ -35,6 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->PrecedentP->addTransition(mc,SIGNAL(retour()),mc->Pause);
     mc->SuivantP->addTransition(mc,SIGNAL(retour()),mc->Pause);
 
+    connect(mc,SIGNAL(setPause()),this,SLOT(play()));
+    connect(mc,SIGNAL(setPlay()),this,SLOT(pause()));
+
     mc->machineMediaControl->start();
 }
 
@@ -53,3 +56,15 @@ void MainWindow::setBarreLecture()
    cout << ui->barreLecture->value() <<endl;
 }
 
+void MainWindow::play()
+{
+    ui->lecturePause->setIcon(QPixmap(":/images/images/play.png"));
+    ui->lecturePause->setIconSize(QSize(40,16));
+}
+
+void MainWindow::pause()
+{
+    ui->lecturePause->setIcon(QPixmap(":/images/images/pause.png"));
+    ui->lecturePause->setIconSize(QSize(40,16));
+
+}

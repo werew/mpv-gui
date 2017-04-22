@@ -7,6 +7,7 @@
 #include "mediacontrol.h"
 #include "volumewidget.h"
 #include <QSlider>
+#include <string>
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +30,9 @@ public:
  private slots:
     void itemSelected(QListWidgetItem* it);
     void setBarreLecture();
+    void pause();
+    void play();
+
 };
 
 #endif // MAINWINDOW_H

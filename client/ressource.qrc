@@ -4,5 +4,10 @@
         <file>images/gradient.png</file>
         <file>images/HP.png</file>
         <file>images/gradient_tirangle.png</file>
+        <file>images/next.png</file>
+        <file>images/pause.png</file>
+        <file>images/play.png</file>
+        <file>images/prev.png</file>
+        <file>images/stop.png</file>
     </qresource>
 </RCC>

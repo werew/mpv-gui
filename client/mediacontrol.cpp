@@ -33,11 +33,13 @@ mediaControl::mediaControl(QObject *parent) :
 void mediaControl::lecture()
 {
     cout<<"lecture"<<endl;
+    emit(setPlay());
 }
 
 void mediaControl::pause()
 {
     cout << "pause"<<endl;
+    emit(setPause());
 }
 
 void mediaControl::suivantL()
