@@ -29,6 +29,7 @@ private:
     int volume;
     double percent_pos;
     bool pause;
+    QString filename;
 
 
 public:

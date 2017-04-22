@@ -72,9 +72,12 @@ void Server::handleMpvMsg(QJsonObject o){
             break;
            case 2: percent_pos = o["data"].toDouble();
             break;
+           case 3: filename = o["data"].toString();
+            break;
        }
    }
-   qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos;
+   qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
+            << "file:" << filename;
 }
 
 void Server::handleClientMsg(QJsonObject o){
@@ -129,4 +132,5 @@ void Server::removeClient(){
 void Server::bindProperties(){
     mpv->observe_property(1, "volume");
     mpv->observe_property(2, "percent-pos");
+    mpv->observe_property(3, "filename");
 }
