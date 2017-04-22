@@ -17,6 +17,16 @@ void QMpvSocket::observe_property(int id, const QString &prop){
     this->send_command(cmd);
 }
 
+void QMpvSocket::step_backward(){
+    const QString cmd[] = {"\"seek\"","-0.2","\"relative\"", NULL};
+    this->send_command(cmd);
+}
+
+void QMpvSocket::step_forward(){
+    const QString cmd[] = {"\"seek\"","0.2","\"relative\"", NULL};
+    this->send_command(cmd);
+}
+
 void QMpvSocket::send_command(const QString cmd[]){
 
     QString* json_cmd = new QString();
