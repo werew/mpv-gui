@@ -54,6 +54,11 @@ void QMpvSocket::volume(int value){
     this->set_property("volume",value);
 }
 
+void QMpvSocket::stop(){
+    const QString cmd[] = {"\"stop\"",NULL};
+    this->send_command(cmd);
+}
+
 
 void QMpvSocket::send_command(const QString cmd[]){
 
