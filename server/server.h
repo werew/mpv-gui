@@ -11,6 +11,9 @@
 #include <QDebug>
 #include <qmpvsocket.h>
 
+#include <fileref.h>
+#include <tpropertymap.h>
+
 #define SERVER_NAME "mpvguiserver"
 #define MAX_SIZECMD 2048
 
@@ -37,6 +40,7 @@ public:
     explicit Server(QObject *parent, char* configfile);
     void listen();
     void importConfig(const char* filename);
+    QMap<QString, QString> getTags(QString fileName);
 
 signals:
     void finished();

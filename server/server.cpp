@@ -1,5 +1,6 @@
 #include "server.h"
 
+
 Server::Server(QObject *parent, char* configfile) :
     QObject(parent),
     myserver(new QLocalServer(this)),
@@ -146,4 +147,22 @@ void Server::bindProperties(){
     mpv->observe_property(3, "filename");
     mpv->observe_property(4,"pause");
     mpv->observe_property(5,"idle-active");
+}
+
+
+QMap<QString, QString> Server::getTags(QString fileName) {
+    QMap <QString, QString> tagMap;
+    TagLib::FileRef f(fileName.toLatin1().data());
+    if(!f.isNull() && f.tag()) {
+        TagLib::PropertyMap tags = f.file()->properties();
+    for(TagLib::PropertyMap::ConstIterator i=tags.begin();
+            i != tags.end(); ++i) {
+                for(TagLib::StringList::ConstIterator j=i->second.begin();
+                j != i->second.end(); ++j) {
+                    tagMap[QString::fromStdString(i->first.to8Bit(true))]
+                        = QString::fromStdString(j->to8Bit(true));
+            }
+        }
+    }
+    return tagMap;
 }
