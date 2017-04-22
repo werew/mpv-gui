@@ -21,6 +21,7 @@ class Server : public QObject
 private:
     QLocalServer *myserver;
     QList<QLocalSocket*> *clients;
+    QLocalSocket *mpv;
     QJsonObject config;
 
 
@@ -38,6 +39,7 @@ private slots:
     void handleConnection();
     void readFromClient();
     void removeClient();
+    void readFromMpv();
 
 };
 

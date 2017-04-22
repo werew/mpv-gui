@@ -3,10 +3,18 @@
 Server::Server(QObject *parent, char* configfile) :
     QObject(parent),
     myserver(new QLocalServer(this)),
-    clients(new QList<QLocalSocket*>())
+    clients(new QList<QLocalSocket*>()),
+    mpv(new QLocalSocket())
 {
     importConfig(configfile);
     connect(myserver, SIGNAL(newConnection()),this, SLOT(handleConnection()));
+    connect(mpv, SIGNAL(readyRead()),this,SLOT(readFromMpv()));
+
+    // Run mpv if not running ?
+    mpv->connectToServer("/tmp/mpvsocket"); // TODO get this path from the cli
+    if (mpv->waitForConnected() == false)
+        throw std::runtime_error("Failed to connect to mpv\n"+
+                                 mpv->errorString().toStdString());
 }
 
 
@@ -53,10 +61,28 @@ void Server::readFromClient(){
     }
 }
 
+void Server::readFromMpv(){
+    while (true) {
+        QByteArray a = mpv->readLine(MAX_SIZECMD);
+        if (a.isEmpty()) break;
+
+        QJsonParseError error;
+        QJsonDocument jDoc = QJsonDocument::fromJson(a, &error);
+        if (jDoc.isNull()){
+            qDebug() << "Parsing error: "+ error.errorString();
+            continue;
+        }
+        QJsonObject jsonObject = jDoc.object();
+        qDebug() << a;
+        // TODO handle request
+    }
+}
+
+
 void Server::importConfig(const char* filename){
         QFile file(filename);
         if(!file.open(QIODevice::ReadOnly)) {
-            qDebug() << "error: "<< file.errorString();
+            throw std::runtime_error(file.errorString().toStdString());
         }
 
         QTextStream in(&file);
@@ -66,8 +92,8 @@ void Server::importConfig(const char* filename){
         QJsonParseError error;
         QJsonDocument jDoc = QJsonDocument::fromJson(text.toUtf8(), &error);
         if (jDoc.isNull()){
-            qDebug() << "Parsing error: "+ error.errorString();
-            throw std::runtime_error("Bad config file");
+            throw std::runtime_error("bad config file ("+
+                error.errorString().toStdString()+")");
         }
         config = jDoc.object();
 }
