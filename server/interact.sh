@@ -8,7 +8,5 @@ OBSERVATIONS='
 { "command": ["observe_property", 5, "idle-active"] }
 '
 
-
-
-rlwrap -P "$OBSERVATIONS"  nc -U /tmp/mpvsocket | \
-grep "property-change"
+CMD="(echo '$OBSERVATIONS'; cat - ) | nc -U /tmp/mpvsocket | grep 'property-change'"
+rlwrap sh -c "$CMD"
