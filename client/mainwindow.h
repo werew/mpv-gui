@@ -6,6 +6,7 @@
 #include <QListWidgetItem>
 #include "mediacontrol.h"
 #include "volumewidget.h"
+#include "guiserver.h"
 #include <QSlider>
 #include <string>
 
@@ -19,6 +20,7 @@ class MainWindow : public QMainWindow
 private:
     QListWidgetItem* items[50];
     mediaControl* mc;
+    GuiServer *server;
 
 public:
     explicit MainWindow(QWidget *parent = 0);

@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/images">
-        <file>images/volume.png</file>
         <file>images/gradient.png</file>
         <file>images/HP.png</file>
         <file>images/gradient_tirangle.png</file>
@@ -9,5 +8,7 @@
         <file>images/play.png</file>
         <file>images/prev.png</file>
         <file>images/stop.png</file>
+        <file>volumewidget.h</file>
+        <file>images/HP_muet.png</file>
     </qresource>
 </RCC>

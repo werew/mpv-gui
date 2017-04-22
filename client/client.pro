@@ -16,13 +16,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     mediacontrol.cpp \
     volumewidget.cpp \
-    client.cpp \
     guiserver.cpp
 
 HEADERS  += mainwindow.h \
     mediacontrol.h \
     volumewidget.h \
-    client.h \
     guiserver.h
 
 FORMS    += mainwindow.ui

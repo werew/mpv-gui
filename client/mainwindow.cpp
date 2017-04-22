@@ -22,6 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->liste->insertItem(i,items[i]);
     }
 
+
+
+    server = new GuiServer();
+
+
     mc = new mediaControl();
 
     mc->Pause->addTransition(ui->lecturePause,SIGNAL(clicked()),mc->Lecture);
