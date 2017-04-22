@@ -22,3 +22,8 @@ SOURCES += main.cpp \
 HEADERS += \
     server.h \
     qmpvsocket.h
+
+INCLUDEPATH += /usr/local/include/taglib
+LIBS += -L/usr/local/lib \
+        -ltag \
+        -lz
