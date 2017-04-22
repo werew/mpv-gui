@@ -77,6 +77,8 @@ void Server::handleMpvMsg(QJsonObject o){
              break;
        case 4: pause = o["data"].toBool();
              break;
+       case 5: stop = o["data"].toBool();
+             break;
    }
    qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
             << "file:" << filename;
@@ -136,4 +138,5 @@ void Server::bindProperties(){
     mpv->observe_property(2, "percent-pos");
     mpv->observe_property(3, "filename");
     mpv->observe_property(4,"pause");
+    mpv->observe_property(5,"idle-active");
 }
