@@ -33,7 +33,7 @@ private:
     double percent_pos;
     bool pause;
     bool stop;
-    QString filename;
+    QString stream;
     QJsonObject metadata;
 
 

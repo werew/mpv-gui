@@ -7,15 +7,10 @@ Server::Server(QObject *parent, char* configfile) :
     clients(new QList<QLocalSocket*>()),
     mpv(new QMpvSocket())
 {
-    // test
-    QJsonObject tags = getTags("test_music/10 Suite Retratos- IV. Chiquinha Gonzaga (Corta-jaca).wma");
-    QJsonDocument d = QJsonDocument(tags);
-    qDebug() << d.toJson();
-
     /* Set default values */
     pause = false;
     stop = true;
-    filename = "";
+    stream = "";
     percent_pos = 0;
     volume = 100;
 
@@ -86,7 +81,8 @@ void Server::handleMpvMsg(QJsonObject o){
          break;
        case 2: percent_pos = o["data"].toDouble();
              break;
-       case 3: filename = o["data"].toString();
+       case 3: stream = o["data"].toString();
+               metadata = getTags(stream);
              break;
        case 4: pause = o["data"].toBool();
              break;
@@ -96,11 +92,13 @@ void Server::handleMpvMsg(QJsonObject o){
                // Use mpv's metadatas only for radios
                if (m.contains("icy-name")){
                    metadata = m;
+              QJsonDocument d = QJsonDocument(metadata);
+              qDebug() << d.toJson();
                }
              break;
    }
    qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
-            << "file:" << filename;
+            << "file:" << stream;
 }
 
 void Server::handleClientMsg(QJsonObject o){
@@ -155,7 +153,7 @@ void Server::removeClient(){
 void Server::bindProperties(){
     mpv->observe_property(1, "volume");
     mpv->observe_property(2, "percent-pos");
-    mpv->observe_property(3, "filename");
+    mpv->observe_property(3, "path");
     mpv->observe_property(4,"pause");
     mpv->observe_property(5,"idle-active");
     mpv->observe_property(6,"metadata");
