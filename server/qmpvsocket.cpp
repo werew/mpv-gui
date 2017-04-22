@@ -50,6 +50,9 @@ void QMpvSocket::pause(bool value){
     this->set_property("pause",value);
 }
 
+void QMpvSocket::volume(int value){
+    this->set_property("volume",value);
+}
 
 
 void QMpvSocket::send_command(const QString cmd[]){

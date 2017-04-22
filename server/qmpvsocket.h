@@ -21,6 +21,7 @@ public slots:
     void step_forward();
     void step_backward();
     void pause(bool value);
+    void volume(int value);
 
 };
 
