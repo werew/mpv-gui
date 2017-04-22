@@ -7,6 +7,8 @@ Server::Server(QObject *parent, char* configfile) :
     clients(new QList<QLocalSocket*>()),
     mpv(new QMpvSocket())
 {
+    // test
+    getTags("test_music/10 Suite Retratos- IV. Chiquinha Gonzaga (Corta-jaca).wma");
     /* Set default values */
     pause = false;
     stop = true;
@@ -155,13 +157,15 @@ QMap<QString, QString> Server::getTags(QString fileName) {
     TagLib::FileRef f(fileName.toLatin1().data());
     if(!f.isNull() && f.tag()) {
         TagLib::PropertyMap tags = f.file()->properties();
-    for(TagLib::PropertyMap::ConstIterator i=tags.begin();
+        for(TagLib::PropertyMap::ConstIterator i=tags.begin();
             i != tags.end(); ++i) {
-                for(TagLib::StringList::ConstIterator j=i->second.begin();
+            QString key = QString::fromStdString(i->first.to8Bit(true));
+            tagMap[key] = QString();
+            for(TagLib::StringList::ConstIterator j=i->second.begin();
                 j != i->second.end(); ++j) {
-                    tagMap[QString::fromStdString(i->first.to8Bit(true))]
-                        = QString::fromStdString(j->to8Bit(true));
+                tagMap[key] += QString::fromStdString(j->to8Bit(true));
             }
+           qDebug() << key << ": " << tagMap[key];
         }
     }
     return tagMap;
