@@ -10,7 +10,6 @@ VolumeWidget::VolumeWidget(QWidget *parent) :
     imgBordVolume = new QPixmap(":/images/images/bord_triangle.png");
     imgHP = new QPixmap(":/images/images/HP.png");
     imgHP_muet = new QPixmap(":/images/images/HP_muet.png");
-    muet= false;
     this->setMinimumHeight(40);
     this->setMinimumWidth(170);
 }
@@ -41,7 +40,7 @@ void VolumeWidget::mousePressEvent(QMouseEvent *e)
 
     if(position < 40)
     {
-        if(muet)
+        if(volume == 0)
         {
             volume = saveVolume;
         }
@@ -50,8 +49,6 @@ void VolumeWidget::mousePressEvent(QMouseEvent *e)
             saveVolume = volume;
             volume = 0;
         }
-
-        muet = !muet;
     }
     else
     {
@@ -98,7 +95,7 @@ void VolumeWidget::paintEvent(QPaintEvent *e)
 
     cout << volume << endl;
 
-    if(muet)
+    if(volume == 0)
     {
         painter.drawPixmap(10,10,20,25,*imgHP_muet);
     }

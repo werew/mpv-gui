@@ -26,7 +26,6 @@ private:
     const QPixmap* imgBordVolume;
     const QPixmap* imgHP;
     const QPixmap* imgHP_muet;
-    bool muet;
 
 public:
     explicit VolumeWidget(QWidget *parent = 0);
