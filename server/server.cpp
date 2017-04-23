@@ -47,9 +47,21 @@ void Server::handleConnection(void){
     connect(newclient, SIGNAL(readyRead()),this,SLOT(readFromClient()));
     connect(newclient, SIGNAL(disconnected()),this,SLOT(removeClient()));
 
-    // Send config
-    QJsonDocument dc = QJsonDocument(config);
-    newclient->config(dc.toJson(QJsonDocument::Compact));
+    // Send the complete state
+    sendAll(newclient);
+}
+
+void Server::sendAll(QGuiClientSocket *client){
+    client->config(&config);
+
+    if (stop) client->stop();
+    else {
+        if (pause) client->pause();
+        else client->unpause();
+    }
+
+    client->volume(volume);
+    client->meta(&metadata);
 }
 
 void Server::readFromClient(){
@@ -82,8 +94,7 @@ void Server::handleMpvMsg(QJsonObject o){
          break;
        case 2: percent_pos = o["data"].toDouble();
              break;
-       case 3: stream = o["data"].toString();
-               metadata = getTags(stream);
+       case 3: loadFile_res(o["data"].toString());
              break;
        case 4: pause = o["data"].toBool();
              break;
@@ -198,3 +209,22 @@ QJsonObject Server::getTags(QString fileName) {
     }
     return json_tags;
 }
+
+void Server::loadFile_req(QString filename){
+   if (config.contains(filename) == false) return;
+   QString path = config.value(filename).toString();
+   loadings.insert(path, filename);
+   mpv->load_file(path);
+}
+
+void Server::loadFile_res(QString path){
+       stream = path;
+       metadata = getTags(stream);
+       QString name = loadings.contains(stream) ? loadings[stream] : "null";
+       loadings.remove(stream);
+       for (int i = 0;  i < clients->count(); i++){
+           QGuiClientSocket *c = clients->at(i);
+           c->load(name);
+           c->meta(&metadata);
+       }
+   }

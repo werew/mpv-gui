@@ -14,6 +14,7 @@
 
 #include <fileref.h>
 #include <tpropertymap.h>
+#include <QMap>
 
 #define SERVER_NAME "mpvguiserver"
 #define MAX_SIZECMD 2048
@@ -28,6 +29,7 @@ private:
     QList<QGuiClientSocket*> *clients;
     QMpvSocket *mpv;
     QJsonObject config;
+    QMap<QString, QString> loadings;
 
     // Current state
     int volume;
@@ -36,6 +38,9 @@ private:
     bool stop;
     QString stream;
     QJsonObject metadata;
+
+    void loadFile_req(QString filename);
+    void loadFile_res(QString filename);
 
 
 public:
@@ -57,6 +62,7 @@ private slots:
     void readFromMpv();
     void handleMpvMsg(QJsonObject o);
     void handleClientMsg(QJsonObject o);
+    void sendAll(QGuiClientSocket *client);
 
 };
 
