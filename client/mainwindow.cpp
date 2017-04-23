@@ -32,9 +32,14 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->Pause->addTransition(ui->lecturePause,SIGNAL(clicked()),mc->Lecture);
     mc->Lecture->addTransition(ui->lecturePause,SIGNAL(clicked()),mc->Pause);
     mc->Stop->addTransition(ui->lecturePause,SIGNAL(clicked()),mc->Lecture);
+    mc->Stop->addTransition(ui->precedent,SIGNAL(clicked()),mc->PrecedentS);
+    mc->Stop->addTransition(ui->suivant,SIGNAL(clicked()),mc->SuivantS);
     mc->Lecture->addTransition(ui->suivant,SIGNAL(clicked()),mc->SuivantL);
     mc->Lecture->addTransition(ui->precedent,SIGNAL(clicked()),mc->PrecedentL);
     mc->Lecture->addTransition(ui->stop,SIGNAL(clicked()),mc->Stop);
+    mc->Lecture->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
+    mc->Pause->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
+    mc->Stop->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
     mc->Pause->addTransition(ui->suivant,SIGNAL(clicked()),mc->SuivantP);
     mc->Pause->addTransition(ui->precedent,SIGNAL(clicked()),mc->PrecedentP);
     mc->Pause->addTransition(ui->stop,SIGNAL(clicked()),mc->Stop);
@@ -42,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->SuivantL->addTransition(mc,SIGNAL(retour()),mc->Lecture);
     mc->PrecedentP->addTransition(mc,SIGNAL(retour()),mc->Pause);
     mc->SuivantP->addTransition(mc,SIGNAL(retour()),mc->Pause);
+    mc->SuivantS->addTransition(mc,SIGNAL(retour()),mc->Stop);
+    mc->PrecedentS->addTransition(mc,SIGNAL(retour()),mc->Stop);
 
     connect(mc,SIGNAL(setPause()),this,SLOT(play()));
     connect(mc,SIGNAL(setPlay()),this,SLOT(pause()));
@@ -77,6 +84,7 @@ void MainWindow::readFromServer(){
 void MainWindow::itemSelected(QListWidgetItem* it)
 {
     cout<<it->text().toStdString()<<endl;
+    emit(lectureSelection());
 }
 
 void MainWindow::setBarreLecture()

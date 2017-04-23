@@ -28,6 +28,8 @@ public:
     QState* PrecedentP;
     QState* SuivantL;
     QState* PrecedentL;
+    QState* PrecedentS;
+    QState* SuivantS;
 
 
 public:
@@ -40,13 +42,22 @@ signals:
     void setStop();
 
 public slots:
+    void enteredLecture();
+    void enteredPause();
+    void enteredStop();
+    void enteredSuivantL();
+    void enteredPrecedentL();
+    void enteredSuivantP();
+    void enteredPrecedentP();
+    void enteredPrecedentS();
+    void enteredSuivantS();
+
+private:
+    void suivant();
+    void precedent();
     void lecture();
     void pause();
     void stop();
-    void suivantL();
-    void precedentL();
-    void suivantP();
-    void precedentP();
 
 };
 

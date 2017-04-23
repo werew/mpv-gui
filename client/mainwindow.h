@@ -37,9 +37,10 @@ public:
     void pause();
     void play();
     void stop();
-
- private slots:
     void readFromServer();
+
+signals:
+    void lectureSelection();
 
 };
 
