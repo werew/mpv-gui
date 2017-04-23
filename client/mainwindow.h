@@ -1,6 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define MAX_SIZECMD 1024
+
+#include <QJsonParseError>
+#include <QJsonObject>
 #include <QMainWindow>
 #include <QListWidget>
 #include <QListWidgetItem>
@@ -23,6 +27,7 @@ private:
     mediaControl* mc;
     GuiServer *server;
     void connectToServer(QString servername);
+    void handleServerMsg(QJsonObject o);
 
 public:
     explicit MainWindow(QWidget *parent = 0);

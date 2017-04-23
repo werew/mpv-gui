@@ -78,6 +78,22 @@ void MainWindow::connectToServer(QString servername){
 }
 
 void MainWindow::readFromServer(){
+    while (true) {
+        QByteArray a = server->readLine(MAX_SIZECMD);
+        if (a.isEmpty()) break;
+
+        QJsonParseError error;
+        QJsonDocument jDoc = QJsonDocument::fromJson(a, &error);
+        if (jDoc.isNull()){
+            qDebug() << "Parsing error: "+ error.errorString();
+            continue;
+        }
+        QJsonObject jsonObject = jDoc.object();
+        handleServerMsg(jsonObject);
+    }
+}
+
+void MainWindow::handleServerMsg(QJsonObject o){
 
 }
 
