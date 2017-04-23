@@ -19,14 +19,15 @@ class VolumeWidget : public QWidget
 {
     Q_OBJECT
 
-private:
+public:
     int volume;
+
+private:
     int saveVolume;
     const QPixmap* imgVolume;
     const QPixmap* imgBordVolume;
     const QPixmap* imgHP;
     const QPixmap* imgHP_muet;
-    bool muet;
 
 public:
     explicit VolumeWidget(QWidget *parent = 0);

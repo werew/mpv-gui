@@ -29,20 +29,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     mc = new mediaControl();
 
-    mc->Pause->addTransition(ui->lecturePause,SIGNAL(clicked()),mc->Lecture);
-    mc->Lecture->addTransition(ui->lecturePause,SIGNAL(clicked()),mc->Pause);
-    mc->Stop->addTransition(ui->lecturePause,SIGNAL(clicked()),mc->Lecture);
-    mc->Stop->addTransition(ui->precedent,SIGNAL(clicked()),mc->PrecedentS);
-    mc->Stop->addTransition(ui->suivant,SIGNAL(clicked()),mc->SuivantS);
-    mc->Lecture->addTransition(ui->suivant,SIGNAL(clicked()),mc->SuivantL);
-    mc->Lecture->addTransition(ui->precedent,SIGNAL(clicked()),mc->PrecedentL);
-    mc->Lecture->addTransition(ui->stop,SIGNAL(clicked()),mc->Stop);
+    mc->Pause->addTransition(this,SIGNAL(moveToPlay()),mc->Lecture);
+    mc->Lecture->addTransition(this,SIGNAL(moveToPause()),mc->Pause);
+    mc->Stop->addTransition(this,SIGNAL(moveToPlay()),mc->Lecture);
+    mc->Stop->addTransition(this,SIGNAL(moveToPrev()),mc->PrecedentS);
+    mc->Stop->addTransition(this,SIGNAL(moveToNext()),mc->SuivantS);
+    mc->Lecture->addTransition(this,SIGNAL(moveToNext()),mc->SuivantL);
+    mc->Lecture->addTransition(this,SIGNAL(moveToPrev()),mc->PrecedentL);
+    mc->Lecture->addTransition(this,SIGNAL(moveToStop()),mc->Stop);
     mc->Lecture->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
     mc->Pause->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
     mc->Stop->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
-    mc->Pause->addTransition(ui->suivant,SIGNAL(clicked()),mc->SuivantP);
-    mc->Pause->addTransition(ui->precedent,SIGNAL(clicked()),mc->PrecedentP);
-    mc->Pause->addTransition(ui->stop,SIGNAL(clicked()),mc->Stop);
+    mc->Pause->addTransition(this,SIGNAL(moveToNext()),mc->SuivantP);
+    mc->Pause->addTransition(this,SIGNAL(moveToPrev()),mc->PrecedentP);
+    mc->Pause->addTransition(this,SIGNAL(moveToStop()),mc->Stop);
     mc->PrecedentL->addTransition(mc,SIGNAL(retour()),mc->Lecture);
     mc->SuivantL->addTransition(mc,SIGNAL(retour()),mc->Lecture);
     mc->PrecedentP->addTransition(mc,SIGNAL(retour()),mc->Pause);
@@ -95,6 +95,39 @@ void MainWindow::readFromServer(){
 
 void MainWindow::handleServerMsg(QJsonObject o){
 
+    switch (o["type"].toInt()){
+        case 1: ui->volume = o["data"].toInt();
+          break;
+        case 2: ui->barreLecture->value() = o["data"].toInt();
+              break;
+        case 3: stream = o["data"].toString();
+                metadata = getTags(stream);
+              break;
+        case 4:
+                if(o["data"].toBool())
+                {
+                    emit(moveToPause());
+                }
+                else
+                {
+                    emit(moveToPlay());
+                }
+              break;
+        case 5:
+                if(o["data"].toBool())
+                {
+                    emit(moveToStop());
+                }
+              break;
+        case 6: QJsonObject m = o["data"].toObject();
+                // Use mpv's metadatas only for radios
+                if (m.contains("icy-name")){
+                    metadata = m;
+               QJsonDocument d = QJsonDocument(metadata);
+               qDebug() << d.toJson();
+                }
+              break;
+    }
 }
 
 void MainWindow::itemSelected(QListWidgetItem* it)
