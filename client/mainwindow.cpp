@@ -28,29 +28,21 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->Pause->addTransition(this,SIGNAL(moveToPlay()),mc->Lecture);
     mc->Lecture->addTransition(this,SIGNAL(moveToPause()),mc->Pause);
     mc->Stop->addTransition(this,SIGNAL(moveToPlay()),mc->Lecture);
-    mc->Stop->addTransition(this,SIGNAL(moveToPrev()),mc->PrecedentS);
-    mc->Stop->addTransition(this,SIGNAL(moveToNext()),mc->SuivantS);
-    mc->Lecture->addTransition(this,SIGNAL(moveToNext()),mc->SuivantL);
-    mc->Lecture->addTransition(this,SIGNAL(moveToPrev()),mc->PrecedentL);
     mc->Lecture->addTransition(this,SIGNAL(moveToStop()),mc->Stop);
     mc->Lecture->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
     mc->Pause->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
     mc->Stop->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
-    mc->Pause->addTransition(this,SIGNAL(moveToNext()),mc->SuivantP);
-    mc->Pause->addTransition(this,SIGNAL(moveToPrev()),mc->PrecedentP);
     mc->Pause->addTransition(this,SIGNAL(moveToStop()),mc->Stop);
-    mc->PrecedentL->addTransition(mc,SIGNAL(retour()),mc->Lecture);
-    mc->SuivantL->addTransition(mc,SIGNAL(retour()),mc->Lecture);
-    mc->PrecedentP->addTransition(mc,SIGNAL(retour()),mc->Pause);
-    mc->SuivantP->addTransition(mc,SIGNAL(retour()),mc->Pause);
-    mc->SuivantS->addTransition(mc,SIGNAL(retour()),mc->Stop);
-    mc->PrecedentS->addTransition(mc,SIGNAL(retour()),mc->Stop);
+
 
     connect(mc,SIGNAL(setPause()),this,SLOT(play()));
     connect(mc,SIGNAL(setPlay()),this,SLOT(pause()));
     connect(mc,SIGNAL(setStop()),this,SLOT(stop()));
 
-    connect(ui->lecturePause,SIGNAL(clicked()),this,SLOT(clickPlayPause()));
+
+
+    connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
+    connect(mc,SIGNAL(connectPlay()),this,SLOT(connectPlay()));
 
 
     mc->machineMediaControl->start();
@@ -68,6 +60,9 @@ void MainWindow::connectToServer(QString servername){
     server = new GuiServer(this);
 
     connect(server,SIGNAL(readyRead()),this,SLOT(readFromServer()));
+
+    connect(ui->lecturePause,SIGNAL(clicked()),server,SLOT(unpause()));
+    connect(ui->stop,SIGNAL(clicked()),server,SLOT(stop()));
 
     server->connectToServer(servername);
     if (server->waitForConnected() == false)
@@ -164,7 +159,14 @@ void MainWindow::pause()
 
 }
 
-void MainWindow::clickPlayPause()
+void MainWindow::connectPause()
 {
-  // if(mc->)
+    disconnect(ui->lecturePause,SIGNAL(clicked()),server,SLOT(unpause()));
+    connect(ui->lecturePause,SIGNAL(clicked()),server,SLOT(pause()));
+}
+
+void MainWindow::connectPlay()
+{
+    disconnect(ui->lecturePause,SIGNAL(clicked()),server,SLOT(pause()));
+    connect(ui->lecturePause,SIGNAL(clicked()),server,SLOT(unpause()));
 }

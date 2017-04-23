@@ -45,7 +45,8 @@ public:
     void play();
     void stop();
     void readFromServer();
-    void clickPlayPause();
+    void connectPause();
+    void connectPlay();
 
 signals:
     void lectureSelection();

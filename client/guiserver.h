@@ -5,6 +5,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <stdexcept>
+#include <iostream>
+
+using namespace std;
 
 enum {
     CONFIG,
