@@ -124,6 +124,21 @@ void Server::handleMpvMsg(QJsonObject o){
 
 void Server::handleClientMsg(QJsonObject o){
 
+   switch (o["type"].toInt()){
+       case STOP: mpv->stop();
+             break;
+       case PAUSE: mpv->pause(true);
+             break;
+       case UNPAUSE: mpv->pause(false);
+             break;
+       case POS: //mpv->
+             break;
+       case VOLUME: mpv->volume(o["data"].toInt());
+             break;
+       case LOAD: mpv->load_file(o["data"].toString());
+             break;
+    }
+
 }
 
 void Server::readFromMpv(){
