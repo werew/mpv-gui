@@ -23,10 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 
-
-    server = new GuiServer();
-
-
     mc = new mediaControl();
 
     mc->Pause->addTransition(this,SIGNAL(moveToPlay()),mc->Lecture);
@@ -53,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mc,SIGNAL(setPause()),this,SLOT(play()));
     connect(mc,SIGNAL(setPlay()),this,SLOT(pause()));
     connect(mc,SIGNAL(setStop()),this,SLOT(stop()));
+
+    connect(ui->lecturePause,SIGNAL(clicked()),this,SLOT(clickPlayPause()));
 
 
     mc->machineMediaControl->start();
@@ -94,32 +92,27 @@ void MainWindow::readFromServer(){
 }
 
 void MainWindow::handleServerMsg(QJsonObject o){
-
     switch (o["type"].toInt()){
-        case 1: ui->volume = o["data"].toInt();
+        case VOLUME: ui->volume->setVolume(o["data"].toInt());
+        cout << o["data"].toInt() << endl;
           break;
-        case 2: ui->barreLecture->value() = o["data"].toInt();
+        case POS: ui->barreLecture->setValue(o["data"].toInt());
               break;
-        case 3: stream = o["data"].toString();
-                metadata = getTags(stream);
-              break;
-        case 4:
-                if(o["data"].toBool())
-                {
+        case PAUSE:
                     emit(moveToPause());
-                }
-                else
-                {
-                    emit(moveToPlay());
-                }
               break;
-        case 5:
+        case UNPAUSE:
+                    emit(moveToPlay());
+              break;
+        case STOP:
                 if(o["data"].toBool())
                 {
                     emit(moveToStop());
                 }
               break;
-        case 6: QJsonObject m = o["data"].toObject();
+        case LOAD:
+                changeCurrentMusic(o);
+        /*case META: QJsonObject m = o["data"].toObject();
                 // Use mpv's metadatas only for radios
                 if (m.contains("icy-name")){
                     metadata = m;
@@ -127,6 +120,7 @@ void MainWindow::handleServerMsg(QJsonObject o){
                qDebug() << d.toJson();
                 }
               break;
+              */
     }
 }
 
@@ -146,6 +140,11 @@ void MainWindow::setBarreLecture(int value)
     ui->barreLecture->setValue(value);
 }
 
+void MainWindow::changeCurrentMusic(QJsonObject o)
+{
+    //TODO
+}
+
 void MainWindow::stop()
 {
     ui->lecturePause->setIcon(QPixmap(":/images/images/play.png"));
@@ -163,4 +162,9 @@ void MainWindow::pause()
     ui->lecturePause->setIcon(QPixmap(":/images/images/pause.png"));
     ui->lecturePause->setIconSize(QSize(40,16));
 
+}
+
+void MainWindow::clickPlayPause()
+{
+  // if(mc->)
 }

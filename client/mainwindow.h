@@ -28,6 +28,7 @@ private:
     GuiServer *server;
     void connectToServer(QString servername);
     void handleServerMsg(QJsonObject o);
+    void changeCurrentMusic(QJsonObject o);
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -44,6 +45,7 @@ public:
     void play();
     void stop();
     void readFromServer();
+    void clickPlayPause();
 
 signals:
     void lectureSelection();

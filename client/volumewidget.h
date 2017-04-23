@@ -19,10 +19,8 @@ class VolumeWidget : public QWidget
 {
     Q_OBJECT
 
-public:
-    int volume;
-
 private:
+    int volume;
     int saveVolume;
     const QPixmap* imgVolume;
     const QPixmap* imgBordVolume;
@@ -36,6 +34,8 @@ public:
     void mousePressEvent(QMouseEvent *e);
     void paintEvent(QPaintEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
+
+    void setVolume(int v);
 
 signals:
 

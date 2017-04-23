@@ -14,6 +14,25 @@ VolumeWidget::VolumeWidget(QWidget *parent) :
     this->setMinimumWidth(170);
 }
 
+
+void VolumeWidget::setVolume(int v)
+{
+    if(v < 0)
+    {
+        volume = 0;
+    }
+    else if(v > MAX_VOLUME)
+    {
+        volume = MAX_VOLUME;
+    }
+    else
+    {
+        volume = v;
+    }
+
+    this->repaint();
+}
+
 void VolumeWidget::wheelEvent(QWheelEvent *e)
 {
     QPoint angle = e->angleDelta()/8;
