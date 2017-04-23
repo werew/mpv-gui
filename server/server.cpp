@@ -93,6 +93,8 @@ void Server::handleMpvMsg(QJsonObject o){
        case 1: volume = o["data"].toInt();
          break;
        case 2: percent_pos = o["data"].toDouble();
+               for (int i = 0; i < clients->count(); i++)
+                   clients->at(i)->pos(percent_pos);
              break;
        case 3: loadFile_res(o["data"].toString());
              break;
