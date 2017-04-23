@@ -54,12 +54,31 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mc,SIGNAL(setPlay()),this,SLOT(pause()));
     connect(mc,SIGNAL(setStop()),this,SLOT(stop()));
 
+
     mc->machineMediaControl->start();
+    this->connectToServer("/tmp/mpvguiserver");
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::connectToServer(QString servername){
+    if (server != NULL) delete server;
+
+    server = new GuiServer(this);
+
+    connect(server,SIGNAL(readyRead()),this,SLOT(readFromServer()));
+
+    server->connectToServer(servername);
+    if (server->waitForConnected() == false)
+        throw runtime_error("Failed to connect to the server\n"+
+                                 server->errorString().toStdString());
+}
+
+void MainWindow::readFromServer(){
+
 }
 
 void MainWindow::itemSelected(QListWidgetItem* it)
