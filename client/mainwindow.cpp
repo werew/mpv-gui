@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->liste,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(itemSelected(QListWidgetItem*)));
-    connect(ui->barreLecture,SIGNAL(sliderReleased()),this,SLOT(setBarreLecture()));
+    connect(ui->barreLecture,SIGNAL(sliderReleased()),this,SLOT(getBarreLecture()));
 
     int i;
 
@@ -103,9 +103,14 @@ void MainWindow::itemSelected(QListWidgetItem* it)
     emit(lectureSelection());
 }
 
-void MainWindow::setBarreLecture()
+void MainWindow::getBarreLecture()
 {
    cout << ui->barreLecture->value() <<endl;
+}
+
+void MainWindow::setBarreLecture(int value)
+{
+    ui->barreLecture->setValue(value);
 }
 
 void MainWindow::stop()

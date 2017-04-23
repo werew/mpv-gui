@@ -10,5 +10,6 @@
         <file>images/stop.png</file>
         <file>volumewidget.h</file>
         <file>images/HP_muet.png</file>
+        <file>images/bord_triangle.png</file>
     </qresource>
 </RCC>

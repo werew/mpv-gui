@@ -38,7 +38,8 @@ public:
 
  private slots:
     void itemSelected(QListWidgetItem* it);
-    void setBarreLecture();
+    void getBarreLecture();
+    void setBarreLecture(int value);
     void pause();
     void play();
     void stop();

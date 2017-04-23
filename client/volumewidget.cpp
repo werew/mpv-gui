@@ -7,6 +7,7 @@ VolumeWidget::VolumeWidget(QWidget *parent) :
 
     volume = 50;
     imgVolume = new QPixmap(":/images/images/gradient_tirangle.png");
+    imgBordVolume = new QPixmap(":/images/images/bord_triangle.png");
     imgHP = new QPixmap(":/images/images/HP.png");
     imgHP_muet = new QPixmap(":/images/images/HP_muet.png");
     muet= false;
@@ -110,4 +111,6 @@ void VolumeWidget::paintEvent(QPaintEvent *e)
     QRectF* rect = new QRectF(0,0,volume,40);
     QPainter::PixmapFragment fragment = QPainter::PixmapFragment::create(*pt,*rect,1,1,0,1);
     painter.drawPixmapFragments(&fragment,10,*imgVolume);
+
+    painter.drawPixmap(40,0,130,40,*imgBordVolume);
 }

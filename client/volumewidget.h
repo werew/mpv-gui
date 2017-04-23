@@ -23,6 +23,7 @@ private:
     int volume;
     int saveVolume;
     const QPixmap* imgVolume;
+    const QPixmap* imgBordVolume;
     const QPixmap* imgHP;
     const QPixmap* imgHP_muet;
     bool muet;
