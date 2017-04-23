@@ -10,6 +10,7 @@
 #include <QList>
 #include <QDebug>
 #include <qmpvsocket.h>
+#include <qguiclientsocket.h>
 
 #include <fileref.h>
 #include <tpropertymap.h>
@@ -24,7 +25,7 @@ class Server : public QObject
     Q_OBJECT
 private:
     QLocalServer *myserver;
-    QList<QLocalSocket*> *clients;
+    QList<QGuiClientSocket*> *clients;
     QMpvSocket *mpv;
     QJsonObject config;
 

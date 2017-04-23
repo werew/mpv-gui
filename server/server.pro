@@ -17,11 +17,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     server.cpp \
-    qmpvsocket.cpp
+    qmpvsocket.cpp \
+    qguiclientsocket.cpp
 
 HEADERS += \
     server.h \
-    qmpvsocket.h
+    qmpvsocket.h \
+    qguiclientsocket.h
 
 INCLUDEPATH += /usr/local/include/taglib
 LIBS += -L/usr/local/lib \

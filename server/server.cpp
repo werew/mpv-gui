@@ -4,7 +4,7 @@
 Server::Server(QObject *parent, char* configfile) :
     QObject(parent),
     myserver(new QLocalServer(this)),
-    clients(new QList<QLocalSocket*>()),
+    clients(new QList<QGuiClientSocket*>()),
     mpv(new QMpvSocket())
 {
     /* Set default values */
@@ -40,19 +40,20 @@ void Server::handleConnection(void){
     qDebug("~> New connection");
 
     // Add client to the list of open connections
-    QLocalSocket *newclient = myserver->nextPendingConnection();
+    QGuiClientSocket *newclient = new QGuiClientSocket(this, myserver->nextPendingConnection());
     clients->append(newclient);
 
     // Be ready to read or close the connection when it's time
     connect(newclient, SIGNAL(readyRead()),this,SLOT(readFromClient()));
     connect(newclient, SIGNAL(disconnected()),this,SLOT(removeClient()));
 
-    // Always be polite
-    newclient->write("Welcome to mpv-gui server!\n");
+    // Send config
+    QJsonDocument dc = QJsonDocument(config);
+    newclient->config(dc.toJson(QJsonDocument::Compact));
 }
 
 void Server::readFromClient(){
-    QLocalSocket* socket = qobject_cast<QLocalSocket*>(sender());
+    QGuiClientSocket* socket = qobject_cast<QGuiClientSocket*>(sender());
 
     // Read until buffer is empty
     while (true) {
@@ -144,7 +145,7 @@ void Server::importConfig(const char* filename){
 
 void Server::removeClient(){
     // Remove socket from the list of active connections
-    QLocalSocket* socket = qobject_cast<QLocalSocket*>(sender());
+    QGuiClientSocket* socket = qobject_cast<QGuiClientSocket*>(sender());
     clients->removeOne(socket);
     delete socket;
     qDebug("~> A client left");
