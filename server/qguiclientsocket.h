@@ -2,13 +2,15 @@
 #define QGUICLIENTSOCKET_H
 
 #include <QLocalSocket>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <stdexcept>
 
 enum {
     CONFIG,
     PAUSE,
     UNPAUSE,
-    PLAY,
+    LOAD,
     STOP,
     POS,
     META,
@@ -34,11 +36,17 @@ public slots:
     void send_command(int type,const QString data);
     void send_command(int type);
 
-    void config(const QString data);
+    void config(const QString conf);
+    void config(QJsonObject *conf);
     void pause();
     void unpause();
+    void meta(const QString meta);
+    void meta(QJsonObject *meta);
+    void load(const QString file);
+    void pos(double pos);
     void volume(int value);
     void stop();
+    QString jsonToString(QJsonObject *o);
 
 private slots:
     void signal_readyRead();

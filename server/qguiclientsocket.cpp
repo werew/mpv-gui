@@ -14,8 +14,28 @@ QGuiClientSocket::~QGuiClientSocket(){
     delete socket;
 }
 
+QString QGuiClientSocket::jsonToString(QJsonObject *o){
+    QJsonDocument dc = QJsonDocument(*o);
+    return dc.toJson(QJsonDocument::Compact);
+}
+
 void QGuiClientSocket::pause(){
    this->send_command(PAUSE);
+}
+
+void QGuiClientSocket::meta(const QString meta){
+   this->send_command(META, meta);
+}
+void QGuiClientSocket::meta(QJsonObject *meta){
+   this->meta(jsonToString(meta));
+}
+
+void QGuiClientSocket::load(const QString file){
+   this->send_command(LOAD, file);
+}
+
+void QGuiClientSocket::pos(double pos){
+   this->send_command(POS, QString::number(pos));
 }
 
 void QGuiClientSocket::unpause(){
@@ -30,8 +50,12 @@ void QGuiClientSocket::stop(){
     this->send_command(STOP);
 }
 
-void QGuiClientSocket::config(const QString data){
-    this->send_command(CONFIG, data);
+void QGuiClientSocket::config(const QString conf){
+    this->send_command(CONFIG, conf);
+}
+
+void QGuiClientSocket::config(QJsonObject *conf){
+    this->config(jsonToString(conf));
 }
 
 void QGuiClientSocket::send_command(int type){
