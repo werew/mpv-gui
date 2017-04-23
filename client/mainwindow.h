@@ -9,6 +9,7 @@
 #include "guiserver.h"
 #include <QSlider>
 #include <string>
+#include <stdexcept>
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +22,7 @@ private:
     QListWidgetItem* items[50];
     mediaControl* mc;
     GuiServer *server;
+    void connectToServer(QString servername);
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -35,6 +37,9 @@ public:
     void pause();
     void play();
     void stop();
+
+ private slots:
+    void readFromServer();
 
 };
 
