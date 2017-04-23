@@ -30,7 +30,7 @@ void VolumeWidget::wheelEvent(QWheelEvent *e)
     {
         volume+=angle.y();
     }
-    cout << volume << endl;
+
     this->repaint();
 }
 
@@ -54,7 +54,18 @@ void VolumeWidget::mousePressEvent(QMouseEvent *e)
     }
     else
     {
-        volume = position - 40;
+        if(position - 40 < 0)
+        {
+            volume = 0;
+        }
+        else if(position - 40 > MAX_VOLUME)
+        {
+            volume = MAX_VOLUME;
+        }
+        else
+        {
+            volume = position - 40;
+        }
     }
 
     this->repaint();
@@ -64,7 +75,15 @@ void VolumeWidget::mouseMoveEvent(QMouseEvent *e)
 {
     int position = e->x();
 
-    if(position >=40)
+    if(position < 40)
+    {
+        volume = 0;
+    }
+    else if(position - 40 > MAX_VOLUME)
+    {
+        volume = MAX_VOLUME;
+    }
+    else
     {
         volume = position - 40;
         this->repaint();
@@ -75,6 +94,8 @@ void VolumeWidget::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e);
     QPainter painter(this);
+
+    cout << volume << endl;
 
     if(muet)
     {
