@@ -34,6 +34,7 @@ public:
     void setBarreLecture();
     void pause();
     void play();
+    void stop();
 
 };
 

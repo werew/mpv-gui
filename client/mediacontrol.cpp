@@ -8,18 +8,21 @@ mediaControl::mediaControl(QObject *parent) :
 
     Pause = new QState(machineMediaControl);
     Lecture = new QState(machineMediaControl);
+    Stop =new QState(machineMediaControl);
     SuivantP = new QState(machineMediaControl);
     PrecedentP = new QState(machineMediaControl);
     SuivantL = new QState(machineMediaControl);
     PrecedentL = new QState(machineMediaControl);
 
-    machineMediaControl->setInitialState(Pause);
+    machineMediaControl->setInitialState(Stop);
 
     connect(Lecture,SIGNAL(entered()),this,SLOT(lecture()));
    // connect(this,SIGNAL(retourLecture()),this,SLOT(lecture()));
 
     connect(Pause,SIGNAL(entered()),this,SLOT(pause()));
    // connect(this,SIGNAL(retourPause()),this,SLOT(pause()));
+
+    connect(Stop,SIGNAL(entered()),this,SLOT(stop()));
 
     connect(SuivantL,SIGNAL(entered()),this,SLOT(suivantL()));
     connect(PrecedentL,SIGNAL(entered()),this,SLOT(precedentL()));
@@ -40,6 +43,12 @@ void mediaControl::pause()
 {
     cout << "pause"<<endl;
     emit(setPause());
+}
+
+void mediaControl::stop()
+{
+    cout << "Stop" << endl;
+    emit(setStop());
 }
 
 void mediaControl::suivantL()
