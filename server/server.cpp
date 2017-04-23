@@ -91,7 +91,9 @@ void Server::handleMpvMsg(QJsonObject o){
 
    switch (o["id"].toInt()){
        case 1: volume = o["data"].toInt();
-         break;
+               for (int i = 0; i < clients->count(); i++)
+                   clients->at(i)->volume(volume);
+             break;
        case 2: percent_pos = o["data"].toDouble();
                for (int i = 0; i < clients->count(); i++)
                    clients->at(i)->pos(percent_pos);
@@ -99,15 +101,20 @@ void Server::handleMpvMsg(QJsonObject o){
        case 3: loadFile_res(o["data"].toString());
              break;
        case 4: pause = o["data"].toBool();
+               for (int i = 0; i < clients->count(); i++)
+                   if (pause) clients->at(i)->pause();
+                   else clients->at(i)->unpause();
              break;
        case 5: stop = o["data"].toBool();
+               for (int i = 0; i < clients->count(); i++)
+                   clients->at(i)->stop();
              break;
        case 6: QJsonObject m = o["data"].toObject();
                // Use mpv's metadatas only for radios
                if (m.contains("icy-name")){
                    metadata = m;
-              QJsonDocument d = QJsonDocument(metadata);
-              qDebug() << d.toJson();
+                   for (int i = 0; i < clients->count(); i++)
+                       clients->at(i)->meta(&metadata);
                }
              break;
    }
