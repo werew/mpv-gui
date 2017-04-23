@@ -36,6 +36,9 @@ public:
     void play();
     void stop();
 
+signals:
+    void lectureSelection();
+
 };
 
 #endif // MAINWINDOW_H
