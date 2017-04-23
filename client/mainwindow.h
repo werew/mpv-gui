@@ -47,6 +47,11 @@ public:
 
 signals:
     void lectureSelection();
+    void moveToPause();
+    void moveToPlay();
+    void moveToPrev();
+    void moveToNext();
+    void moveToStop();
 
 };
 
