@@ -35,14 +35,14 @@ void QGuiClientSocket::config(const QString data){
 }
 
 void QGuiClientSocket::send_command(int type){
-    QString json_cmd = QString("{\"type\":"+QString::number(type)+"}");
+    QString json_cmd = QString("{\"type\":"+QString::number(type)+"}\n");
     socket->write(json_cmd.toUtf8());
     socket->flush();
 }
 
 void QGuiClientSocket::send_command(int type, const QString data){
     QString json_cmd = QString("{\"type\":"+QString::number(type)+
-                               ",\"data\":"+data+"}");
+                               ",\"data\":"+data+"}\n");
     socket->write(json_cmd.toUtf8());
     socket->flush();
 }
