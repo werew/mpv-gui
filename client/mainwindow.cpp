@@ -100,10 +100,7 @@ void MainWindow::handleServerMsg(QJsonObject o){
                     emit(moveToPlay());
               break;
         case STOP:
-                if(o["data"].toBool())
-                {
                     emit(moveToStop());
-                }
               break;
         case LOAD:
                 changeCurrentMusic(o);

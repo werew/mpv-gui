@@ -39,23 +39,6 @@ void mediaControl::enteredPause()
 
 void mediaControl::enteredStop()
 {
-    stop();
 
     emit(setStop());
-}
-
-
-void mediaControl::lecture()
-{
-    cout << "lecture" << endl;
-}
-
-void mediaControl::pause()
-{
-    cout << "pause" << endl;
-}
-
-void mediaControl::stop()
-{
-    cout << "stop" << endl;
 }

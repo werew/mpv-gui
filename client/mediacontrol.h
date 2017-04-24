@@ -44,9 +44,6 @@ public slots:
 
 
 private:
-    void lecture();
-    void pause();
-    void stop();
 
 };
 
