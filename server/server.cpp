@@ -79,7 +79,7 @@ void Server::readFromClient(){
             continue;
         }
         QJsonObject jsonObject = jDoc.object();
-        // TODO handle request
+        handleClientMsg(jsonObject);
     }
 }
 
