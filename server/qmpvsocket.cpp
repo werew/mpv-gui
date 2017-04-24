@@ -47,7 +47,9 @@ void QMpvSocket::step_forward(){
 }
 
 void QMpvSocket::pause(bool value){
-    this->set_property("pause",value);
+    QString v = value ? QString("yes") :
+                        QString("no")  ;
+    this->set_property("pause",v);
 }
 
 void QMpvSocket::volume(int value){
