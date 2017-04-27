@@ -11,5 +11,7 @@
         <file>volumewidget.h</file>
         <file>images/HP_muet.png</file>
         <file>images/bord_triangle.png</file>
+        <file>images/fastBack.png</file>
+        <file>images/fastFor.png</file>
     </qresource>
 </RCC>
