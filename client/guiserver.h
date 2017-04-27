@@ -15,7 +15,9 @@ enum {
     UNPAUSE,
     LOAD,
     STOP,
-    POS,
+    PERCENT_POS,
+    TIME_POS,
+    DURATION,
     META,
     VOLUME
 };

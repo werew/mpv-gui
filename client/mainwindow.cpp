@@ -91,7 +91,7 @@ void MainWindow::handleServerMsg(QJsonObject o){
         case VOLUME: ui->volume->setVolume(o["data"].toInt());
         cout << o["data"].toInt() << endl;
           break;
-        case POS: ui->barreLecture->setValue(o["data"].toInt());
+        case PERCENT_POS: ui->barreLecture->setValue(o["data"].toInt());
               break;
         case PAUSE:
                     emit(moveToPause());

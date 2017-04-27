@@ -24,7 +24,7 @@ void GuiServer::load(const QString file){
 }
 
 void GuiServer::pos(double pos){
-   this->send_command(POS, QString::number(pos));
+   this->send_command(PERCENT_POS, QString::number(pos));
 }
 
 void GuiServer::unpause(){
