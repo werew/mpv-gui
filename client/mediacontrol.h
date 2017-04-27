@@ -25,8 +25,15 @@ public:
     QState* Pause;
     QState* Lecture;
     QState* Stop;
+
     QTimer* fast_forward_timer;
     QTimer* fast_backward_timer;
+
+    QState* fast_forward_play;
+    QState* fast_backward_play;
+    QState* fast_forward_pause;
+    QState* fast_backward_pause;
+
 
 
 public:
@@ -45,6 +52,10 @@ public slots:
     void enteredPause();
     void enteredStop();
 
+    void enteredFastForward();
+    void enteredFastBackward();
+    void exitedFastForward();
+    void exitedFastBackward();
 
 private:
 

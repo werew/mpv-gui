@@ -32,6 +32,15 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->Pause->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
     mc->Stop->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
     mc->Pause->addTransition(this,SIGNAL(moveToStop()),mc->Stop);
+    mc->Lecture->addTransition(ui->fast_forward,SIGNAL(pressed()),mc->fast_forward_play);
+    mc->Lecture->addTransition(ui->fast_backward,SIGNAL(pressed()),mc->fast_backward_play);
+    mc->Pause->addTransition(ui->fast_backward,SIGNAL(pressed()),mc->fast_backward_pause);
+    mc->Pause->addTransition(ui->fast_forward,SIGNAL(pressed()),mc->fast_forward_pause);
+
+    mc->fast_forward_play->addTransition(ui->fast_forward,SIGNAL(released()),mc->Lecture);
+    mc->fast_backward_play->addTransition(ui->fast_backward,SIGNAL(released()),mc->Lecture);
+    mc->fast_backward_pause->addTransition(ui->fast_backward,SIGNAL(released()),mc->Pause);
+    mc->fast_forward_pause->addTransition(ui->fast_forward,SIGNAL(released()),mc->Pause);
 
 
     connect(mc,SIGNAL(setPause()),this,SLOT(play()));

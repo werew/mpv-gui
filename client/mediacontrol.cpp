@@ -25,6 +25,22 @@ mediaControl::mediaControl(QObject *parent) :
 
     connect(Stop,SIGNAL(entered()),this,SLOT(enteredStop()));
 
+    connect(fast_forward_play,SIGNAL(entered()),this,SLOT(enteredFastForward()));
+
+    connect(fast_forward_play,SIGNAL(exited()),this,SLOT(exitedFastForward()));
+
+    connect(fast_backward_play,SIGNAL(entered()),this,SLOT(enteredFastBackward()));
+
+    connect(fast_backward_play,SIGNAL(exited()),this,SLOT(exitedFastBackward()));
+
+    connect(fast_forward_pause,SIGNAL(entered()),this,SLOT(enteredFastForward()));
+
+    connect(fast_forward_pause,SIGNAL(exited()),this,SLOT(exitedFastForward()));
+
+    connect(fast_backward_pause,SIGNAL(entered()),this,SLOT(enteredFastBackward()));
+
+    connect(fast_backward_pause,SIGNAL(exited()),this,SLOT(exitedFastBackward()));
+
 }
 
 void mediaControl::enteredLecture()
@@ -45,4 +61,24 @@ void mediaControl::enteredStop()
 {
 
     emit(setStop());
+}
+
+void mediaControl::enteredFastBackward()
+{
+    fast_backward_timer->start();
+}
+
+void mediaControl::enteredFastForward()
+{
+    fast_forward_timer->start();
+}
+
+void mediaControl::exitedFastBackward()
+{
+    fast_backward_timer->stop();
+}
+
+void mediaControl::exitedFastForward()
+{
+    fast_backward_timer->stop();
 }
