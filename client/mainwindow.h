@@ -30,6 +30,8 @@ private:
     void handleServerMsg(QJsonObject o);
     void changeCurrentMusic(QJsonObject o);
 
+    QJsonObject* config;
+
 
 
 public:
@@ -48,6 +50,7 @@ public:
     void readFromServer();
     void connectPause();
     void connectPlay();
+    void printList();
 
 signals:
     void lectureBarreValueChanged(double);

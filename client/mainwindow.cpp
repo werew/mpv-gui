@@ -12,14 +12,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->liste,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(itemSelected(QListWidgetItem*)));
 
-    int i;
-
-    for(i=0;i<50;i++)
-    {
-        items[i] = new QListWidgetItem;
-        items[i]->setText(QString::number(i));
-        ui->liste->insertItem(i,items[i]);
-    }
 
 
     mc = new mediaControl(this);
@@ -172,6 +164,9 @@ void MainWindow::handleServerMsg(QJsonObject o){
                     ui->album->setText(meta["ALBUM"].toString());
                 }
             break;
+        case CONFIG:
+                config = o["data"];
+
     }
 }
 
