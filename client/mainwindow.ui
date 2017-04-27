@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>821</width>
+      <width>1009</width>
       <height>531</height>
      </rect>
     </property>
@@ -81,13 +81,66 @@
           </layout>
          </item>
          <item>
-          <widget class="QListWidget" name="liste">
+          <widget class="QStackedWidget" name="listStack">
            <property name="minimumSize">
             <size>
-             <width>500</width>
-             <height>300</height>
+             <width>600</width>
+             <height>0</height>
             </size>
            </property>
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="page_morceaux">
+            <widget class="QListWidget" name="liste_morceaux">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>0</y>
+               <width>581</width>
+               <height>369</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="page_listes">
+            <widget class="QWidget" name="horizontalLayoutWidget">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>0</y>
+               <width>581</width>
+               <height>371</height>
+              </rect>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QListWidget" name="list_playlists"/>
+              </item>
+              <item>
+               <widget class="QListWidget" name="list_playlist_items"/>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="page_radios">
+            <widget class="QListWidget" name="list_radios">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>0</y>
+               <width>581</width>
+               <height>369</height>
+              </rect>
+             </property>
+            </widget>
+           </widget>
           </widget>
          </item>
         </layout>

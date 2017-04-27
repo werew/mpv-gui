@@ -51,6 +51,8 @@ public:
     void connectPause();
     void connectPlay();
     void printList();
+    void updateSelections();
+    void selectList();
 
 signals:
     void lectureBarreValueChanged(double);

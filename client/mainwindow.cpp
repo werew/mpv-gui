@@ -10,9 +10,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->liste,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(itemSelected(QListWidgetItem*)));
-
-
     server = NULL;
 
     mc = new mediaControl(this);
@@ -42,9 +39,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mc,SIGNAL(setPlay()),this,SLOT(pause()));
     connect(mc,SIGNAL(setStop()),this,SLOT(stop()));
 
-    connect(ui->morceaux,SIGNAL(clicked()),this,SLOT(printList()));
-    connect(ui->listes,SIGNAL(clicked()),this,SLOT(printList()));
-    connect(ui->radios,SIGNAL(clicked()),this,SLOT(printList()));
+    connect(ui->morceaux,SIGNAL(clicked()),this,SLOT(selectList()));
+    connect(ui->listes,SIGNAL(clicked()),this,SLOT(selectList()));
+    connect(ui->radios,SIGNAL(clicked()),this,SLOT(selectList()));
 
 
     connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
@@ -163,24 +160,53 @@ void MainWindow::handleServerMsg(QJsonObject o){
             break;
         case CONFIG:
                 config = o["data"].toObject();
-                printList();
+                updateSelections();
             break;
 
     }
 }
 
+void MainWindow::updateSelections(){
+    QStringList l = config["Pieces"].toObject().keys();
+    ui->liste_morceaux->clear();
+    ui->liste_morceaux->addItems(l);
+
+    l = config["Playlists"].toObject().keys();
+    ui->list_playlists->clear();
+    ui->list_playlist_items->clear();
+    ui->list_playlists->addItems(l);
+
+    l = config["Radios"].toObject().keys();
+    ui->list_radios->clear();
+    ui->list_radios->addItems(l);
+}
+
+void MainWindow::selectList(){
+    if (ui->morceaux->isChecked()){
+       ui->listStack->setCurrentIndex(0);
+    } else if (ui->listes->isChecked()) {
+       ui->listStack->setCurrentIndex(1);
+    } else {
+       ui->listStack->setCurrentIndex(2);
+    }
+}
+
 void MainWindow::printList(){
     // TODO try empty config
-    QStringList l;
+  /*  QStringList l;
     if (ui->morceaux->isChecked()){
        l = config["Pieces"].toObject().keys();
+       ui->listStack->setCurrentIndex(2);
+       ui->liste->clear();
     } else if (ui->listes->isChecked()) {
        l = config["Playlists"].toObject().keys();
+       ui->listStack->setCurrentIndex(1);
     } else {
        l = config["Radios"].toObject().keys();
+       ui->listStack->setCurrentIndex(2);
     }
-    ui->liste->clear();
     ui->liste->addItems(l);
+    */
 }
 
 void MainWindow::itemSelected(QListWidgetItem* it)
