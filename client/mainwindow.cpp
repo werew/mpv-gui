@@ -70,8 +70,8 @@ void MainWindow::connectToServer(QString servername){
 
     connect(this,SIGNAL(lectureBarreValueChanged(double)),server,SLOT(percent_pos(double)));
 
-    connect(ui->suivant,SIGNAL(clicked()),server,SLOT(step_forward()));
-    connect(ui->precedent,SIGNAL(clicked()),server,SLOT(step_backward()));
+    connect(ui->suivant,SIGNAL(clicked()),server,SLOT(pl_next());
+    connect(ui->precedent,SIGNAL(clicked()),server,SLOT(pl_prev()));
 
     server->connectToServer(servername);
     if (server->waitForConnected() == false)
