@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
     connect(mc,SIGNAL(connectPlay()),this,SLOT(connectPlay()));
 
-    connect(ui->barreLecture,SIGNAL(valueChanged(int)),this,SLOT(changeBarreLectureValue(int)));
+    connect(ui->barreLecture,SIGNAL(sliderReleased()),this,SLOT(changeBarreLectureValue(int)));
 
 
     mc->machineMediaControl->start();
@@ -129,9 +129,9 @@ void MainWindow::itemSelected(QListWidgetItem* it)
     emit(lectureSelection());
 }
 
-void MainWindow::changeBarreLectureValue(int v)
+void MainWindow::changeBarreLectureValue()
 {
-    double val = (double)(v/10);
+    double val = (double)(ui->barreLecture->value()/10);
     emit(lectureBarreValueChanged(val));
 }
 
