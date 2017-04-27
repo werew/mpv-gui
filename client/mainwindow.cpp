@@ -28,9 +28,11 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->Lecture->addTransition(this,SIGNAL(moveToPause()),mc->Pause);
     mc->Stop->addTransition(this,SIGNAL(moveToPlay()),mc->Lecture);
     mc->Lecture->addTransition(this,SIGNAL(moveToStop()),mc->Stop);
+    /*
     mc->Lecture->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
     mc->Pause->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
     mc->Stop->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
+    */
     mc->Pause->addTransition(this,SIGNAL(moveToStop()),mc->Stop);
     mc->Lecture->addTransition(ui->fast_forward,SIGNAL(pressed()),mc->fast_forward_play);
     mc->Lecture->addTransition(ui->fast_backward,SIGNAL(pressed()),mc->fast_backward_play);
@@ -136,7 +138,7 @@ void MainWindow::handleServerMsg(QJsonObject o){
                     metadata = m;
                QJsonDocument d = QJsonDocument(metadata);
                qDebug() << d.toJson();
-                }
+               }
               break;
               */
               break;
@@ -144,14 +146,14 @@ void MainWindow::handleServerMsg(QJsonObject o){
                             "%d:%02d",
                             (int)o["data"].toDouble() / 60,
                             (int)o["data"].toDouble() % 60
-                            )
+                           )
                         );
                 break;
         case DURATION: ui->tempsTotal->setText(QString().sprintf(
                             "%d:%02d",
                             (int)o["data"].toDouble() / 60,
                             (int)o["data"].toDouble() % 60
-                            )
+                           )
                         );
             break;
     }
