@@ -158,9 +158,19 @@ void MainWindow::handleServerMsg(QJsonObject o){
             break;
         case META:
                 QJsonObject meta = o["data"].toObject();
-                ui->author->setText(meta["ARTIST"].toString());
-                ui->trackName->setText(meta["TITLE"].toString());
-                ui->album->setText(meta["ALBUM"].toString());
+
+                if(meta.contains("icy-name"))
+                {
+                    ui->author->setText(meta["icy-name"].toString());
+                    ui->trackName->setText(meta["icy-title"].toString());
+                    ui->author->setText(meta["icy-genre"].toString());
+                }
+                else
+                {
+                    ui->trackName->setText(meta["TITLE"].toString());
+                    ui->author->setText(meta["ARTIST"].toString());
+                    ui->album->setText(meta["ALBUM"].toString());
+                }
             break;
     }
 }
