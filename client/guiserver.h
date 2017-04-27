@@ -21,7 +21,9 @@ enum {
     META,
     VOLUME,
     STEP_FOR,
-    STEP_BACK
+    STEP_BACK,
+    PL_NEXT,
+    PL_PREV
 };
 
 
@@ -47,6 +49,8 @@ public slots:
     void stop();
     void step_forward();
     void step_backward();
+    void pl_next();
+    void pl_prev();
     QString jsonToString(QJsonObject *o);
 
 
