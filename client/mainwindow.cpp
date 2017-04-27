@@ -130,6 +130,11 @@ void MainWindow::handleServerMsg(QJsonObject o){
                 }
               break;
               */
+              break;
+        case TIME_POS: //o["data"].toDouble()
+            break;
+        case DURATION: //o["data"].toDouble()
+            break;
     }
 }
 
