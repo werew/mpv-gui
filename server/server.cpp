@@ -155,6 +155,10 @@ void Server::handleClientMsg(QJsonObject o){
              break;
        case STEP_BACK: mpv->step_backward();
              break;
+       case PL_NEXT: mpv->pl_next();
+             break;
+       case PL_PREV: mpv->pl_prev();
+             break;
     }
 
 }

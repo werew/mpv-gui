@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->liste,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(itemSelected(QListWidgetItem*)));
-    connect(ui->barreLecture,SIGNAL(sliderReleased()),this,SLOT(changeBarreLectureValue()));
 
     int i;
 
@@ -44,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
     connect(mc,SIGNAL(connectPlay()),this,SLOT(connectPlay()));
 
-    connect(ui->barreLecture,SIGNAL(sliderReleased()),this,SLOT(changeBarreLectureValue()));
+    connect(ui->barreLecture,SIGNAL(valueChanged(int)),this,SLOT(changeBarreLectureValue(int)));
 
 
     mc->machineMediaControl->start();
@@ -101,11 +100,14 @@ void MainWindow::handleServerMsg(QJsonObject o){
         case VOLUME: ui->volume->setVolume(o["data"].toInt());
           break;
         case PERCENT_POS:
-              if(ui->barreLecture->isSliderDown())
-              {
-                  return;
-              }
+              if(ui->barreLecture->isSliderDown()) return;
+              // Break update loop
+              disconnect(ui->barreLecture,SIGNAL(valueChanged(int)),
+                         this,SLOT(changeBarreLectureValue(int)));
               ui->barreLecture->setValue((int)(o["data"].toDouble()*10));
+              // Restore update loop
+              connect(ui->barreLecture,SIGNAL(valueChanged(int)),
+                      this,SLOT(changeBarreLectureValue(int)));
               break;
         case PAUSE:
                     emit(moveToPause());
@@ -136,9 +138,9 @@ void MainWindow::itemSelected(QListWidgetItem* it)
     emit(lectureSelection());
 }
 
-void MainWindow::changeBarreLectureValue()
+void MainWindow::changeBarreLectureValue(int value)
 {
-    double val = ((double)(ui->barreLecture->value())/10.0);
+    double val = ((double)(value)/10.0);
     emit(lectureBarreValueChanged(val));
 }
 

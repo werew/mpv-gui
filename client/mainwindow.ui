@@ -184,8 +184,14 @@
            <property name="maximum">
             <number>1000</number>
            </property>
+           <property name="tracking">
+            <bool>false</bool>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="tickPosition">
+            <enum>QSlider::NoTicks</enum>
            </property>
           </widget>
          </item>
