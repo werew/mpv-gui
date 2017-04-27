@@ -140,9 +140,19 @@ void MainWindow::handleServerMsg(QJsonObject o){
               break;
               */
               break;
-        case TIME_POS: //o["data"].toDouble()
-            break;
-        case DURATION: //o["data"].toDouble()
+        case TIME_POS: ui->tempsCourant->setText(QString().sprintf(
+                            "%d:%02d",
+                            (int)o["data"].toDouble() / 60,
+                            (int)o["data"].toDouble() % 60
+                            )
+                        );
+                break;
+        case DURATION: ui->tempsTotal->setText(QString().sprintf(
+                            "%d:%02d",
+                            (int)o["data"].toDouble() / 60,
+                            (int)o["data"].toDouble() % 60
+                            )
+                        );
             break;
     }
 }
