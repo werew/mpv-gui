@@ -34,8 +34,11 @@ void QGuiClientSocket::load(const QString file){
    this->send_command(LOAD, file);
 }
 
-void QGuiClientSocket::pos(double pos){
-   this->send_command(POS, QString::number(pos));
+void QGuiClientSocket::percent_pos(double pos){
+   this->send_command(PERCENT_POS, QString::number(pos));
+}
+void QGuiClientSocket::time_pos(double pos){
+   this->send_command(TIME_POS, QString::number(pos));
 }
 
 void QGuiClientSocket::unpause(){

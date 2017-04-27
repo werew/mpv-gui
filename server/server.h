@@ -34,6 +34,7 @@ private:
     // Current state
     int volume;
     double percent_pos;
+    double time_pos;
     bool pause;
     bool stop;
     QString stream;

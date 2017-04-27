@@ -12,7 +12,8 @@ enum {
     UNPAUSE,
     LOAD,
     STOP,
-    POS,
+    PERCENT_POS,
+    TIME_POS,
     META,
     VOLUME
 };
@@ -43,7 +44,8 @@ public slots:
     void meta(const QString meta);
     void meta(QJsonObject *meta);
     void load(const QString file);
-    void pos(double pos);
+    void percent_pos(double pos);
+    void time_pos(double pos);
     void volume(int value);
     void stop();
     QString jsonToString(QJsonObject *o);

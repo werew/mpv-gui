@@ -89,6 +89,8 @@ void Server::handleMpvMsg(QJsonObject o){
    QString event = o["event"].toString() ;
    if (event != "property-change") return;
 
+   QJsonObject m;
+
    switch (o["id"].toInt()){
        case 1: volume = o["data"].toInt();
                for (int i = 0; i < clients->count(); i++)
@@ -96,7 +98,7 @@ void Server::handleMpvMsg(QJsonObject o){
              break;
        case 2: percent_pos = o["data"].toDouble();
                for (int i = 0; i < clients->count(); i++)
-                   clients->at(i)->pos(percent_pos);
+                   clients->at(i)->percent_pos(percent_pos);
              break;
        case 3: loadFile_res(o["data"].toString());
              break;
@@ -109,13 +111,17 @@ void Server::handleMpvMsg(QJsonObject o){
                for (int i = 0; i < clients->count(); i++)
                    clients->at(i)->stop();
              break;
-       case 6: QJsonObject m = o["data"].toObject();
+       case 6: m = o["data"].toObject();
                // Use mpv's metadatas only for radios
                if (m.contains("icy-name")){
                    metadata = m;
                    for (int i = 0; i < clients->count(); i++)
                        clients->at(i)->meta(&metadata);
                }
+             break;
+       case 7: time_pos = o["data"].toDouble();
+               for (int i = 0; i < clients->count(); i++)
+                   clients->at(i)->time_pos(percent_pos);
              break;
    }
    qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
@@ -131,7 +137,7 @@ void Server::handleClientMsg(QJsonObject o){
              break;
        case UNPAUSE: mpv->pause(false);
              break;
-       case POS: //mpv->
+       case PERCENT_POS: //mpv->
              break;
        case VOLUME: mpv->volume(o["data"].toInt());
              break;
@@ -193,6 +199,7 @@ void Server::bindProperties(){
     mpv->observe_property(4,"pause");
     mpv->observe_property(5,"idle-active");
     mpv->observe_property(6,"metadata");
+    mpv->observe_property(7,"time-pos");
 }
 
 /*
