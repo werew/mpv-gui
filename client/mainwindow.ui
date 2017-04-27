@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>784</width>
+    <width>864</width>
     <height>593</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>761</width>
+      <width>821</width>
       <height>531</height>
      </rect>
     </property>
@@ -218,6 +218,23 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="ressource.qrc">
+             <normaloff>:/images/images/fastBack.png</normaloff>:/images/images/fastBack.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>40</width>
+             <height>16</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="stop">
            <property name="text">
             <string/>
@@ -238,6 +255,23 @@
           <widget class="QPushButton" name="lecturePause">
            <property name="text">
             <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="ressource.qrc">
+             <normaloff>:/images/images/fastFor.png</normaloff>:/images/images/fastFor.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>40</width>
+             <height>16</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -280,7 +314,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>784</width>
+     <width>864</width>
      <height>25</height>
     </rect>
    </property>
