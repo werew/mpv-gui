@@ -68,8 +68,10 @@ void MainWindow::connectToServer(QString servername){
 
     connect(ui->volume,SIGNAL(clientChangeVolume(int)),server,SLOT(volume(int)));
 
-
     connect(this,SIGNAL(lectureBarreValueChanged(double)),server,SLOT(percent_pos(double)));
+
+    connect(ui->suivant,SIGNAL(clicked()),server,SLOT(step_forward()));
+    connect(ui->precedent,SIGNAL(clicked()),server,SLOT(step_backward()));
 
     server->connectToServer(servername);
     if (server->waitForConnected() == false)
