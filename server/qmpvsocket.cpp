@@ -47,12 +47,12 @@ void QMpvSocket::set_property(const QString &prop, bool value){
 }
 
 void QMpvSocket::step_backward(){
-    const QString cmd[] = {"\"seek\"","-0.2","\"relative\"", NULL};
+    const QString cmd[] = {"\"seek\"","-1","\"relative\"", NULL};
     this->send_command(cmd);
 }
 
 void QMpvSocket::step_forward(){
-    const QString cmd[] = {"\"seek\"","0.2","\"relative\"", NULL};
+    const QString cmd[] = {"\"seek\"","1","\"relative\"", NULL};
     this->send_command(cmd);
 }
 
