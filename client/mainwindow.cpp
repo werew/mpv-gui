@@ -136,7 +136,7 @@ void MainWindow::itemSelected(QListWidgetItem* it)
 
 void MainWindow::changeBarreLectureValue()
 {
-    double val = (double)(ui->barreLecture->value()/10);
+    double val = ((double)(ui->barreLecture->value())/10.0);
     emit(lectureBarreValueChanged(val));
 }
 
