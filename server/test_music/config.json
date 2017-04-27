@@ -14,10 +14,10 @@
   "Radios": {"Radio 3": "http://icestreaming.rai.it/3.mp3",
               "Radio Nostalgia": "http://nostalgiepremium.ice.infomaniak.ch/nostalgiepremium-128.mp3"
   },
-  "Playlists": {"Tonadilla" : [
-      "04 Tonadilla- I. Allegretto ma non troppo.wma",
-      "05 Tonadilla- II. Minueto pomposo.wma",
-      "06 Tonadilla- III. Allegro vivace.wma"
-    ]
+  "Playlists": {"Tonadilla" : {
+      "Tonadilla I" : "04 Tonadilla- I. Allegretto ma non troppo.wma",
+      "Tonadilla II" : "05 Tonadilla- II. Minueto pomposo.wma",
+      "Tonadilla III" : "06 Tonadilla- III. Allegro vivace.wma"
+    }
   }
 }

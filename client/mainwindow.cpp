@@ -47,6 +47,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
     connect(mc,SIGNAL(connectPlay()),this,SLOT(connectPlay()));
 
+    connect(ui->list_playlists,SIGNAL(itemClicked(QListWidgetItem*)),
+            this,SLOT(updatePlaylistItems(QListWidgetItem*)));
+    connect(ui->liste_morceaux,SIGNAL(itemDoubleClicked(QListWidgetItem*)),
+            this,SLOT(load(QListWidgetItem*)));
+    connect(ui->list_radios,SIGNAL(itemDoubleClicked(QListWidgetItem*)),
+            this,SLOT(load(QListWidgetItem*)));
+
     connect(ui->barreLecture,SIGNAL(valueChanged(int)),this,SLOT(changeBarreLectureValue(int)));
 
     mc->machineMediaControl->start();
@@ -117,9 +124,11 @@ void MainWindow::handleServerMsg(QJsonObject o){
                       this,SLOT(changeBarreLectureValue(int)));
               break;
         case PAUSE:
+                    qDebug() << "Pause";
                     emit(moveToPause());
               break;
         case UNPAUSE:
+                    qDebug() << "UnPause";
                     emit(moveToPlay());
               break;
         case STOP:
@@ -180,6 +189,27 @@ void MainWindow::updateSelections(){
     ui->list_radios->clear();
     ui->list_radios->addItems(l);
 }
+
+
+void MainWindow::updatePlaylistItems(QListWidgetItem* i){
+  QJsonObject o = config["Playlists"].toObject();
+  QJsonObject list = o[i->text()].toObject();
+  ui->list_playlist_items->clear();
+  ui->list_playlist_items->addItems(list.keys());
+}
+
+void MainWindow::load(QListWidgetItem* i){
+   QJsonObject o;
+   QString path;
+   if (i->listWidget() == ui->liste_morceaux)
+       o = config["Pieces"].toObject();
+   else
+       o = config["Radios"].toObject();
+
+   path = o[i->text()].toString();
+   server->load(path);
+}
+
 
 void MainWindow::selectList(){
     if (ui->morceaux->isChecked()){

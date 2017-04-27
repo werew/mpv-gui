@@ -52,7 +52,9 @@ public:
     void connectPlay();
     void printList();
     void updateSelections();
+    void updatePlaylistItems(QListWidgetItem *i);
     void selectList();
+    void load(QListWidgetItem *i);
 
 signals:
     void lectureBarreValueChanged(double);

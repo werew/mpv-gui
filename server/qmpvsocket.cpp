@@ -82,6 +82,7 @@ void QMpvSocket::pl_prev(){
 }
 
 void QMpvSocket::load_file(const QString &filename){
+    qDebug() << filename;
     const QString cmd[] = {"\"loadfile\"",quoted(filename), NULL};
     this->send_command(cmd);
 }

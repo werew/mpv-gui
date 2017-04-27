@@ -20,6 +20,7 @@ QString QGuiClientSocket::jsonToString(QJsonObject *o){
 }
 
 void QGuiClientSocket::pause(){
+    qDebug() << "Sending pause " << PAUSE ;
    this->send_command(PAUSE);
 }
 
@@ -46,6 +47,7 @@ void QGuiClientSocket::duration(double duration){
 }
 
 void QGuiClientSocket::unpause(){
+   qDebug() << "Sending unpause" << PAUSE ;
    this->send_command(UNPAUSE);
 }
 

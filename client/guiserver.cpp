@@ -20,7 +20,7 @@ void GuiServer::pause(){
 
 
 void GuiServer::load(const QString file){
-   this->send_command(LOAD, file);
+   this->send_command(LOAD, "\""+file+"\"");
 }
 
 void GuiServer::percent_pos(double pos){
@@ -62,6 +62,7 @@ void GuiServer::send_command(int type){
     this->write(json_cmd.toUtf8());
     this->flush();
 }
+
 
 void GuiServer::send_command(int type, const QString data){
     QString json_cmd = QString("{\"type\":"+QString::number(type)+

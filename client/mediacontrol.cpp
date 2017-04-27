@@ -59,6 +59,7 @@ void mediaControl::enteredPause()
 
 void mediaControl::enteredStop()
 {
+    emit(connectPlay());
 
     emit(setStop());
 }

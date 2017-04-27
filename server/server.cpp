@@ -113,7 +113,9 @@ void Server::handleMpvMsg(QJsonObject o){
              break;
        case 5: stop = o["data"].toBool();
                for (int i = 0; i < clients->count(); i++)
-                   clients->at(i)->stop();
+                   if (stop) clients->at(i)->stop();
+                   else if (pause) clients->at(i)->pause();
+                   else clients->at(i)->unpause();
              break;
        case 6: m = o["data"].toObject();
                // Use mpv's metadatas only for radios
