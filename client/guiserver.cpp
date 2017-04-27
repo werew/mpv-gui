@@ -39,6 +39,14 @@ void GuiServer::stop(){
     this->send_command(STOP);
 }
 
+void GuiServer::step_forward(){
+    this->send_command(STEP_FOR);
+}
+
+void GuiServer::step_backward(){
+    this->send_command(STEP_BACK);
+}
+
 
 void GuiServer::send_command(int type){
     QString json_cmd = QString("{\"type\":"+QString::number(type)+"}\n");

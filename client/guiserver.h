@@ -19,7 +19,9 @@ enum {
     TIME_POS,
     DURATION,
     META,
-    VOLUME
+    VOLUME,
+    STEP_FOR,
+    STEP_BACK
 };
 
 
@@ -43,6 +45,8 @@ public slots:
     void percent_pos(double pos);
     void volume(int value);
     void stop();
+    void step_forward();
+    void step_backward();
     QString jsonToString(QJsonObject *o);
 
 
