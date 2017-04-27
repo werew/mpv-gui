@@ -163,7 +163,7 @@ void MainWindow::handleServerMsg(QJsonObject o){
                 {
                     ui->author->setText(meta["icy-name"].toString());
                     ui->trackName->setText(meta["icy-title"].toString());
-                    ui->author->setText(meta["icy-genre"].toString());
+                    ui->album->setText(meta["icy-genre"].toString());
                 }
                 else
                 {
