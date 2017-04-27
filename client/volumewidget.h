@@ -35,9 +35,10 @@ public:
     void paintEvent(QPaintEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
 
-    void setVolume(int v);
+    void setVolume(int volume);
 
 signals:
+    void clientChangeVolume(int volume);
 
 public slots:
 
