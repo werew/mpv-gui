@@ -181,6 +181,9 @@
          </item>
          <item>
           <widget class="MyQSlider" name="barreLecture">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
            <property name="maximum">
             <number>1000</number>
            </property>
