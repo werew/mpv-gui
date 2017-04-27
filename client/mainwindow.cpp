@@ -98,7 +98,12 @@ void MainWindow::handleServerMsg(QJsonObject o){
     switch (o["type"].toInt()){
         case VOLUME: ui->volume->setVolume(o["data"].toInt());
           break;
-        case PERCENT_POS: ui->barreLecture->setValue((int)(o["data"].toDouble()*10));
+        case PERCENT_POS:
+              if(ui->barreLecture->isSliderDown())
+              {
+                  return;
+              }
+              ui->barreLecture->setValue((int)(o["data"].toDouble()*10));
               break;
         case PAUSE:
                     emit(moveToPause());
@@ -131,12 +136,13 @@ void MainWindow::itemSelected(QListWidgetItem* it)
 
 void MainWindow::changeBarreLectureValue()
 {
-    double val = (double)(ui->barreLecture->value()/10);
+    double val = ((double)(ui->barreLecture->value())/10.0);
     emit(lectureBarreValueChanged(val));
 }
 
 void MainWindow::changeCurrentMusic(QJsonObject o)
 {
+    Q_UNUSED(o);
     //TODO
 }
 
