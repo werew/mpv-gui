@@ -31,80 +31,87 @@ void VolumeWidget::setVolume(int v)
     }
 
     this->repaint();
+
+
 }
 
 void VolumeWidget::wheelEvent(QWheelEvent *e)
 {
     QPoint angle = e->angleDelta()/8;
 
+    int volumeTmp;
+
     if(volume+angle.y() <= 0)
     {
-        volume = 0;
+        volumeTmp = 0;
     }
     else if(volume+angle.y() >= MAX_VOLUME)
     {
-        volume = MAX_VOLUME;
+        volumeTmp = MAX_VOLUME;
     }
     else
     {
-        volume+=angle.y();
+        volumeTmp=volume+angle.y();
     }
 
-    this->repaint();
+    emit(clientChangeVolume(volumeTmp));
 }
 
 void VolumeWidget::mousePressEvent(QMouseEvent *e)
 {
+
+    int volumeTmp;
+
     int position = e->x();
+
 
     if(position < 40)
     {
         if(volume == 0)
         {
-            volume = saveVolume;
+            volumeTmp = saveVolume;
         }
         else
         {
             saveVolume = volume;
-            volume = 0;
+            volumeTmp = 0;
         }
     }
     else
     {
-        if(position - 40 < 0)
+        if(position - 40 > MAX_VOLUME)
         {
-            volume = 0;
-        }
-        else if(position - 40 > MAX_VOLUME)
-        {
-            volume = MAX_VOLUME;
+            volumeTmp = MAX_VOLUME;
         }
         else
         {
-            volume = position - 40;
+            volumeTmp = position - 40;
         }
     }
 
-    this->repaint();
+    emit(clientChangeVolume(volumeTmp));
 }
 
 void VolumeWidget::mouseMoveEvent(QMouseEvent *e)
 {
+    int volumeTmp;
+
     int position = e->x();
 
-    if(position < 40)
+    if(position <= 40)
     {
-        volume = 0;
+        volumeTmp = 0;
     }
     else if(position - 40 > MAX_VOLUME)
     {
-        volume = MAX_VOLUME;
+        volumeTmp = MAX_VOLUME;
     }
     else
     {
-        volume = position - 40;
-        this->repaint();
+        volumeTmp = position - 40;
     }
+
+    emit(clientChangeVolume(volumeTmp));
 }
 
 void VolumeWidget::paintEvent(QPaintEvent *e)

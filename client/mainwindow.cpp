@@ -64,6 +64,8 @@ void MainWindow::connectToServer(QString servername){
     connect(ui->lecturePause,SIGNAL(clicked()),server,SLOT(unpause()));
     connect(ui->stop,SIGNAL(clicked()),server,SLOT(stop()));
 
+    connect(ui->volume,SIGNAL(clientChangeVolume(int)),server,SLOT(volume(int)));
+
     server->connectToServer(servername);
     if (server->waitForConnected() == false)
         throw runtime_error("Failed to connect to the server\n"+
