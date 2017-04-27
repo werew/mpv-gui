@@ -40,7 +40,7 @@ public slots:
     void pause();
     void unpause();
     void load(const QString file);
-    void pos(double pos);
+    void percent_pos(double pos);
     void volume(int value);
     void stop();
     QString jsonToString(QJsonObject *o);
