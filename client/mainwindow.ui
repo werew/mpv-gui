@@ -59,6 +59,9 @@
              <property name="text">
               <string>Morceaux</string>
              </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>

@@ -30,7 +30,7 @@ private:
     void handleServerMsg(QJsonObject o);
     void changeCurrentMusic(QJsonObject o);
 
-    QJsonObject* config;
+    QJsonObject config;
 
 
 

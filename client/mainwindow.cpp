@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->liste,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(itemSelected(QListWidgetItem*)));
 
 
+    server = NULL;
 
     mc = new mediaControl(this);
 
@@ -41,6 +42,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mc,SIGNAL(setPlay()),this,SLOT(pause()));
     connect(mc,SIGNAL(setStop()),this,SLOT(stop()));
 
+    connect(ui->morceaux,SIGNAL(clicked()),this,SLOT(printList()));
+    connect(ui->listes,SIGNAL(clicked()),this,SLOT(printList()));
+    connect(ui->radios,SIGNAL(clicked()),this,SLOT(printList()));
 
 
     connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
@@ -58,7 +62,8 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::connectToServer(QString servername){
-    if (server != NULL) delete server;
+    if (server != NULL)
+        delete server;
 
     server = new GuiServer(this);
 
@@ -100,6 +105,7 @@ void MainWindow::readFromServer(){
 }
 
 void MainWindow::handleServerMsg(QJsonObject o){
+    QJsonObject meta;
     switch (o["type"].toInt()){
         case VOLUME: ui->volume->setVolume(o["data"].toInt());
           break;
@@ -124,15 +130,6 @@ void MainWindow::handleServerMsg(QJsonObject o){
               break;
         case LOAD:
                 changeCurrentMusic(o);
-        /*case META: QJsonObject m = o["data"].toObject();
-                // Use mpv's metadatas only for radios
-                if (m.contains("icy-name")){
-                    metadata = m;
-               QJsonDocument d = QJsonDocument(metadata);
-               qDebug() << d.toJson();
-               }
-              break;
-              */
               break;
         case TIME_POS: ui->tempsCourant->setText(QString().sprintf(
                             "%d:%02d",
@@ -149,7 +146,7 @@ void MainWindow::handleServerMsg(QJsonObject o){
                         );
             break;
         case META:
-                QJsonObject meta = o["data"].toObject();
+                meta = o["data"].toObject();
 
                 if(meta.contains("icy-name"))
                 {
@@ -165,9 +162,25 @@ void MainWindow::handleServerMsg(QJsonObject o){
                 }
             break;
         case CONFIG:
-                config = o["data"];
+                config = o["data"].toObject();
+                printList();
+            break;
 
     }
+}
+
+void MainWindow::printList(){
+    // TODO try empty config
+    QStringList l;
+    if (ui->morceaux->isChecked()){
+       l = config["Pieces"].toObject().keys();
+    } else if (ui->listes->isChecked()) {
+       l = config["Playlists"].toObject().keys();
+    } else {
+       l = config["Radios"].toObject().keys();
+    }
+    ui->liste->clear();
+    ui->liste->addItems(l);
 }
 
 void MainWindow::itemSelected(QListWidgetItem* it)
