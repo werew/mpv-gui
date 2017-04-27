@@ -16,12 +16,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     mediacontrol.cpp \
     volumewidget.cpp \
-    guiserver.cpp
+    guiserver.cpp \
+    myqslider.cpp
 
 HEADERS  += mainwindow.h \
     mediacontrol.h \
     volumewidget.h \
-    guiserver.h
+    guiserver.h \
+    myqslider.h
 
 FORMS    += mainwindow.ui
 

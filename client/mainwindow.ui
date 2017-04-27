@@ -180,7 +180,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="barreLecture">
+          <widget class="MyQSlider" name="barreLecture">
            <property name="maximum">
             <number>1000</number>
            </property>
@@ -336,6 +336,11 @@
    <extends>QWidget</extends>
    <header>volumewidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyQSlider</class>
+   <extends>QSlider</extends>
+   <header>myqslider.h</header>
   </customwidget>
  </customwidgets>
  <resources>
