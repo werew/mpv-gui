@@ -16,7 +16,9 @@ enum {
     TIME_POS,
     DURATION,
     META,
-    VOLUME
+    VOLUME,
+    STEP_FOR,
+    STEP_BACK
 };
 
 class QGuiClientSocket : public QObject

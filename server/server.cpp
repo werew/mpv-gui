@@ -151,6 +151,10 @@ void Server::handleClientMsg(QJsonObject o){
              break;
        case LOAD: mpv->load_file(o["data"].toString());
              break;
+       case STEP_FOR: mpv->step_forward();
+             break;
+       case STEP_BACK: mpv->step_backward();
+             break;
     }
 
 }
