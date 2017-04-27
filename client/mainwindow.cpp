@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 
-    mc = new mediaControl();
+    mc = new mediaControl(this);
 
     mc->Pause->addTransition(this,SIGNAL(moveToPlay()),mc->Lecture);
     mc->Lecture->addTransition(this,SIGNAL(moveToPause()),mc->Pause);

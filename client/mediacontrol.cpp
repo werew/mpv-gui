@@ -9,10 +9,17 @@ mediaControl::mediaControl(QObject *parent) :
     Pause = new QState(machineMediaControl);
     Lecture = new QState(machineMediaControl);
     Stop =new QState(machineMediaControl);
+    fast_forward_play = new QState(machineMediaControl);
+    fast_forward_pause = new QState(machineMediaControl);
+    fast_backward_play = new QState(machineMediaControl);
+    fast_backward_pause = new QState(machineMediaControl);
+
+
     fast_forward_timer = new QTimer(this);
     fast_backward_timer = new QTimer(this);
     fast_forward_timer->setInterval(100);
     fast_backward_timer->setInterval(100);
+
 
 
     machineMediaControl->setInitialState(Stop);
@@ -24,21 +31,14 @@ mediaControl::mediaControl(QObject *parent) :
    // connect(this,SIGNAL(retourPause()),this,SLOT(pause()));
 
     connect(Stop,SIGNAL(entered()),this,SLOT(enteredStop()));
-
     connect(fast_forward_play,SIGNAL(entered()),this,SLOT(enteredFastForward()));
-
     connect(fast_forward_play,SIGNAL(exited()),this,SLOT(exitedFastForward()));
-
     connect(fast_backward_play,SIGNAL(entered()),this,SLOT(enteredFastBackward()));
-
     connect(fast_backward_play,SIGNAL(exited()),this,SLOT(exitedFastBackward()));
 
     connect(fast_forward_pause,SIGNAL(entered()),this,SLOT(enteredFastForward()));
-
     connect(fast_forward_pause,SIGNAL(exited()),this,SLOT(exitedFastForward()));
-
     connect(fast_backward_pause,SIGNAL(entered()),this,SLOT(enteredFastBackward()));
-
     connect(fast_backward_pause,SIGNAL(exited()),this,SLOT(exitedFastBackward()));
 
 }
@@ -80,5 +80,5 @@ void mediaControl::exitedFastBackward()
 
 void mediaControl::exitedFastForward()
 {
-    fast_backward_timer->stop();
+    fast_forward_timer->stop();
 }
