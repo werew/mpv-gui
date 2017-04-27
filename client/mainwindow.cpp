@@ -98,7 +98,12 @@ void MainWindow::handleServerMsg(QJsonObject o){
         case VOLUME: ui->volume->setVolume(o["data"].toInt());
         cout << o["data"].toInt() << endl;
           break;
-        case PERCENT_POS: ui->barreLecture->setValue((int)(o["data"].toDouble()*10));
+        case PERCENT_POS:
+              if(ui->barreLecture->isSliderDown())
+              {
+                  return;
+              }
+              ui->barreLecture->setValue((int)(o["data"].toDouble()*10));
               break;
         case PAUSE:
                     emit(moveToPause());
@@ -137,6 +142,7 @@ void MainWindow::changeBarreLectureValue()
 
 void MainWindow::changeCurrentMusic(QJsonObject o)
 {
+    Q_UNUSED(o);
     //TODO
 }
 

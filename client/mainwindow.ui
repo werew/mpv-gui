@@ -182,7 +182,7 @@
          <item>
           <widget class="QSlider" name="barreLecture">
            <property name="maximum">
-            <number>999</number>
+            <number>1000</number>
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
