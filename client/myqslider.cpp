@@ -10,10 +10,8 @@ void MyQSlider::mousePressEvent ( QMouseEvent * event )
 {
     if (event->button() == Qt::LeftButton)
     {
-        if (orientation() == Qt::Horizontal)
-            setValue(minimum() + ((maximum()-minimum()) * (height()-event->y())) / height() ) ;
-        else
-            setValue(minimum() + ((maximum()-minimum()) * event->x()) / width() ) ;
+        setValue(minimum() + (maximum() - minimum()) *
+                 (static_cast<float>(event->x()) / static_cast<float>(width())));
 
         event->accept();
     }
