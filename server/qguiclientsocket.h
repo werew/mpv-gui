@@ -18,7 +18,9 @@ enum {
     META,
     VOLUME,
     STEP_FOR,
-    STEP_BACK
+    STEP_BACK,
+    PL_NEXT,
+    PL_PREV
 };
 
 class QGuiClientSocket : public QObject
