@@ -9,6 +9,10 @@ mediaControl::mediaControl(QObject *parent) :
     Pause = new QState(machineMediaControl);
     Lecture = new QState(machineMediaControl);
     Stop =new QState(machineMediaControl);
+    fast_forward_timer = new QTimer(this);
+    fast_backward_timer = new QTimer(this);
+    fast_forward_timer->setInterval(100);
+    fast_backward_timer->setInterval(100);
 
 
     machineMediaControl->setInitialState(Stop);

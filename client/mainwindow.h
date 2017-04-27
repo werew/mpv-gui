@@ -30,6 +30,8 @@ private:
     void handleServerMsg(QJsonObject o);
     void changeCurrentMusic(QJsonObject o);
 
+
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();

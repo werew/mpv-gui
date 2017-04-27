@@ -6,6 +6,7 @@
 #include <QState>
 #include <QFinalState>
 #include <QSignalTransition>
+#include <QTimer>
 #include <iostream>
 
 using namespace std;
@@ -24,6 +25,8 @@ public:
     QState* Pause;
     QState* Lecture;
     QState* Stop;
+    QTimer* fast_forward_timer;
+    QTimer* fast_backward_timer;
 
 
 public:

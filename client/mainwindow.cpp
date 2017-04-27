@@ -45,7 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->barreLecture,SIGNAL(valueChanged(int)),this,SLOT(changeBarreLectureValue(int)));
 
-
+    connect(mc->fast_forward_timer,SIGNAL(timeout),server,SLOT(step_forward()));
+    connect(mc->fast_backward_timer,SIGNAL(timeout),server,SLOT(step_backward()));
     mc->machineMediaControl->start();
     this->connectToServer("/tmp/mpvguiserver");
 }
