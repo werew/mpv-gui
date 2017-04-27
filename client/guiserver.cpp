@@ -24,6 +24,7 @@ void GuiServer::load(const QString file){
 }
 
 void GuiServer::percent_pos(double pos){
+   qDebug() << "Position: " << pos << endl;
    this->send_command(PERCENT_POS, QString::number(pos));
 }
 

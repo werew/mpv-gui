@@ -17,6 +17,16 @@ void QMpvSocket::observe_property(int id, const QString &prop){
     this->send_command(cmd);
 }
 
+void QMpvSocket::percent_pos(double pos){
+    this->set_property("percent-pos", pos);
+}
+
+void QMpvSocket::set_property(const QString &prop, double value){
+    const QString cmd[] = {"\"set_property\"", quoted(prop),
+                           QString::number(value), NULL};
+    this->send_command(cmd);
+}
+
 void QMpvSocket::set_property(const QString &prop, int value){
     const QString cmd[] = {"\"set_property\"", quoted(prop),
                            QString::number(value), NULL};
@@ -88,7 +98,7 @@ void QMpvSocket::send_command(const QString cmd[]){
 
     json_cmd->prepend("{\"command\":[");
     json_cmd->append("]}\n");
-    qDebug() << *json_cmd;
+    qDebug() << "############# " << *json_cmd;
     this->write(json_cmd->toUtf8());
 }
 
