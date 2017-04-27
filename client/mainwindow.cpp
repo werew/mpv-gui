@@ -44,6 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
     connect(mc,SIGNAL(connectPlay()),this,SLOT(connectPlay()));
 
+    connect(ui->barreLecture,SIGNAL(valueChanged(int)),this,SLOT(changeBarreLectureValue(int)));
+
 
     mc->machineMediaControl->start();
     this->connectToServer("/tmp/mpvguiserver");
@@ -65,6 +67,9 @@ void MainWindow::connectToServer(QString servername){
     connect(ui->stop,SIGNAL(clicked()),server,SLOT(stop()));
 
     connect(ui->volume,SIGNAL(clientChangeVolume(int)),server,SLOT(volume(int)));
+
+
+    connect(this,SIGNAL(lectureBarreValueChanged(double)),server,SLOT(percent_pos(double)));
 
     server->connectToServer(servername);
     if (server->waitForConnected() == false)
@@ -93,7 +98,7 @@ void MainWindow::handleServerMsg(QJsonObject o){
         case VOLUME: ui->volume->setVolume(o["data"].toInt());
         cout << o["data"].toInt() << endl;
           break;
-        case PERCENT_POS: ui->barreLecture->setValue(o["data"].toInt());
+        case PERCENT_POS: ui->barreLecture->setValue((int)(o["data"].toDouble()*10));
               break;
         case PAUSE:
                     emit(moveToPause());
@@ -124,14 +129,10 @@ void MainWindow::itemSelected(QListWidgetItem* it)
     emit(lectureSelection());
 }
 
-void MainWindow::getBarreLecture()
+void MainWindow::changeBarreLectureValue(int v)
 {
-   cout << ui->barreLecture->value() <<endl;
-}
-
-void MainWindow::setBarreLecture(int value)
-{
-    ui->barreLecture->setValue(value);
+    double val = (double)(v/10);
+    emit(lectureBarreValueChanged(val));
 }
 
 void MainWindow::changeCurrentMusic(QJsonObject o)
