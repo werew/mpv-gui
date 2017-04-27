@@ -8,7 +8,7 @@ Server::Server(QObject *parent, char* configfile) :
     mpv(new QMpvSocket())
 {
     /* Set default values */
-    metadata = null;
+    metadata = QJsonObject();
     pause = false;
     stop = true;
     stream = "";
