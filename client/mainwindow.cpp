@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->liste,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(itemSelected(QListWidgetItem*)));
-    connect(ui->barreLecture,SIGNAL(sliderReleased()),this,SLOT(getBarreLecture()));
+    connect(ui->barreLecture,SIGNAL(sliderReleased()),this,SLOT(changeBarreLectureValue()));
 
     int i;
 
@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
     connect(mc,SIGNAL(connectPlay()),this,SLOT(connectPlay()));
 
-    connect(ui->barreLecture,SIGNAL(sliderReleased()),this,SLOT(changeBarreLectureValue(int)));
+    connect(ui->barreLecture,SIGNAL(sliderReleased()),this,SLOT(changeBarreLectureValue()));
 
 
     mc->machineMediaControl->start();
@@ -86,6 +86,7 @@ void MainWindow::readFromServer(){
         QJsonDocument jDoc = QJsonDocument::fromJson(a, &error);
         if (jDoc.isNull()){
             qDebug() << "Parsing error: "+ error.errorString();
+            qDebug() << a << endl;
             continue;
         }
         QJsonObject jsonObject = jDoc.object();
@@ -96,7 +97,6 @@ void MainWindow::readFromServer(){
 void MainWindow::handleServerMsg(QJsonObject o){
     switch (o["type"].toInt()){
         case VOLUME: ui->volume->setVolume(o["data"].toInt());
-        cout << o["data"].toInt() << endl;
           break;
         case PERCENT_POS: ui->barreLecture->setValue((int)(o["data"].toDouble()*10));
               break;

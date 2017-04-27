@@ -119,8 +119,6 @@ void VolumeWidget::paintEvent(QPaintEvent *e)
     Q_UNUSED(e);
     QPainter painter(this);
 
-    cout << volume << endl;
-
     if(volume == 0)
     {
         painter.drawPixmap(10,10,20,25,*imgHP_muet);

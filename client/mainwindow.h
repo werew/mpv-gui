@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#define MAX_SIZECMD 1024
+#define MAX_SIZECMD 4096
 
 #include <QJsonParseError>
 #include <QJsonObject>
