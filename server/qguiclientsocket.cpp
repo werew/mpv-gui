@@ -41,6 +41,10 @@ void QGuiClientSocket::time_pos(double pos){
    this->send_command(TIME_POS, QString::number(pos));
 }
 
+void QGuiClientSocket::duration(double duration){
+   this->send_command(DURATION, QString::number(duration));
+}
+
 void QGuiClientSocket::unpause(){
    this->send_command(UNPAUSE);
 }

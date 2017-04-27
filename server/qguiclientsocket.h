@@ -14,6 +14,7 @@ enum {
     STOP,
     PERCENT_POS,
     TIME_POS,
+    DURATION,
     META,
     VOLUME
 };
@@ -47,6 +48,7 @@ public slots:
     void percent_pos(double pos);
     void time_pos(double pos);
     void volume(int value);
+    void duration(double value);
     void stop();
     QString jsonToString(QJsonObject *o);
 

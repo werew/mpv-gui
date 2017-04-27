@@ -62,6 +62,9 @@ void Server::sendAll(QGuiClientSocket *client){
 
     client->volume(volume);
     client->meta(&metadata);
+    client->percent_pos(percent_pos);
+    client->time_pos(time_pos);
+    client->duration(duration);
 }
 
 void Server::readFromClient(){
@@ -121,7 +124,11 @@ void Server::handleMpvMsg(QJsonObject o){
              break;
        case 7: time_pos = o["data"].toDouble();
                for (int i = 0; i < clients->count(); i++)
-                   clients->at(i)->time_pos(percent_pos);
+                   clients->at(i)->time_pos(time_pos);
+             break;
+       case 8: duration = o["data"].toDouble();
+               for (int i = 0; i < clients->count(); i++)
+                   clients->at(i)->duration(duration);
              break;
    }
    qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
@@ -200,6 +207,7 @@ void Server::bindProperties(){
     mpv->observe_property(5,"idle-active");
     mpv->observe_property(6,"metadata");
     mpv->observe_property(7,"time-pos");
+    mpv->observe_property(8,"duration");
 }
 
 /*
