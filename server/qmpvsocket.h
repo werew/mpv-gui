@@ -18,6 +18,8 @@ public slots:
     void set_property(const QString &prop, const QString &value);
     void set_property(const QString &prop, int value);
     void set_property(const QString &prop, bool value);
+    void set_property(const QString &prop, double value);
+    void percent_pos(double pos);
     void step_forward();
     void step_backward();
     void pause(bool value);

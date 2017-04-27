@@ -145,7 +145,7 @@ void Server::handleClientMsg(QJsonObject o){
              break;
        case UNPAUSE: mpv->pause(false);
              break;
-       case PERCENT_POS: //mpv->
+       case PERCENT_POS: mpv->percent_pos(o["data"].toDouble());
              break;
        case VOLUME: mpv->volume(o["data"].toInt());
              break;
