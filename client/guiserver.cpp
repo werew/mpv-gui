@@ -24,8 +24,8 @@ void GuiServer::load(const QString file){
 }
 
 void GuiServer::load(const QString playlist, int nb){
-   this->send_command(LISTLOAD, "{ list: \""+ playlist +"\""+
-                                  "start:"+ QString::number(nb) +
+   this->send_command(LISTLOAD, "{\"list\": \""+playlist+"\","+
+                                " \"start\":"+QString::number(nb)+
                                 "}");
 
 }

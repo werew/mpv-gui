@@ -11,7 +11,7 @@ enum {
     PAUSE,
     UNPAUSE,
     LOAD,
-    LISTLOAD,
+    LOADLIST,
     STOP,
     PERCENT_POS,
     TIME_POS,

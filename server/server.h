@@ -65,6 +65,7 @@ private slots:
     void handleMpvMsg(QJsonObject o);
     void handleClientMsg(QJsonObject o);
     void sendAll(QGuiClientSocket *client);
+    void loadList(QString list, int index);
 
 };
 

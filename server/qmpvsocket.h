@@ -28,6 +28,7 @@ public slots:
     void pl_next();
     void pl_prev();
     void load_file(const QString &filename);
+    void append(const QString &filename);
 
 };
 

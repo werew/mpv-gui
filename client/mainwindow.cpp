@@ -215,8 +215,8 @@ void MainWindow::load(QListWidgetItem* i){
 
 void MainWindow::loadFromPlaylist(QListWidgetItem* i){
    int nb = i->listWidget()->row(i);
+   qDebug() << "ehhe " << nb;
    server->load(_currentPlaylist, nb);
-
 }
 
 void MainWindow::selectList(){
