@@ -30,3 +30,18 @@ Command for launching mpv in idle mode with IPC socket:
 - Stop: { "command": ["observe_property", 5, "idle-active"] }
 
 
+
+# TODO list
+
+- Complete selection playlist
+- Buttons next and previous
+- I18N
+- Verify QT 5....
+- Pretty description
+- Size window
+- Report
+- Execution from zero
+
+
+
+
