@@ -49,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->list_playlists,SIGNAL(itemClicked(QListWidgetItem*)),
             this,SLOT(updatePlaylistItems(QListWidgetItem*)));
+    connect(ui->list_playlist_items,SIGNAL(itemDoubleClicked(QListWidgetItem*)),
+            this,SLOT(loadFromPlaylist(QListWidgetItem*)));
     connect(ui->liste_morceaux,SIGNAL(itemDoubleClicked(QListWidgetItem*)),
             this,SLOT(load(QListWidgetItem*)));
     connect(ui->list_radios,SIGNAL(itemDoubleClicked(QListWidgetItem*)),
@@ -194,6 +196,7 @@ void MainWindow::updateSelections(){
 void MainWindow::updatePlaylistItems(QListWidgetItem* i){
   QJsonObject o = config["Playlists"].toObject();
   QJsonObject list = o[i->text()].toObject();
+  _currentPlaylist = i->text();
   ui->list_playlist_items->clear();
   ui->list_playlist_items->addItems(list.keys());
 }
@@ -210,6 +213,11 @@ void MainWindow::load(QListWidgetItem* i){
    server->load(path);
 }
 
+void MainWindow::loadFromPlaylist(QListWidgetItem* i){
+   int nb = i->listWidget()->row(i);
+   server->load(_currentPlaylist, nb);
+
+}
 
 void MainWindow::selectList(){
     if (ui->morceaux->isChecked()){

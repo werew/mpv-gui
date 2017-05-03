@@ -29,7 +29,7 @@ private:
     void connectToServer(QString servername);
     void handleServerMsg(QJsonObject o);
     void changeCurrentMusic(QJsonObject o);
-
+    QString _currentPlaylist;
     QJsonObject config;
 
 
@@ -55,6 +55,7 @@ public:
     void updatePlaylistItems(QListWidgetItem *i);
     void selectList();
     void load(QListWidgetItem *i);
+    void loadFromPlaylist(QListWidgetItem *i);
 
 signals:
     void lectureBarreValueChanged(double);
