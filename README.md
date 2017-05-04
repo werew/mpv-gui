@@ -40,10 +40,10 @@ Command for launching mpv in idle mode with IPC socket:
 
 - Verify QT 5....
 - Pretty description
-- Size window
+- Size window (DONE)
 - Report
 - Execution from zero
-- Names on files
+- Names on files (DONE)
 - Test on config (missing keys)
 
 

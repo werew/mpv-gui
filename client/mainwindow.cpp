@@ -68,10 +68,6 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->machineMediaControl->start();
     this->connectToServer("/tmp/mpvguiserver");
 
-    ui->author->setWordWrap(true);
-    ui->trackName->setWordWrap(true);
-    ui->album->setWordWrap(true);
-
     QString langueSystem = QLocale::system().name().section('_',0,0);
 
     langue = new QTranslator();
