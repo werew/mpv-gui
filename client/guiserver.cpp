@@ -21,11 +21,15 @@ void GuiServer::pause(){
 }
 
 
-void GuiServer::load(const QString file){
-   this->send_command(LOAD, "\""+file+"\"");
+void GuiServer::loadPiece(const QString file){
+   this->send_command(PIECELOAD, "\""+file+"\"");
 }
 
-void GuiServer::load(const QString playlist, int nb){
+void GuiServer::loadRadio(const QString file){
+   this->send_command(RADIOLOAD, "\""+file+"\"");
+}
+
+void GuiServer::loadPlaylist(const QString playlist, int nb){
    this->send_command(LISTLOAD, "{\"list\": \""+playlist+"\","+
                                 " \"start\":"+QString::number(nb)+
                                 "}");

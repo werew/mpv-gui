@@ -157,7 +157,9 @@ void Server::handleClientMsg(QJsonObject o){
              break;
        case VOLUME: mpv->volume(o["data"].toInt());
              break;
-       case LOAD: mpv->load_file(o["data"].toString());
+       case LOADPIECE: loadPiece(o["data"].toString());
+             break;
+       case LOADRADIO: loadRadio(o["data"].toString());
              break;
        case LOADLIST: params = o["data"].toObject();
                       loadList(params["list"].toString(),
@@ -290,12 +292,38 @@ QJsonObject Server::getTags(QString fileName) {
     return json_tags;
 }
 
+void Server::loadPiece(QString name){
+   QJsonObject o;
+   QString path;
+   o = config["Pieces"].toObject();
+   if (o.contains(name) && o[name].isString()){
+       path = o[name].toString();
+       mpv->load_file(path);
+       stream = name;
+       type_stream = PIECE;
+   }
+}
+
+void Server::loadRadio(QString name){
+   QJsonObject o;
+   QString path;
+   o = config["Radios"].toObject();
+   if (o.contains(name) && o[name].isString()){
+       path = o[name].toString();
+       mpv->load_file(path);
+       stream = name;
+       type_stream = RADIO;
+   }
+}
+
+/*
 void Server::loadFile_req(QString filename){
    if (config.contains(filename) == false) return;
    QString path = config.value(filename).toString();
    loadings.insert(path, filename);
    mpv->load_file(path);
 }
+*/
 
 void Server::loadFile_res(QString path){
        stream = path;

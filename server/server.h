@@ -54,6 +54,9 @@ private:
     void loadFile_req(QString filename);
     void loadFile_res(QString filename);
 
+    void loadPiece(QString p);
+    void loadRadio(QString r);
+
 
 public:
     explicit Server(QObject *parent, char* configfile);

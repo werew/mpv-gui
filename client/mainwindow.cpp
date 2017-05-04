@@ -250,21 +250,23 @@ void MainWindow::updatePlaylistItems(QListWidgetItem* i){
 }
 
 void MainWindow::load(QListWidgetItem* i){
-   QJsonObject o;
-   QString path;
+   //QJsonObject o;
+   //QString path;
    if (i->listWidget() == ui->liste_morceaux)
-       o = config["Pieces"].toObject();
+       server->loadPiece(i->text());
+     //  o = config["Pieces"].toObject();
    else
-       o = config["Radios"].toObject();
+       server->loadRadio(i->text());
+     //  o = config["Radios"].toObject();
 
-   path = o[i->text()].toString();
-   server->load(path);
+   //path = o[i->text()].toString();
+   //server->load(path);
 }
 
 void MainWindow::loadFromPlaylist(QListWidgetItem* i){
    int nb = i->listWidget()->row(i);
    qDebug() << "ehhe " << nb;
-   server->load(_currentPlaylist, nb);
+   server->loadPlaylist(_currentPlaylist, nb);
 }
 
 void MainWindow::selectList(){
