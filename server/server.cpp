@@ -113,7 +113,8 @@ void Server::handleMpvMsg(QJsonObject o){
        case 4: pause = o["data"].toBool();
                for (int i = 0; i < clients->count(); i++)
                    if (pause) clients->at(i)->pause();
-                   else clients->at(i)->unpause();
+                   else if (stop == false)
+                       clients->at(i)->unpause();
              break;
        case 5: stop = o["data"].toBool();
                for (int i = 0; i < clients->count(); i++)
