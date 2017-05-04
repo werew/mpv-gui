@@ -1,23 +1,28 @@
 {
   "Pieces": {
-    "Tango 1" : "01 Tango Suite- Tango No. 1. Allegro.wma",
-    "Tango 2" : "02 Tango Suite- Tango No. 2. Andante rubato, melanconico.wma",
-    "Tango 3" : "03 Tango Suite- Tango No. 3. Allergro.wma",
-    "Pixinguinha" : "07 Suite Retratos- I. Pixinguinha (Choro).wma",
-    "Ernesto Nazareth" :"08 Suite Retratos- II. Ernesto Nazareth (Valse).wma",
-    "Anacleto De Medeiros" : "09 Suite Retratos- III. Anacleto De Medeiros (Schottisch).wma",
-    "Chiquinha Gonzaga" : "10 Suite Retratos- IV. Chiquinha Gonzaga (Corta-jaca).wma",
-    "Sonata Canonica I": "11 Sonata Canonica, Op. 196- I. Mosso, grazioso e leggero.wma",
-    "Sonata Canonica II": "12 Sonata Canonica, Op. 196- II. Tempo di Siciliana.wma",
-    "Sonata Canonica III" : "13 Sonata Canonica, Op. 196- III. Fandango en Rondeau. Ritmico e deciso.wma"
+    "Tango 1" : "Soloduo/01 Tango Suite- Tango No. 1. Allegro.mp3",
+    "Tango 2" : "Soloduo/02 Tango Suite- Tango No. 2. Andante rubato, melanconico.mp3",
+    "Tango 3" : "Soloduo/03 Tango Suite- Tango No. 3. Allergro.mp3",
+    "Pixinguinha" : "Soloduo/07 Suite Retratos- I. Pixinguinha (Choro).mp3",
+    "My favorite lesson of Bollani": "Various/Stefano_Bollani-_Tra_jazz_e_musica_classica.ogg",
+    "On the Backs of Angels" : "DreamTheater/01 On the Backs of Angels.mp3"
   },
   "Radios": {"Radio 3": "http://icestreaming.rai.it/3.mp3",
-              "Radio Nostalgia": "http://nostalgiepremium.ice.infomaniak.ch/nostalgiepremium-128.mp3"
+             "Radio Nostalgia": "http://nostalgiepremium.ice.infomaniak.ch/nostalgiepremium-128.mp3"
   },
-  "Playlists": {"Tonadilla" : {
-      "Tonadilla I" : "04 Tonadilla- I. Allegretto ma non troppo.wma",
-      "Tonadilla II" : "05 Tonadilla- II. Minueto pomposo.wma",
-      "Tonadilla III" : "06 Tonadilla- III. Allegro vivace.wma"
-    }
+  "Playlists": {
+      "Tonadilla" : {
+          "Tonadilla I" : "Soloduo/04 Tonadilla- I. Allegretto ma non troppo.mp3",
+          "Tonadilla II" : "Soloduo/05 Tonadilla- II. Minueto pomposo.mp3",
+          "Tonadilla III" : "Soloduo/06 Tonadilla- III. Allegro vivace.mp3"
+      },
+      "Progressive" : {
+          "On the Backs of Angels" : "DreamTheater/01 On the Backs of Angels.mp3",
+          "Build Me Up, Break Me Down" : "DreamTheater/02 Build Me Up, Break Me Down.mp3",
+          "Lost Not Forgotten" : "DreamTheater/03 Lost Not Forgotten.mp3",
+          "This Is the Life" : "DreamTheater/04 This Is the Life.mp3",
+          "Bridges in the Sky": "DreamTheater/05 Bridges in the Sky.mp3"
+      }
+       
   }
 }
