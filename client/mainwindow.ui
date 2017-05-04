@@ -191,7 +191,7 @@
               </size>
              </property>
              <property name="text">
-              <string>TextLabel</string>
+              <string notr="true"/>
              </property>
             </widget>
            </item>
@@ -209,7 +209,7 @@
            <item>
             <widget class="QLabel" name="author">
              <property name="text">
-              <string>TextLabel</string>
+              <string notr="true"/>
              </property>
             </widget>
            </item>
@@ -227,7 +227,7 @@
            <item>
             <widget class="QLabel" name="album">
              <property name="text">
-              <string>TextLabel</string>
+              <string notr="true"/>
              </property>
              <property name="wordWrap">
               <bool>false</bool>
@@ -273,7 +273,7 @@
          <item>
           <widget class="QLabel" name="tempsCourant">
            <property name="text">
-            <string>00:00</string>
+            <string notr="true">00:00</string>
            </property>
           </widget>
          </item>
@@ -299,7 +299,7 @@
          <item>
           <widget class="QLabel" name="tempsTotal">
            <property name="text">
-            <string>00:00</string>
+            <string notr="true">00:00</string>
            </property>
           </widget>
          </item>

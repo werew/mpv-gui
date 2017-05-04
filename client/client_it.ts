@@ -10,9 +10,6 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="45"/>
-        <location filename="mainwindow.ui" line="194"/>
-        <location filename="mainwindow.ui" line="212"/>
-        <location filename="mainwindow.ui" line="230"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -44,12 +41,6 @@
     <message>
         <location filename="mainwindow.ui" line="223"/>
         <source>Album: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="276"/>
-        <location filename="mainwindow.ui" line="302"/>
-        <source>00:00</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
