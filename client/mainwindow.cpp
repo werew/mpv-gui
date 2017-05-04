@@ -169,11 +169,9 @@ void MainWindow::handleServerMsg(QJsonObject o){
                       this,SLOT(changeBarreLectureValue(int)));
               break;
         case PAUSE:
-                    qDebug() << "Pause";
                     emit(moveToPause());
               break;
         case UNPAUSE:
-                    qDebug() << "UnPause";
                     emit(moveToPlay());
               break;
         case STOP:
@@ -224,6 +222,15 @@ void MainWindow::handleServerMsg(QJsonObject o){
     }
 }
 
+void MainWindow::changeCurrentMusic(QJsonObject o)
+{
+    Q_UNUSED(o);
+}
+
+void MainWindow::printList(){
+}
+
+
 void MainWindow::updateSelections(){
     QStringList l = config["Pieces"].toObject().keys();
     ui->liste_morceaux->clear();
@@ -249,18 +256,11 @@ void MainWindow::updatePlaylistItems(QListWidgetItem* i){
 }
 
 void MainWindow::load(QListWidgetItem* i){
-   //QJsonObject o;
-   //QString path;
    if (i->listWidget() == ui->liste_morceaux)
        server->loadPiece(i->text());
-     //  o = config["Pieces"].toObject();
    else
        server->loadRadio(i->text());
-     //  o = config["Radios"].toObject();
    server->unpause();
-
-   //path = o[i->text()].toString();
-   //server->load(path);
 }
 
 void MainWindow::loadFromPlaylist(QListWidgetItem* i){
@@ -279,24 +279,6 @@ void MainWindow::selectList(){
     }
 }
 
-void MainWindow::printList(){
-    // TODO try empty config
-  /*  QStringList l;
-    if (ui->morceaux->isChecked()){
-       l = config["Pieces"].toObject().keys();
-       ui->listStack->setCurrentIndex(2);
-       ui->liste->clear();
-    } else if (ui->listes->isChecked()) {
-       l = config["Playlists"].toObject().keys();
-       ui->listStack->setCurrentIndex(1);
-    } else {
-       l = config["Radios"].toObject().keys();
-       ui->listStack->setCurrentIndex(2);
-    }
-    ui->liste->addItems(l);
-    */
-}
-
 void MainWindow::itemSelected(QListWidgetItem* it)
 {
     cout<<it->text().toStdString()<<endl;
@@ -307,12 +289,6 @@ void MainWindow::changeBarreLectureValue(int value)
 {
     double val = ((double)(value)/10.0);
     emit(lectureBarreValueChanged(val));
-}
-
-void MainWindow::changeCurrentMusic(QJsonObject o)
-{
-    Q_UNUSED(o);
-    //TODO
 }
 
 void MainWindow::stop()

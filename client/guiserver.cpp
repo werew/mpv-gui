@@ -37,7 +37,6 @@ void GuiServer::loadPlaylist(const QString playlist, int nb){
 }
 
 void GuiServer::percent_pos(double pos){
-   qDebug() << "Position: " << pos << endl;
    this->send_command(PERCENT_POS, QString::number(pos));
 }
 
