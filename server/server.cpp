@@ -10,6 +10,7 @@ Server::Server(QObject *parent, char* configfile) :
     mpv(new QMpvSocket())
 {
     /* Set default values */
+    type_stream = NONE;
     metadata = QJsonObject();
     pause = false;
     stop = true;
@@ -234,6 +235,8 @@ void Server::loadList(QString list, int index){
           mpv->append(items[titles.at(i)].toString());
       }
       mpv->set_property("playlist-pos",index);
+      stream = list;
+      type_stream = PLAYLIST;
       qDebug() << "______________________> " << index;
 }
 

@@ -21,6 +21,13 @@
 #define SERVER_NAME "mpvguiserver"
 #define MAX_SIZECMD 2048
 
+enum {
+    PIECE,
+    PLAYLIST,
+    RADIO,
+    NONE
+};
+
 
 
 class Server : public QObject
@@ -40,6 +47,7 @@ private:
     double duration;
     bool pause;
     bool stop;
+    int type_stream;
     QString stream;
     QJsonObject metadata;
 
