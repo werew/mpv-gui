@@ -10,9 +10,9 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="45"/>
-        <location filename="mainwindow.ui" line="179"/>
-        <location filename="mainwindow.ui" line="186"/>
-        <location filename="mainwindow.ui" line="193"/>
+        <location filename="mainwindow.ui" line="194"/>
+        <location filename="mainwindow.ui" line="212"/>
+        <location filename="mainwindow.ui" line="230"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29,31 +29,46 @@
     <message>
         <location filename="mainwindow.ui" line="77"/>
         <source>Radio</source>
-        <translation>Radio</translation>
+        <translation>Radios</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="237"/>
-        <location filename="mainwindow.ui" line="263"/>
+        <location filename="mainwindow.ui" line="181"/>
+        <source>Piste :</source>
+        <translation>Trackname: </translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="205"/>
+        <source>Auteur: </source>
+        <translation>Author: </translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="223"/>
+        <source>Album: </source>
+        <translation>Album: </translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="276"/>
+        <location filename="mainwindow.ui" line="302"/>
         <source>00:00</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="391"/>
+        <location filename="mainwindow.ui" line="430"/>
         <source>Langue</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="mainwindow.ui" line="410"/>
+        <location filename="mainwindow.ui" line="449"/>
         <source>Français</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="415"/>
+        <location filename="mainwindow.ui" line="454"/>
         <source>Anglais</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="420"/>
+        <location filename="mainwindow.ui" line="459"/>
         <source>Italien</source>
         <translation type="unfinished"></translation>
     </message>
