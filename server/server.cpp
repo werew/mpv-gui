@@ -22,15 +22,20 @@ Server::Server(QObject *parent, char* configfile) :
     connect(myserver, SIGNAL(newConnection()),this, SLOT(handleConnection()));
     connect(mpv, SIGNAL(readyRead()),this,SLOT(readFromMpv()));
 
-    // Run mpv if not running ?
-    mpv->connectToServer("/tmp/mpvsocket"); // TODO get this path from the cli
+    /* Run mpv if not running ? */
+    mpv->connectToServer("/tmp/mpvsocket"); 
     if (mpv->waitForConnected() == false)
         throw std::runtime_error("Failed to connect to mpv\n"+
-                                 mpv->errorString().toStdString());
+            mpv->errorString().toStdString());
+
     bindProperties();
 }
 
 
+/**
+ * @desc Create socket and start to listen
+ *       for incoming connections
+ */
 void Server::listen(void){
     QLocalServer::removeServer(SERVER_NAME);
     if (!myserver->listen(SERVER_NAME)) {
@@ -40,6 +45,10 @@ void Server::listen(void){
     qDebug() << "Server up and listening";
 }
 
+
+/**
+ * @desc Accept new connection from a client
+ */
 void Server::handleConnection(void){
     qDebug("~> New connection");
 
@@ -55,6 +64,11 @@ void Server::handleConnection(void){
     sendAll(newclient);
 }
 
+
+/**
+ * @desc Send all the status to the client
+ * @param client Socket to the client
+ */
 void Server::sendAll(QGuiClientSocket *client){
     client->config(&config);
 
@@ -71,6 +85,94 @@ void Server::sendAll(QGuiClientSocket *client){
     client->duration(duration);
 }
 
+
+
+
+/**
+ * @desc Receive a message from mpv
+ */
+void Server::readFromMpv(){
+    while (true) {
+        QByteArray a = mpv->readLine(MAX_SIZECMD);
+        if (a.isEmpty()) break;
+
+        QJsonParseError error;
+        QJsonDocument jDoc = QJsonDocument::fromJson(a, &error);
+        if (jDoc.isNull()){
+            qDebug() << "Parsing error: "+ error.errorString();
+            continue;
+        }
+        QJsonObject jsonObject = jDoc.object();
+        handleMpvMsg(jsonObject);
+    }
+}
+
+/**
+ * @desc Manage mpv's updates
+ * @param o JsonObject sent by mpv
+ */
+void Server::handleMpvMsg(QJsonObject o){
+   if (o.contains("event") == false) return;
+
+   QString event = o["event"].toString() ;
+   if (event != "property-change") return;
+
+   QJsonObject m;
+
+   switch (o["id"].toInt()){
+       // volume
+       case 1: volume = o["data"].toInt();
+               for (int i = 0; i < clients->count(); i++)
+                   clients->at(i)->volume(volume);
+             break;
+       // percent-pos 
+       case 2: percent_pos = o["data"].toDouble();
+               for (int i = 0; i < clients->count(); i++)
+                   clients->at(i)->percent_pos(percent_pos);
+             break;
+       // path
+       case 3: loadFile_res(o["data"].toString());
+             break;
+       // pause
+       case 4: pause = o["data"].toBool();
+               for (int i = 0; i < clients->count(); i++)
+                   if (pause) clients->at(i)->pause();
+                   else if (stop == false)
+                       clients->at(i)->unpause();
+             break;
+       // idle
+       case 5: stop = o["data"].toBool();
+               for (int i = 0; i < clients->count(); i++)
+                   if (stop) clients->at(i)->stop();
+                   else if (pause) clients->at(i)->pause();
+                   else clients->at(i)->unpause();
+             break;
+       // meta
+       case 6: m = o["data"].toObject();
+               // Use mpv's metadatas only for radios
+               if (m.contains("icy-name")){
+                   metadata = m;
+                   for (int i = 0; i < clients->count(); i++)
+                       clients->at(i)->meta(&metadata);
+               }
+             break;
+       // time-pos
+       case 7: time_pos = o["data"].toDouble();
+               for (int i = 0; i < clients->count(); i++)
+                   clients->at(i)->time_pos(time_pos);
+             break;
+       // duration
+       case 8: duration = o["data"].toDouble();
+               for (int i = 0; i < clients->count(); i++)
+                   clients->at(i)->duration(duration);
+             break;
+   }
+}
+
+
+/**
+ * @desc Receive a message from a client
+ */
 void Server::readFromClient(){
     QGuiClientSocket* socket = qobject_cast<QGuiClientSocket*>(sender());
 
@@ -91,58 +193,11 @@ void Server::readFromClient(){
     }
 }
 
-void Server::handleMpvMsg(QJsonObject o){
-   if (o.contains("event") == false) return;
 
-   QString event = o["event"].toString() ;
-   if (event != "property-change") return;
-
-   QJsonObject m;
-
-   switch (o["id"].toInt()){
-       case 1: volume = o["data"].toInt();
-               for (int i = 0; i < clients->count(); i++)
-                   clients->at(i)->volume(volume);
-             break;
-       case 2: percent_pos = o["data"].toDouble();
-               for (int i = 0; i < clients->count(); i++)
-                   clients->at(i)->percent_pos(percent_pos);
-             break;
-       case 3: loadFile_res(o["data"].toString());
-             break;
-       case 4: pause = o["data"].toBool();
-               for (int i = 0; i < clients->count(); i++)
-                   if (pause) clients->at(i)->pause();
-                   else if (stop == false)
-                       clients->at(i)->unpause();
-             break;
-       case 5: stop = o["data"].toBool();
-               for (int i = 0; i < clients->count(); i++)
-                   if (stop) clients->at(i)->stop();
-                   else if (pause) clients->at(i)->pause();
-                   else clients->at(i)->unpause();
-             break;
-       case 6: m = o["data"].toObject();
-               // Use mpv's metadatas only for radios
-               if (m.contains("icy-name")){
-                   metadata = m;
-                   for (int i = 0; i < clients->count(); i++)
-                       clients->at(i)->meta(&metadata);
-               }
-             break;
-       case 7: time_pos = o["data"].toDouble();
-               for (int i = 0; i < clients->count(); i++)
-                   clients->at(i)->time_pos(time_pos);
-             break;
-       case 8: duration = o["data"].toDouble();
-               for (int i = 0; i < clients->count(); i++)
-                   clients->at(i)->duration(duration);
-             break;
-   }
-  // qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
-  //          << "file:" << stream;
-}
-
+/**
+ * @desc Manage client message
+ * @param o JsonObject sent by the client
+ */
 void Server::handleClientMsg(QJsonObject o){
 
    QJsonObject params;
@@ -178,11 +233,16 @@ void Server::handleClientMsg(QJsonObject o){
 
 }
 
+
+/**
+ * @desc Move to next stream on the config
+ */
 void Server::loadNext(){
     QJsonObject o;
     int i;
 
     switch (type_stream){
+       // Use mpv command for playlists
        case PLAYLIST: mpv->pl_next();
                       return;
             break;
@@ -204,11 +264,16 @@ void Server::loadNext(){
     }
 }
 
+
+/**
+ * @desc Move to previous stream on the config
+ */
 void Server::loadPrevious(){
     QJsonObject o;
     int i;
 
     switch (type_stream){
+       // Use mpv command for playlists
        case PLAYLIST: mpv->pl_prev();
                       return;
             break;
@@ -230,23 +295,12 @@ void Server::loadPrevious(){
     }
 }
 
-void Server::readFromMpv(){
-    while (true) {
-        QByteArray a = mpv->readLine(MAX_SIZECMD);
-        if (a.isEmpty()) break;
-
-        QJsonParseError error;
-        QJsonDocument jDoc = QJsonDocument::fromJson(a, &error);
-        if (jDoc.isNull()){
-            qDebug() << "Parsing error: "+ error.errorString();
-            continue;
-        }
-        QJsonObject jsonObject = jDoc.object();
-        handleMpvMsg(jsonObject);
-    }
-}
 
 
+/**
+ * @desc Read and import config file
+ * @param filename Path to the config file
+ */
 void Server::importConfig(const char* filename){
         QFile file(filename);
         if(!file.open(QIODevice::ReadOnly)) {
@@ -267,6 +321,9 @@ void Server::importConfig(const char* filename){
 }
 
 
+/**
+ * @desc Remove disconnected client
+ */
 void Server::removeClient(){
     // Remove socket from the list of active connections
     QGuiClientSocket* socket = qobject_cast<QGuiClientSocket*>(sender());
@@ -275,6 +332,12 @@ void Server::removeClient(){
     qDebug("~> A client left");
 }
 
+
+/**
+ * @desc Load a playlist into mpv
+ * @param list Name of the playlist
+ * @param index Index of the entry point
+ */
 void Server::loadList(QString list, int index){
       QJsonObject pl = config["Playlists"].toObject();
       QJsonObject items = pl[list].toObject();
@@ -290,6 +353,10 @@ void Server::loadList(QString list, int index){
       type_stream = PLAYLIST;
 }
 
+
+/**
+ * @desc Observe mpv's properties
+ */
 void Server::bindProperties(){
     mpv->observe_property(1, "volume");
     mpv->observe_property(2, "percent-pos");
@@ -301,26 +368,11 @@ void Server::bindProperties(){
     mpv->observe_property(8,"duration");
 }
 
-/*
-QMap<QString, QString> Server::getTags(QString fileName) {
-    QMap <QString, QString> tagMap;
-    TagLib::FileRef f(fileName.toLatin1().data());
-    if(!f.isNull() && f.tag()) {
-        TagLib::PropertyMap tags = f.file()->properties();
-        for(TagLib::PropertyMap::ConstIterator i=tags.begin();
-            i != tags.end(); ++i) {
-            QString key = QString::fromStdString(i->first.to8Bit(true));
-            tagMap[key] = QString();
-            for(TagLib::StringList::ConstIterator j=i->second.begin();
-                j != i->second.end(); ++j) {
-                tagMap[key] += QString::fromStdString(j->to8Bit(true));
-            }
-           qDebug() << key << ": " << tagMap[key];
-        }
-    }
-    return tagMap;
-} */
 
+/**
+ * @desc Get metadata from file
+ * @param fileName path to the file
+ */
 QJsonObject Server::getTags(QString fileName) {
     QJsonObject json_tags = QJsonObject();
     TagLib::FileRef f(fileName.toLatin1().data());
@@ -345,6 +397,11 @@ QJsonObject Server::getTags(QString fileName) {
     return json_tags;
 }
 
+
+/**
+ * @desc Load piece into mpv
+ * @param name Id of the file (config)
+ */
 void Server::loadPiece(QString name){
    QJsonObject o;
    QString path;
@@ -360,6 +417,11 @@ void Server::loadPiece(QString name){
    }
 }
 
+
+/**
+ * @desc Load Radio station
+ * @param name Id the radio (config)
+ */
 void Server::loadRadio(QString name){
    QJsonObject o;
    QString path;
@@ -375,6 +437,11 @@ void Server::loadRadio(QString name){
    }
 }
 
+
+/**
+ * @desc Handle load-file mpv's response
+ * @param path Path to the loaded file
+ */
 void Server::loadFile_res(QString path){
        metadata = getTags(path);
 
