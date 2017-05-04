@@ -199,6 +199,7 @@ void Server::loadNext(){
         stream = k.at(i);
         QString path = o[stream].toString();
         mpv->load_file(path);
+        loadings.insert(path, stream);
     }
 }
 
@@ -224,6 +225,7 @@ void Server::loadPrevious(){
         stream = k.at(i);
         QString path = o[stream].toString();
         mpv->load_file(path);
+        loadings.insert(path, stream);
     }
 }
 
