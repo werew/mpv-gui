@@ -34,7 +34,7 @@ void QGuiClientSocket::meta(QJsonObject *meta){
 }
 
 void QGuiClientSocket::load(const QString file){
-   this->send_command(LOAD, file);
+   this->send_command(LOAD, "\""+file+"\"");
 }
 
 void QGuiClientSocket::percent_pos(double pos){
