@@ -14,7 +14,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     server = NULL;
 
+    //Création de l'automate
+
     mc = new mediaControl(this);
+
+    //Définition des transitions de l'automate
 
     mc->Pause->addTransition(this,SIGNAL(moveToPlay()),mc->Lecture);
     mc->Lecture->addTransition(this,SIGNAL(moveToPause()),mc->Pause);
@@ -32,17 +36,20 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->fast_forward_pause->addTransition(ui->fast_forward,SIGNAL(released()),mc->Pause);
 
 
+    //Connection des signaux de l'automate
+
     connect(mc,SIGNAL(setPause()),this,SLOT(play()));
     connect(mc,SIGNAL(setPlay()),this,SLOT(pause()));
     connect(mc,SIGNAL(setStop()),this,SLOT(stop()));
 
+    connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
+    connect(mc,SIGNAL(connectPlay()),this,SLOT(connectPlay()));
+
+    //Connection des signaux de l'interface
+
     connect(ui->morceaux,SIGNAL(clicked()),this,SLOT(selectList()));
     connect(ui->listes,SIGNAL(clicked()),this,SLOT(selectList()));
     connect(ui->radios,SIGNAL(clicked()),this,SLOT(selectList()));
-
-
-    connect(mc,SIGNAL(connectPause()),this,SLOT(connectPause()));
-    connect(mc,SIGNAL(connectPlay()),this,SLOT(connectPlay()));
 
     connect(ui->list_playlists,SIGNAL(itemClicked(QListWidgetItem*)),
             this,SLOT(updatePlaylistItems(QListWidgetItem*)));
@@ -60,7 +67,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->chgToEn,SIGNAL(triggered()),this,SLOT(changeToEnglish()));
     connect(ui->chgToIt,SIGNAL(triggered()),this,SLOT(changeToItalian()));
 
+    //Initialisation de l'automate
+
     mc->machineMediaControl->start();
+
+    //Connection au serveur
+
     this->connectToServer("/tmp/mpvguiserver");
 
     //Initialisation du stackWidget au bon index
@@ -110,6 +122,7 @@ void MainWindow::changeLanguage(QString newLangue)
 }
 
 
+//Connection au serveur
 void MainWindow::connectToServer(QString servername){
     if (server != NULL)
         delete server;
@@ -222,10 +235,12 @@ void MainWindow::handleServerMsg(QJsonObject o){
     }
 }
 
+
 void MainWindow::changeCurrentMusic(QJsonObject o)
 {
     Q_UNUSED(o);
 }
+
 
 void MainWindow::printList(){
 }
@@ -247,6 +262,7 @@ void MainWindow::updateSelections(){
 }
 
 
+
 void MainWindow::updatePlaylistItems(QListWidgetItem* i){
   QJsonObject o = config["Playlists"].toObject();
   QJsonObject list = o[i->text()].toObject();
@@ -254,6 +270,8 @@ void MainWindow::updatePlaylistItems(QListWidgetItem* i){
   ui->list_playlist_items->clear();
   ui->list_playlist_items->addItems(list.keys());
 }
+
+
 
 void MainWindow::load(QListWidgetItem* i){
    if (i->listWidget() == ui->liste_morceaux)
@@ -263,11 +281,15 @@ void MainWindow::load(QListWidgetItem* i){
    server->unpause();
 }
 
+
+
 void MainWindow::loadFromPlaylist(QListWidgetItem* i){
    int nb = i->listWidget()->row(i);
    server->loadPlaylist(_currentPlaylist, nb);
    server->unpause();
 }
+
+
 
 void MainWindow::selectList(){
     if (ui->morceaux->isChecked()){
@@ -279,17 +301,23 @@ void MainWindow::selectList(){
     }
 }
 
+
+
 void MainWindow::itemSelected(QListWidgetItem* it)
 {
     cout<<it->text().toStdString()<<endl;
     emit(lectureSelection());
 }
 
+
+
 void MainWindow::changeBarreLectureValue(int value)
 {
     double val = ((double)(value)/10.0);
     emit(lectureBarreValueChanged(val));
 }
+
+
 
 void MainWindow::stop()
 {
@@ -301,11 +329,15 @@ void MainWindow::stop()
     ui->lecturePause->setIconSize(QSize(40,16));
 }
 
+
+
 void MainWindow::play()
 {
     ui->lecturePause->setIcon(QPixmap(":/images/images/play.png"));
     ui->lecturePause->setIconSize(QSize(40,16));
 }
+
+
 
 void MainWindow::pause()
 {
@@ -314,11 +346,15 @@ void MainWindow::pause()
 
 }
 
+
+
 void MainWindow::connectPause()
 {
     disconnect(ui->lecturePause,SIGNAL(clicked()),server,SLOT(unpause()));
     connect(ui->lecturePause,SIGNAL(clicked()),server,SLOT(pause()));
 }
+
+
 
 void MainWindow::connectPlay()
 {
