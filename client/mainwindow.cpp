@@ -72,7 +72,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->trackName->setWordWrap(true);
     ui->album->setWordWrap(true);
 
-
     QString langueSystem = QLocale::system().name().section('_',0,0);
 
     langue = new QTranslator();
