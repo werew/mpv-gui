@@ -70,7 +70,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     QString langueSystem = QLocale::system().name().section('_',0,0);
-    qDebug() << langueSystem << endl;
 
     langue = new QTranslator();
 
