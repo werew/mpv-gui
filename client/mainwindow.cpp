@@ -199,6 +199,10 @@ void MainWindow::handleServerMsg(QJsonObject o){
         case META:
                 meta = o["data"].toObject();
 
+                ui->trackName->clear();
+                ui->album->clear();
+                ui->author->clear();
+
                 if(meta.contains("icy-name"))
                 {
                     ui->author->setText(meta["icy-name"].toString());
@@ -313,6 +317,10 @@ void MainWindow::changeCurrentMusic(QJsonObject o)
 
 void MainWindow::stop()
 {
+    ui->trackName->clear();
+    ui->album->clear();
+    ui->author->clear();
+
     ui->lecturePause->setIcon(QPixmap(":/images/images/play.png"));
     ui->lecturePause->setIconSize(QSize(40,16));
 }
