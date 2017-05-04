@@ -278,7 +278,9 @@ void Server::loadList(QString list, int index){
       QStringList titles = items.keys();
       mpv->stop();
       for (int i = 0; i < titles.size(); i++){
-          mpv->append(items[titles.at(i)].toString());
+          QString path  = items[titles.at(i)].toString();
+          mpv->append(path);
+          loadings.insert(path, items.keys().at(i));
       }
       mpv->set_property("playlist-pos",index);
       stream = list;
@@ -319,17 +321,22 @@ QMap<QString, QString> Server::getTags(QString fileName) {
 QJsonObject Server::getTags(QString fileName) {
     QJsonObject json_tags = QJsonObject();
     TagLib::FileRef f(fileName.toLatin1().data());
+
     if(!f.isNull() && f.tag()) {
+
         TagLib::PropertyMap tags = f.file()->properties();
+
         for(TagLib::PropertyMap::ConstIterator i=tags.begin();
             i != tags.end(); ++i) {
             QString key = QString::fromStdString(i->first.to8Bit(true));
             QString value = QString();
+
             for(TagLib::StringList::ConstIterator j=i->second.begin();
                 j != i->second.end(); ++j) {
                 value += QString::fromStdString(j->to8Bit(true));
             }
-           json_tags.insert(key,value);
+
+            json_tags.insert(key,value);
         }
     }
     return json_tags;
@@ -343,7 +350,10 @@ void Server::loadPiece(QString name){
        path = o[name].toString();
        mpv->load_file(path);
        stream = name;
+       if (type_stream == PLAYLIST)
+            loadings.clear();
        type_stream = PIECE;
+       loadings.insert(path, name);
    }
 }
 
@@ -355,24 +365,32 @@ void Server::loadRadio(QString name){
        path = o[name].toString();
        mpv->load_file(path);
        stream = name;
+       if (type_stream == PLAYLIST)
+            loadings.clear();
        type_stream = RADIO;
+       loadings.insert(path, name);
    }
 }
 
-/*
-void Server::loadFile_req(QString filename){
-   if (config.contains(filename) == false) return;
-   QString path = config.value(filename).toString();
-   loadings.insert(path, filename);
-   mpv->load_file(path);
-}
-*/
-
 void Server::loadFile_res(QString path){
-       //stream = path;
        metadata = getTags(path);
-       QString name = loadings.contains(path) ? loadings[path] : "null";
-       loadings.remove(path);
+
+       QString name = loadings.contains(path) ?
+                      loadings[path] : "";
+
+       if (metadata.contains("TITLE")){
+           metadata.insert("TITLE",metadata["TITLE"]
+                   .toString().trimmed());
+       }
+
+       if (!metadata.contains("TITLE") ||
+            metadata["TITLE"].toString().isEmpty()){
+           metadata.insert("TITLE",name);
+       }
+
+       if (type_stream != PLAYLIST)
+           loadings.remove(path);
+
        for (int i = 0;  i < clients->count(); i++){
            QGuiClientSocket *c = clients->at(i);
            c->load(name);
