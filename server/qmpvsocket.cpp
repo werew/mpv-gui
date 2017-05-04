@@ -89,6 +89,11 @@ void QMpvSocket::load_file(const QString &filename){
     this->send_command(cmd);
 }
 
+void QMpvSocket::append(const QString &filename){
+    const QString cmd[] = {"\"loadfile\"",quoted(filename),
+                           "\"append\"", NULL};
+    this->send_command(cmd);
+}
 
 void QMpvSocket::send_command(const QString cmd[]){
 

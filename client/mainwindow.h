@@ -39,6 +39,7 @@ private:
     void changeLanguage(QString newLangue);
     void majLangage();
 
+    QString _currentPlaylist;
     QJsonObject config;
 
 
@@ -64,9 +65,13 @@ public:
     void updatePlaylistItems(QListWidgetItem *i);
     void selectList();
     void load(QListWidgetItem *i);
+<<<<<<< HEAD
     void changeToFrench();
     void changeToEnglish();
     void changeToItalian();
+=======
+    void loadFromPlaylist(QListWidgetItem *i);
+>>>>>>> 3c942d62b6d557fb2fe10615219e63310074a278
 
 signals:
     void lectureBarreValueChanged(double);

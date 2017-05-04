@@ -25,6 +25,13 @@ void GuiServer::load(const QString file){
    this->send_command(LOAD, "\""+file+"\"");
 }
 
+void GuiServer::load(const QString playlist, int nb){
+   this->send_command(LISTLOAD, "{\"list\": \""+playlist+"\","+
+                                " \"start\":"+QString::number(nb)+
+                                "}");
+
+}
+
 void GuiServer::percent_pos(double pos){
    qDebug() << "Position: " << pos << endl;
    this->send_command(PERCENT_POS, QString::number(pos));

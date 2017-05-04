@@ -16,6 +16,7 @@ enum {
     PAUSE,
     UNPAUSE,
     LOAD,
+    LISTLOAD,
     STOP,
     PERCENT_POS,
     TIME_POS,
@@ -46,6 +47,7 @@ public slots:
     void pause();
     void unpause();
     void load(const QString file);
+    void load(const QString playlist, int nb);
     void percent_pos(double pos);
     void volume(int value);
     void stop();

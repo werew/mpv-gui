@@ -82,6 +82,7 @@ void Server::readFromClient(){
         QJsonDocument jDoc = QJsonDocument::fromJson(a, &error);
         if (jDoc.isNull()){
             qDebug() << "Parsing error: "+ error.errorString();
+            qDebug() << a;
             continue;
         }
         QJsonObject jsonObject = jDoc.object();
@@ -136,11 +137,13 @@ void Server::handleMpvMsg(QJsonObject o){
                    clients->at(i)->duration(duration);
              break;
    }
-   qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
-            << "file:" << stream;
+  // qDebug() << "pause:" << pause << " vol:" << volume << " pos:" << percent_pos
+  //          << "file:" << stream;
 }
 
 void Server::handleClientMsg(QJsonObject o){
+
+   QJsonObject params;
 
    switch (o["type"].toInt()){
        case STOP: mpv->stop();
@@ -155,6 +158,10 @@ void Server::handleClientMsg(QJsonObject o){
              break;
        case LOAD: mpv->load_file(o["data"].toString());
              break;
+       case LOADLIST: params = o["data"].toObject();
+                      loadList(params["list"].toString(),
+                               params["start"].toInt());
+             break;
        case STEP_FOR: mpv->step_forward();
              break;
        case STEP_BACK: mpv->step_backward();
@@ -166,6 +173,7 @@ void Server::handleClientMsg(QJsonObject o){
     }
 
 }
+
 
 void Server::readFromMpv(){
     while (true) {
@@ -210,6 +218,23 @@ void Server::removeClient(){
     clients->removeOne(socket);
     delete socket;
     qDebug("~> A client left");
+}
+
+void Server::loadList(QString list, int index){
+      qDebug() << list;
+      qDebug() << "Charge";
+      QJsonObject pl = config["Playlists"].toObject();
+      qDebug() << pl.keys();
+      QJsonObject items = pl[list].toObject();
+      QStringList titles = items.keys();
+      mpv->stop();
+      for (int i = 0; i < titles.size(); i++){
+          qDebug() << "Garga";
+          qDebug() << titles.at(i);
+          mpv->append(items[titles.at(i)].toString());
+      }
+      mpv->set_property("playlist-pos",index);
+      qDebug() << "______________________> " << index;
 }
 
 void Server::bindProperties(){
