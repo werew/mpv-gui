@@ -11,52 +11,52 @@
     <message>
         <location filename="mainwindow.ui" line="36"/>
         <source>Morceaux</source>
-        <translation type="unfinished"></translation>
+        <translation>Brani</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="46"/>
         <source>Listes</source>
-        <translation type="unfinished"></translation>
+        <translation>Playlists</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="53"/>
         <source>Radio</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="163"/>
         <source>Piste :</source>
-        <translation type="unfinished"></translation>
+        <translation>Titolo: </translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="193"/>
         <source>Auteur: </source>
-        <translation type="unfinished"></translation>
+        <translation>Autore: </translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="220"/>
         <source>Album: </source>
-        <translation type="unfinished"></translation>
+        <translation>Ablum: </translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="433"/>
         <source>Langue</source>
-        <translation type="unfinished"></translation>
+        <translation>Lingua</translation>
     </message>
     <message utf8="true">
         <location filename="mainwindow.ui" line="452"/>
         <source>Français</source>
-        <translation type="unfinished"></translation>
+        <translation>Francese</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="457"/>
         <source>Anglais</source>
-        <translation type="unfinished"></translation>
+        <translation>Inglese</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="462"/>
         <source>Italien</source>
-        <translation type="unfinished"></translation>
+        <translation>Italiano</translation>
     </message>
 </context>
 </TS>

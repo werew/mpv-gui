@@ -11,7 +11,7 @@
     <message>
         <location filename="mainwindow.ui" line="36"/>
         <source>Morceaux</source>
-        <translation>Track</translation>
+        <translation>Tracks</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="46"/>
@@ -21,12 +21,12 @@
     <message>
         <location filename="mainwindow.ui" line="53"/>
         <source>Radio</source>
-        <translation>Radios</translation>
+        <translation>Radio</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="163"/>
         <source>Piste :</source>
-        <translation>Trackname: </translation>
+        <translation>Title: </translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="193"/>

@@ -16,17 +16,17 @@
     <message>
         <location filename="mainwindow.ui" line="46"/>
         <source>Listes</source>
-        <translation>Listes</translation>
+        <translation>Playlists</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="53"/>
         <source>Radio</source>
-        <translation>Radios</translation>
+        <translation>Radio</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="163"/>
         <source>Piste :</source>
-        <translation>Piste: </translation>
+        <translation>Titre: </translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="193"/>
