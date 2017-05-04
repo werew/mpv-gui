@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #include "qmpvsocket.h"
 
 QMpvSocket::QMpvSocket(QObject *parent) :

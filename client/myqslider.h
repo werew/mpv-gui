@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #ifndef MYQSLIDER_H
 #define MYQSLIDER_H
 

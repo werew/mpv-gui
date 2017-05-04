@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #ifndef VOLUMEWIDGET_H
 #define VOLUMEWIDGET_H
 

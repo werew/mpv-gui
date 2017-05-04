@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>864</width>
+    <width>1031</width>
     <height>593</height>
    </rect>
   </property>
@@ -74,7 +74,7 @@
            <item>
             <widget class="QRadioButton" name="radios">
              <property name="text">
-              <string>Radios</string>
+              <string>Radio</string>
              </property>
             </widget>
            </item>
@@ -191,6 +191,9 @@
           <widget class="QLabel" name="album">
            <property name="text">
             <string>TextLabel</string>
+           </property>
+           <property name="wordWrap">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -379,10 +382,19 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>864</width>
-     <height>29</height>
+     <width>1031</width>
+     <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuLangue">
+    <property name="title">
+     <string>Langue</string>
+    </property>
+    <addaction name="chgToFr"/>
+    <addaction name="chgToEn"/>
+    <addaction name="chgToIt"/>
+   </widget>
+   <addaction name="menuLangue"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -393,6 +405,21 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="chgToFr">
+   <property name="text">
+    <string>Français</string>
+   </property>
+  </action>
+  <action name="chgToEn">
+   <property name="text">
+    <string>Anglais</string>
+   </property>
+  </action>
+  <action name="chgToIt">
+   <property name="text">
+    <string>Italien</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

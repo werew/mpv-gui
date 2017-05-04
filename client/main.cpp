@@ -1,5 +1,8 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #include "mainwindow.h"
 #include <QApplication>
+#include <QTranslator>
 
 int main(int argc, char *argv[])
 {

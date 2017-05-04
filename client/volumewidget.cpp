@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #include "volumewidget.h"
 
 VolumeWidget::VolumeWidget(QWidget *parent) :

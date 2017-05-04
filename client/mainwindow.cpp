@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
@@ -56,14 +58,57 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->barreLecture,SIGNAL(valueChanged(int)),this,SLOT(changeBarreLectureValue(int)));
 
+
+    connect(ui->chgToFr,SIGNAL(triggered()),this,SLOT(changeToFrench()));
+    connect(ui->chgToEn,SIGNAL(triggered()),this,SLOT(changeToEnglish()));
+    connect(ui->chgToIt,SIGNAL(triggered()),this,SLOT(changeToItalian()));
+
     mc->machineMediaControl->start();
     this->connectToServer("/tmp/mpvguiserver");
+
+
+    QString langueSystem = QLocale::system().name().section('_',0,0);
+    qDebug() << langueSystem << endl;
+
+    langue = new QTranslator();
+
+    langue->load(QString("client_")+langueSystem);
+    qApp->installTranslator(langue);
+
+    ui->retranslateUi(this);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+void MainWindow::changeToFrench()
+{
+    changeLanguage("fr");
+}
+
+void MainWindow::changeToEnglish()
+{
+    changeLanguage("en");
+}
+
+void MainWindow::changeToItalian()
+{
+    changeLanguage("it");
+}
+
+void MainWindow::changeLanguage(QString newLangue)
+{
+    qApp->removeTranslator(langue);
+
+    langue->load(QString("client_")+newLangue);
+    qApp->installTranslator(langue);
+
+    ui->retranslateUi(this);
+}
+
 
 void MainWindow::connectToServer(QString servername){
     if (server != NULL)

@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #ifndef MEDIACONTROL_H
 #define MEDIACONTROL_H
 

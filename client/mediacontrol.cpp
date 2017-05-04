@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #include "mediacontrol.h"
 
 mediaControl::mediaControl(QObject *parent) :

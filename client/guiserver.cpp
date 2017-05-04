@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #include "guiserver.h"
 
 GuiServer::GuiServer(QObject *parent) :

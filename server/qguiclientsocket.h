@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #ifndef QGUICLIENTSOCKET_H
 #define QGUICLIENTSOCKET_H
 

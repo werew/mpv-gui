@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #ifndef SERVER_H
 #define SERVER_H
 

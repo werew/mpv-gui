@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #include <QCoreApplication>
 #include <server.h>
 

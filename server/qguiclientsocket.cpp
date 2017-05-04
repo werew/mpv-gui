@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #include "qguiclientsocket.h"
 
 QGuiClientSocket::QGuiClientSocket(QObject *parent, QLocalSocket *socket) :

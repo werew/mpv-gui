@@ -1,3 +1,5 @@
+#Author : CONGILIO Luigi    CONSTANS Victor
+
 #-------------------------------------------------
 #
 # Project created by QtCreator 2017-04-17T18:23:27

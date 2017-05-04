@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #include "myqslider.h"
 
 MyQSlider::MyQSlider(QWidget *parent) :

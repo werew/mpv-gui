@@ -1,3 +1,4 @@
+#Author : CONGILIO Luigi    CONSTANS Victor
 #-------------------------------------------------
 #
 # Project created by QtCreator 2017-04-20T11:33:46
@@ -29,3 +30,7 @@ FORMS    += mainwindow.ui
 
 RESOURCES += \
     ressource.qrc
+
+TRANSLATIONS =  client_fr.ts \
+                client_en.ts \
+                client_it.ts

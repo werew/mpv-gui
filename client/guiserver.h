@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #ifndef GUISERVER_H
 #define GUISERVER_H
 

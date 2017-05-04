@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #ifndef QMPVSOCKET_H
 #define QMPVSOCKET_H
 

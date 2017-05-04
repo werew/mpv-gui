@@ -1,3 +1,5 @@
+//Author : CONGILIO Luigi    CONSTANS Victor
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -12,8 +14,11 @@
 #include "volumewidget.h"
 #include "guiserver.h"
 #include <QSlider>
+#include <QLocale>
 #include <string>
 #include <stdexcept>
+#include <QTranslator>
+
 
 namespace Ui {
 class MainWindow;
@@ -26,9 +31,13 @@ private:
     QListWidgetItem* items[50];
     mediaControl* mc;
     GuiServer *server;
+    QTranslator* langue;
+
     void connectToServer(QString servername);
     void handleServerMsg(QJsonObject o);
     void changeCurrentMusic(QJsonObject o);
+    void changeLanguage(QString newLangue);
+    void majLangage();
 
     QJsonObject config;
 
@@ -55,6 +64,9 @@ public:
     void updatePlaylistItems(QListWidgetItem *i);
     void selectList();
     void load(QListWidgetItem *i);
+    void changeToFrench();
+    void changeToEnglish();
+    void changeToItalian();
 
 signals:
     void lectureBarreValueChanged(double);
