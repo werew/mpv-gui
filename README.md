@@ -34,8 +34,10 @@ Command for launching mpv in idle mode with IPC socket:
 # TODO list
 
 - Complete selection playlist (DONE)
-- Buttons next and previous
-- I18N
+- I18N (DONE)
+- Buttons next and previous (DONE)
+
+
 - Verify QT 5....
 - Pretty description
 - Size window

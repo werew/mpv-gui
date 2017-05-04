@@ -129,8 +129,8 @@ void MainWindow::connectToServer(QString servername){
 
     connect(this,SIGNAL(lectureBarreValueChanged(double)),server,SLOT(percent_pos(double)));
 
-    connect(ui->suivant,SIGNAL(clicked()),server,SLOT(pl_next()));
-    connect(ui->precedent,SIGNAL(clicked()),server,SLOT(pl_prev()));
+    connect(ui->suivant,SIGNAL(clicked()),server,SLOT(next()));
+    connect(ui->precedent,SIGNAL(clicked()),server,SLOT(prev()));
     connect(mc->fast_forward_timer,SIGNAL(timeout()),server,SLOT(step_forward()));
     connect(mc->fast_backward_timer,SIGNAL(timeout()),server,SLOT(step_backward()));
 

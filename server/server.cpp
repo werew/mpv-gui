@@ -169,14 +169,63 @@ void Server::handleClientMsg(QJsonObject o){
              break;
        case STEP_BACK: mpv->step_backward();
              break;
-       case PL_NEXT: mpv->pl_next();
+       case NEXT: loadNext();
              break;
-       case PL_PREV: mpv->pl_prev();
+       case PREV: loadPrevious();
              break;
     }
 
 }
 
+void Server::loadNext(){
+    QJsonObject o;
+    int i;
+
+    switch (type_stream){
+       case PLAYLIST: mpv->pl_next();
+                      return;
+            break;
+       case RADIO: if (!config.contains("Radios")) return;
+                   o = config["Radios"].toObject();
+            break;
+       case PIECE: if (!config.contains("Pieces")) return;
+                   o = config["Pieces"].toObject();
+            break;
+    }
+
+    QStringList k = o.keys();
+    i = k.indexOf(stream) + 1;
+    if (i < k.size()){
+        stream = k.at(i);
+        QString path = o[stream].toString();
+        mpv->load_file(path);
+    }
+}
+
+void Server::loadPrevious(){
+    QJsonObject o;
+    int i;
+
+    switch (type_stream){
+       case PLAYLIST: mpv->pl_prev();
+                      return;
+            break;
+       case RADIO: if (!config.contains("Radios")) return;
+                   o = config["Radios"].toObject();
+            break;
+       case PIECE: if (!config.contains("Pieces")) return;
+                   o = config["Pieces"].toObject();
+            break;
+    }
+
+    QStringList k = o.keys();
+    i = k.indexOf(stream) - 1;
+    if (i >= 0){
+        stream = k.at(i);
+        QString path = o[stream].toString();
+        mpv->load_file(path);
+    }
+}
 
 void Server::readFromMpv(){
     while (true) {
@@ -224,22 +273,16 @@ void Server::removeClient(){
 }
 
 void Server::loadList(QString list, int index){
-      qDebug() << list;
-      qDebug() << "Charge";
       QJsonObject pl = config["Playlists"].toObject();
-      qDebug() << pl.keys();
       QJsonObject items = pl[list].toObject();
       QStringList titles = items.keys();
       mpv->stop();
       for (int i = 0; i < titles.size(); i++){
-          qDebug() << "Garga";
-          qDebug() << titles.at(i);
           mpv->append(items[titles.at(i)].toString());
       }
       mpv->set_property("playlist-pos",index);
       stream = list;
       type_stream = PLAYLIST;
-      qDebug() << "______________________> " << index;
 }
 
 void Server::bindProperties(){
@@ -326,10 +369,10 @@ void Server::loadFile_req(QString filename){
 */
 
 void Server::loadFile_res(QString path){
-       stream = path;
-       metadata = getTags(stream);
-       QString name = loadings.contains(stream) ? loadings[stream] : "null";
-       loadings.remove(stream);
+       //stream = path;
+       metadata = getTags(path);
+       QString name = loadings.contains(path) ? loadings[path] : "null";
+       loadings.remove(path);
        for (int i = 0;  i < clients->count(); i++){
            QGuiClientSocket *c = clients->at(i);
            c->load(name);

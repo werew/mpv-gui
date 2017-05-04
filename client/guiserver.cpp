@@ -61,12 +61,12 @@ void GuiServer::step_backward(){
     this->send_command(STEP_BACK);
 }
 
-void GuiServer::pl_next(){
-    this->send_command(PL_NEXT);
+void GuiServer::next(){
+    this->send_command(NEXT);
 }
 
-void GuiServer::pl_prev(){
-    this->send_command(PL_PREV);
+void GuiServer::prev(){
+    this->send_command(PREV);
 }
 
 

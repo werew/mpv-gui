@@ -17,6 +17,7 @@
 #include <fileref.h>
 #include <tpropertymap.h>
 #include <QMap>
+#include <QJsonValueRef>
 
 #define SERVER_NAME "mpvguiserver"
 #define MAX_SIZECMD 2048
@@ -79,6 +80,8 @@ private slots:
     void handleClientMsg(QJsonObject o);
     void sendAll(QGuiClientSocket *client);
     void loadList(QString list, int index);
+    void loadNext();
+    void loadPrevious();
 
 };
 
