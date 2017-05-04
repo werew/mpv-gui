@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1031</width>
+    <width>1147</width>
     <height>593</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>1009</width>
+      <width>1126</width>
       <height>531</height>
      </rect>
     </property>
@@ -175,6 +175,12 @@
          </item>
          <item>
           <widget class="QLabel" name="trackName">
+           <property name="minimumSize">
+            <size>
+             <width>300</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>TextLabel</string>
            </property>
@@ -382,7 +388,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1031</width>
+     <width>1147</width>
      <height>25</height>
     </rect>
    </property>
