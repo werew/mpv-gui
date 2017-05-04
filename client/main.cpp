@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
     try {
         QApplication a(argc, argv);
         MainWindow w;
+        w.setFixedSize(1147,593);
         w.show();
         return a.exec();
     } catch (std::exception const& e){
