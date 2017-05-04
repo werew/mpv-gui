@@ -40,10 +40,8 @@ Command for launching mpv in idle mode with IPC socket:
 - Size window (DONE)
 - Execution from zero (DONE)
 - Names on files (DONE)
-- Test on config (missing keys)
 
+- Test on config (missing keys)
 - Pretty description
 - Report
-
-
 

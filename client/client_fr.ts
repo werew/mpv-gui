@@ -5,7 +5,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="mainwindow.ui" line="14"/>
-        <source>MainWindow</source>
+        <source>mpv-GUI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24,39 +24,39 @@
         <translation>Radios</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="157"/>
+        <location filename="mainwindow.ui" line="163"/>
         <source>Piste :</source>
         <translation>Piste: </translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="181"/>
+        <location filename="mainwindow.ui" line="193"/>
         <source>Auteur: </source>
         <translation>Auteur: </translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="199"/>
+        <location filename="mainwindow.ui" line="220"/>
         <source>Album: </source>
         <translation>Album: </translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="406"/>
+        <location filename="mainwindow.ui" line="433"/>
         <source>Langue</source>
-        <translation type="unfinished">Langues</translation>
+        <translation>Langues</translation>
     </message>
     <message utf8="true">
-        <location filename="mainwindow.ui" line="425"/>
+        <location filename="mainwindow.ui" line="452"/>
         <source>Français</source>
-        <translation type="unfinished">Français</translation>
+        <translation>Français</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="430"/>
+        <location filename="mainwindow.ui" line="457"/>
         <source>Anglais</source>
-        <translation type="unfinished">Anglais</translation>
+        <translation>Anglais</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="435"/>
+        <location filename="mainwindow.ui" line="462"/>
         <source>Italien</source>
-        <translation type="unfinished">Italien</translation>
+        <translation>Italien</translation>
     </message>
 </context>
 </TS>
