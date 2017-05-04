@@ -68,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->machineMediaControl->start();
     this->connectToServer("/tmp/mpvguiserver");
 
+    ui->listStack->setCurrentIndex(0);
+
     QString langueSystem = QLocale::system().name().section('_',0,0);
 
     langue = new QTranslator();
