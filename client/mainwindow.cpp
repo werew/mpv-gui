@@ -253,6 +253,7 @@ void MainWindow::load(QListWidgetItem* i){
    else
        server->loadRadio(i->text());
      //  o = config["Radios"].toObject();
+   server->unpause();
 
    //path = o[i->text()].toString();
    //server->load(path);
@@ -260,8 +261,8 @@ void MainWindow::load(QListWidgetItem* i){
 
 void MainWindow::loadFromPlaylist(QListWidgetItem* i){
    int nb = i->listWidget()->row(i);
-   qDebug() << "ehhe " << nb;
    server->loadPlaylist(_currentPlaylist, nb);
+   server->unpause();
 }
 
 void MainWindow::selectList(){
