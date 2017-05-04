@@ -17,7 +17,7 @@ config=$2
 rm -f "$MPVSOCK"
 
 # Launch mpv
-$MPV $MPV_FLAGS &
+$MPV $MPV_FLAGS 2>&1 1> /dev/null & 
 
 # Wait the creation of the socket
 while ! [ -e $MPVSOCK ] 

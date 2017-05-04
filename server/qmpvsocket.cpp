@@ -84,7 +84,6 @@ void QMpvSocket::pl_prev(){
 }
 
 void QMpvSocket::load_file(const QString &filename){
-    qDebug() << filename;
     const QString cmd[] = {"\"loadfile\"",quoted(filename), NULL};
     this->send_command(cmd);
 }
@@ -106,7 +105,6 @@ void QMpvSocket::send_command(const QString cmd[]){
 
     json_cmd->prepend("{\"command\":[");
     json_cmd->append("]}\n");
-    qDebug() << "############# " << *json_cmd;
     this->write(json_cmd->toUtf8());
 }
 
