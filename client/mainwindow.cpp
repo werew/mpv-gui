@@ -20,11 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->Lecture->addTransition(this,SIGNAL(moveToPause()),mc->Pause);
     mc->Stop->addTransition(this,SIGNAL(moveToPlay()),mc->Lecture);
     mc->Lecture->addTransition(this,SIGNAL(moveToStop()),mc->Stop);
-    /*
-    mc->Lecture->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
-    mc->Pause->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
-    mc->Stop->addTransition(this,SIGNAL(lectureSelection()),mc->Lecture);
-    */
     mc->Pause->addTransition(this,SIGNAL(moveToStop()),mc->Stop);
     mc->Lecture->addTransition(ui->fast_forward,SIGNAL(pressed()),mc->fast_forward_play);
     mc->Lecture->addTransition(ui->fast_backward,SIGNAL(pressed()),mc->fast_backward_play);
@@ -68,8 +63,11 @@ MainWindow::MainWindow(QWidget *parent) :
     mc->machineMediaControl->start();
     this->connectToServer("/tmp/mpvguiserver");
 
+    //Initialisation du stackWidget au bon index
     ui->listStack->setCurrentIndex(0);
 
+
+    //Initiatisation de l'internationalisation
     QString langueSystem = QLocale::system().name().section('_',0,0);
 
     langue = new QTranslator();
@@ -201,6 +199,10 @@ void MainWindow::handleServerMsg(QJsonObject o){
         case META:
                 meta = o["data"].toObject();
 
+                ui->trackName->clear();
+                ui->album->clear();
+                ui->author->clear();
+
                 if(meta.contains("icy-name"))
                 {
                     ui->author->setText(meta["icy-name"].toString());
@@ -315,6 +317,10 @@ void MainWindow::changeCurrentMusic(QJsonObject o)
 
 void MainWindow::stop()
 {
+    ui->trackName->clear();
+    ui->album->clear();
+    ui->author->clear();
+
     ui->lecturePause->setIcon(QPixmap(":/images/images/play.png"));
     ui->lecturePause->setIconSize(QSize(40,16));
 }
